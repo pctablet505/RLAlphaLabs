@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   AlgoTrading AI — Main JS v2
+  RLAlphaLabs — Main JS v2
    Real data from site-data.json · Grounded charts · Trust-first UX
    ═══════════════════════════════════════════════════════════════ */
 'use strict';
@@ -387,9 +387,9 @@ function handleSubmit(e) {
   const msg  = f.message.value.trim();
   if (!name || !mail) return;
 
-  const sub  = encodeURIComponent(`[AlgoTrading AI] ${type || 'Inquiry'} from ${name}`);
+  const sub  = encodeURIComponent(`[RLAlphaLabs] ${type || 'Inquiry'} from ${name}`);
   const body = encodeURIComponent(`Name: ${name}\nEmail: ${mail}\nType: ${type}\n\n${msg}`);
-  window.location.href = `mailto:contact@algotradingai.com?subject=${sub}&body=${body}`;
+  window.location.href = `mailto:pctablet505@gmail.com?subject=${sub}&body=${body}`;
 
   setTimeout(() => {
     document.getElementById('contactForm').style.display = 'none';
