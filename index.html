@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlgoTrading AI — RL-Powered Trading Platform for Indian Equities</title>
+  <meta name="description" content="An institutional-grade reinforcement learning trading platform for NSE & BSE. 746 stocks, 5,567 data files, dual JAX/PyTorch backends. Currently in paper trading validation." />
+  <meta property="og:title" content="AlgoTrading AI — RL Trading Platform" />
+  <meta property="og:description" content="Production-grade RL trading for Indian equities. Rigorously validated. Not vaporware." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ════════════════════ TICKER STRIP ════════════════════ -->
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <span class="logo-mark">◈</span>
+      AlgoTrading<span class="logo-ai">AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pipeline">Pipeline</a></li>
+      <li><a href="#performance">Results</a></li>
+      <li><a href="#stage">Stage</a></li>
+      <li><a href="#research">Research Log</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#performance">Results</a>
+    <a href="#stage">Stage</a>
+    <a href="#research">Research Log</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <canvas id="heroParticles"></canvas>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-pills reveal">
+        <span class="pill pill-stage">● Paper Trading Phase</span>
+        <span class="pill pill-market">NSE · BSE</span>
+      </div>
+      <h1 class="hero-h1 reveal">
+        Reinforcement Learning<br />
+        for <span class="grad">Indian Markets</span>
+      </h1>
+      <p class="hero-p reveal">
+        An institutional-grade AI trading platform trained on 746 NSE/BSE stocks
+        across 8 time granularities. Rigorously validated — not just backtested.
+        Currently in paper trading. Not claiming live alpha yet.
+      </p>
+      <div class="hero-stats reveal">
+        <div class="hstat">
+          <span class="hstat-val mono" data-target="0.4964" data-dec="4">—</span>
+          <span class="hstat-lbl">Test Sharpe · EXP-002</span>
+        </div>
+        <div class="hstat-sep"></div>
+        <div class="hstat">
+          <span class="hstat-val mono" data-target="65.6" data-dec="1" data-sfx="%">—</span>
+          <span class="hstat-lbl">Test Win Rate</span>
+        </div>
+        <div class="hstat-sep"></div>
+        <div class="hstat">
+          <span class="hstat-val mono" data-target="9708" data-dec="0" data-sfx=" SPS">—</span>
+          <span class="hstat-lbl">GPU Training Speed</span>
+        </div>
+        <div class="hstat-sep"></div>
+        <div class="hstat">
+          <span class="hstat-val mono" data-target="746" data-dec="0">—</span>
+          <span class="hstat-lbl">NSE Stocks</span>
+        </div>
+      </div>
+      <div class="hero-ctas reveal">
+        <a href="#contact" class="btn-primary">Request Access</a>
+        <a href="#research" class="btn-ghost">View Research Log →</a>
+      </div>
+    </div>
+    <div class="hero-right reveal">
+      <div class="chart-shell">
+        <div class="chart-shell-bar">
+          <div class="shell-dots"><span></span><span></span><span></span></div>
+          <span class="shell-title">EXP-002 · Test Period Equity Curve</span>
+          <span class="shell-badge up" id="heroReturn">+15.3%</span>
+        </div>
+        <canvas id="heroChart"></canvas>
+        <div class="chart-note">
+          Illustrative single episode from 64-episode test evaluation · 252-day horizon
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">↓</div>
+</section>
+
+<!-- ════════════════════ PROBLEM ════════════════════ -->
+<section id="problem">
+  <div class="container">
+    <div class="sec-label reveal">The Problem</div>
+    <h2 class="sec-h2 reveal">Algo Trading is Hard.<br /><span class="grad">Most Fail in Production.</span></h2>
+    <p class="sec-p reveal">Building a strategy that looks great in backtests is easy. Making it survive live markets is not.</p>
+    <div class="prob-grid">
+      <div class="prob-card reveal">
+        <div class="prob-num">01</div>
+        <h3>Curve Fitting</h3>
+        <p>A model optimized on historical data captures noise, not signal. Without walk-forward validation, backtest performance is fiction.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-num">02</div>
+        <h3>Unrealistic Simulation</h3>
+        <p>Ignoring NSE transaction taxes (STT, stamp duty, exchange fees), slippage, and minimum lot sizes inflates paper returns by 30–50%.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-num">03</div>
+        <h3>Slow Iteration</h3>
+        <p>Training RL agents for days per experiment destroys research velocity. You can't build intuition about what works without rapid feedback.</p>
+      </div>
+      <div class="prob-card reveal">
+        <div class="prob-num">04</div>
+        <h3>No Risk Model</h3>
+        <p>Agents that maximize raw returns without drawdown constraints become reckless. Risk must be part of the objective, not an afterthought.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FEATURES ════════════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="sec-label reveal">What We Built</div>
+    <h2 class="sec-h2 reveal">Six Core Capabilities<br /><span class="grad">That Address Each Failure Mode</span></h2>
+    <div class="feat-grid">
+
+      <div class="feat-card reveal" data-color="cyan">
+        <div class="feat-icon cyan-bg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>RL-Powered Agents</h3>
+        <p>Soft Actor-Critic (SAC) with twin-Q critics, trained on real NSE data. Continuous action space: simultaneously allocates across 20 stocks.</p>
+        <div class="feat-meta">
+          <span class="mono-tag">SAC · JAX · PyTorch</span>
+          <span class="mono-tag">20 stocks / episode</span>
+        </div>
+      </div>
+
+      <div class="feat-card reveal" data-color="blue">
+        <div class="feat-icon blue-bg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Walk-Forward Validation</h3>
+        <p>5-window rolling validation. The agent must generalize across all windows — not just one period. Val/test gap tracked to detect overfitting.</p>
+        <div class="feat-meta">
+          <span class="mono-tag">5-window rolling</span>
+          <span class="mono-tag">Consistency &gt;70% gate</span>
+        </div>
+      </div>
+
+      <div class="feat-card reveal" data-color="green">
+        <div class="feat-icon green-bg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>GPU-Accelerated Training</h3>
+        <p>XLA-compiled JAX training loop via <code>lax.scan</code>. EXP-002 ran 5M steps in 517 seconds on an RTX 4000 Ada — 9,708 steps/sec.</p>
+        <div class="feat-meta">
+          <span class="mono-tag mono-real">9,708 SPS · RTX 4000 Ada</span>
+          <span class="mono-tag mono-real">517s for 5M steps</span>
+        </div>
+      </div>
+
+      <div class="feat-card reveal" data-color="amber">
+        <div class="feat-icon amber-bg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>NSE-Realistic Simulation</h3>
+        <p>Full Indian brokerage cost model: STT, exchange fees, SEBI charges, GST, stamp duty. Slippage, minimum lot sizes, and market impact included.</p>
+        <div class="feat-meta">
+          <span class="mono-tag">Full NSE fee structure</span>
+          <span class="mono-tag">Kite Connect API</span>
+        </div>
+      </div>
+
+      <div class="feat-card reveal" data-color="cyan">
+        <div class="feat-icon cyan-bg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <h3>Multi-Granularity Data</h3>
+        <p>746 stocks × 8 time granularities = 5,567 parquet files. 1-minute to daily. NIFTY 50, 100, 200, 500, Midcap, Smallcap covered.</p>
+        <div class="feat-meta">
+          <span class="mono-tag mono-real">5,567 parquet files</span>
+          <span class="mono-tag mono-real">1min · 3min · 5min · daily</span>
+        </div>
+      </div>
+
+      <div class="feat-card reveal" data-color="blue">
+        <div class="feat-icon blue-bg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Risk-Aware Reward Design</h3>
+        <p>12-component reward function: drawdown penalties, CVaR, concentration limits, turnover costs, holding incentives. Agent learns risk discipline, not just return maximization.</p>
+        <div class="feat-meta">
+          <span class="mono-tag">12 reward components</span>
+          <span class="mono-tag">30% max concentration</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ PORTFOLIO SAMPLE ════════════════════ -->
+<section id="portfolio-sample">
+  <div class="container">
+    <div class="psample-wrap reveal">
+      <div class="psample-left">
+        <div class="sec-label">Live Data</div>
+        <h3>Trained on Real NIFTY Constituents</h3>
+        <p>Not synthetic data. Not Yahoo Finance proxies. Historical data fetched directly via Zerodha Kite Connect, stored in columnar Parquet format with quality validation.</p>
+        <div class="psample-stats">
+          <div class="pstat"><span class="mono" id="stockCount">746</span><span>Stocks Tracked</span></div>
+          <div class="pstat"><span class="mono">5,567</span><span>Parquet Files</span></div>
+          <div class="pstat"><span class="mono">8</span><span>Granularities</span></div>
+          <div class="pstat"><span class="mono">6</span><span>Indices Covered</span></div>
+        </div>
+      </div>
+      <div class="psample-right">
+        <div class="stock-grid" id="stockGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ PIPELINE ════════════════════ -->
+<section id="pipeline">
+  <div class="container">
+    <div class="sec-label reveal">How It Works</div>
+    <h2 class="sec-h2 reveal">Six-Stage Pipeline<br /><span class="grad">Every Stage Gated</span></h2>
+    <p class="sec-p reveal">An agent only advances when it clears measurable criteria. No exceptions. This is what separates research-grade from production-grade.</p>
+    <div class="pipeline">
+
+      <div class="pipe-step reveal done">
+        <div class="pipe-left">
+          <div class="pipe-status done">✓</div>
+          <div class="pipe-line"></div>
+        </div>
+        <div class="pipe-body">
+          <div class="pipe-meta"><span class="pipe-id">Stage 01</span><span class="pipe-state done-tag">Complete</span></div>
+          <h3>Data Ingestion</h3>
+          <p>746 NSE/BSE stocks across 8 granularities via Kite Connect. Checkpointed parallel downloads, quality validation, multi-source fallback. 5,567 parquet files on disk.</p>
+        </div>
+      </div>
+
+      <div class="pipe-step reveal done">
+        <div class="pipe-left">
+          <div class="pipe-status done">✓</div>
+          <div class="pipe-line"></div>
+        </div>
+        <div class="pipe-body">
+          <div class="pipe-meta"><span class="pipe-id">Stage 02</span><span class="pipe-state done-tag">Complete</span></div>
+          <h3>Feature Engineering</h3>
+          <p>Technical indicators (SMA, EMA, RSI, MACD, Bollinger, ATR) + auxiliary signal models: regime detector, volatility forecaster, trend classifier. Observation: 561-dimensional state vector.</p>
+        </div>
+      </div>
+
+      <div class="pipe-step reveal done">
+        <div class="pipe-left">
+          <div class="pipe-status done">✓</div>
+          <div class="pipe-line"></div>
+        </div>
+        <div class="pipe-body">
+          <div class="pipe-meta"><span class="pipe-id">Stage 03</span><span class="pipe-state done-tag">Complete · EXP-001, EXP-002</span></div>
+          <h3>RL Agent Training</h3>
+          <p>SAC agents trained with NSE-realistic frictions. Gate: Test Sharpe &gt; 0.4, Win Rate &gt; 55%, Max Drawdown &gt; −12%. EXP-002 cleared all gates: Sharpe 0.4964, Win Rate 65.6%.</p>
+        </div>
+      </div>
+
+      <div class="pipe-step reveal active">
+        <div class="pipe-left">
+          <div class="pipe-status active">●</div>
+          <div class="pipe-line"></div>
+        </div>
+        <div class="pipe-body">
+          <div class="pipe-meta"><span class="pipe-id">Stage 04</span><span class="pipe-state active-tag">In Progress</span></div>
+          <h3>Walk-Forward Validation</h3>
+          <p>5-window rolling test proving the agent generalizes — not just memorizes one period. Adversarial stress tests: flash crash (−20%), volatility spike (2× vol), trend reversal.</p>
+        </div>
+      </div>
+
+      <div class="pipe-step reveal active">
+        <div class="pipe-left">
+          <div class="pipe-status active">●</div>
+          <div class="pipe-line"></div>
+        </div>
+        <div class="pipe-body">
+          <div class="pipe-meta"><span class="pipe-id">Stage 05</span><span class="pipe-state active-tag">In Progress</span></div>
+          <h3>Paper Trading</h3>
+          <p>30+ day live simulation against real market data. Realistic order fills, portfolio tracking, real-time P&amp;L. An agent that cannot pass paper trading does not go live.</p>
+        </div>
+      </div>
+
+      <div class="pipe-step reveal planned">
+        <div class="pipe-left">
+          <div class="pipe-status planned">○</div>
+        </div>
+        <div class="pipe-body">
+          <div class="pipe-meta"><span class="pipe-id">Stage 06</span><span class="pipe-state planned-tag">Planned</span></div>
+          <h3>Live Deployment</h3>
+          <p>Sub-100ms inference via Zerodha Kite Connect. Live risk controls: hard position limits, drawdown circuit breakers, concentration guards. Real capital only after stages 4 and 5 clear.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ PERFORMANCE ════════════════════ -->
+<section id="performance">
+  <div class="container">
+    <div class="sec-label reveal">Performance</div>
+    <h2 class="sec-h2 reveal">Real Experiment Results.<br /><span class="grad">Not Illustrations.</span></h2>
+    <p class="sec-p reveal">
+      These numbers come directly from experiment log files on disk.
+      Test metrics are on held-out data the agent never saw during training.
+      <span class="fine">Past simulation results do not guarantee future live performance.</span>
+    </p>
+
+    <div class="metric-row">
+      <div class="mcard reveal">
+        <div class="mcard-label">Test Sharpe · EXP-002</div>
+        <div class="mcard-val cyan mono" data-target="0.4964" data-dec="4">—</div>
+        <div class="mcard-sub">Risk-adjusted. 64-episode held-out evaluation.</div>
+      </div>
+      <div class="mcard reveal">
+        <div class="mcard-label">Test Win Rate · EXP-002</div>
+        <div class="mcard-val green mono" data-target="65.6" data-dec="1" data-sfx="%">—</div>
+        <div class="mcard-sub">% of test episodes with positive return</div>
+      </div>
+      <div class="mcard reveal">
+        <div class="mcard-label">Val Sharpe · EXP-002</div>
+        <div class="mcard-val blue mono" data-target="1.3031" data-dec="4">—</div>
+        <div class="mcard-sub">Validation set. Best checkpoint selected on this.</div>
+      </div>
+      <div class="mcard reveal">
+        <div class="mcard-label">Training Speed · EXP-002</div>
+        <div class="mcard-val amber mono" data-target="9708" data-dec="0" data-sfx=" SPS">—</div>
+        <div class="mcard-sub">Steps/sec on RTX 4000 Ada, n_envs=64, JAX XLA</div>
+      </div>
+    </div>
+
+    <div class="perf-chart-wrap reveal">
+      <div class="perf-chart-hdr">
+        <div>
+          <h3>Illustrative Equity Curve — Representative Test Episode</h3>
+          <p>Generated using real EXP-002 test statistics: μ=10.46% · σ=21.26% · Sharpe=0.496 per 252-day episode</p>
+        </div>
+        <div class="chart-legend">
+          <span class="leg cyan-leg">● RL Portfolio</span>
+          <span class="leg muted-leg">⋯ NIFTY 50 (est.)</span>
+        </div>
+      </div>
+      <canvas id="perfChart" height="110"></canvas>
+      <p class="chart-disc">
+        Curve parameterised from real test statistics, not cherry-picked. Benchmark uses estimated NIFTY 50 historical parameters.
+        This is one representative episode from 64 evaluated — not the best one.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ STAGE ════════════════════ -->
+<section id="stage">
+  <div class="container">
+    <div class="sec-label reveal">Honest Status</div>
+    <h2 class="sec-h2 reveal">Where We Actually Are</h2>
+    <p class="sec-p reveal">
+      Transparency is a feature. Here is the current development state, without spin.
+    </p>
+    <div class="stage-grid">
+      <div class="stage-card done-card reveal">
+        <div class="stage-icon done-icon">✓</div>
+        <h3>What's Done</h3>
+        <ul>
+          <li>Full data pipeline: 746 stocks, 8 granularities, 5,567 files</li>
+          <li>JAX + PyTorch dual RL training backends</li>
+          <li>SAC agent: 2 completed experiments (EXP-001, EXP-002)</li>
+          <li>NSE-realistic transaction cost model</li>
+          <li>GPU-accelerated training (9,708 SPS)</li>
+          <li>18-tab Streamlit research dashboard</li>
+          <li>30+ CLI commands for data, training, backtesting</li>
+          <li>Initial backtesting suite (SMA, RSI, MACD, VWAP, RL)</li>
+        </ul>
+      </div>
+      <div class="stage-card prog-card reveal">
+        <div class="stage-icon prog-icon">●</div>
+        <h3>In Progress</h3>
+        <ul>
+          <li>Walk-forward validation (5-window rolling)</li>
+          <li>Adversarial stress testing framework</li>
+          <li>Paper trading (live simulation, no real capital)</li>
+          <li>Unified JAX + PyTorch architecture (plan.md, Phase 1–4)</li>
+          <li>Curriculum learning for exploration</li>
+          <li>Nifty 100+ universe expansion (Phase 5)</li>
+        </ul>
+      </div>
+      <div class="stage-card plan-card reveal">
+        <div class="stage-icon plan-icon">○</div>
+        <h3>Planned</h3>
+        <ul>
+          <li>Live deployment via Kite Connect (post paper trading gate)</li>
+          <li>AutoRL v2: continuous risk parameterisation</li>
+          <li>Multi-agent portfolio coordination</li>
+          <li>Institutional API / white-label deployment</li>
+          <li>SEBI compliance pathway</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stage-note reveal">
+      <span class="stage-note-icon">ℹ</span>
+      <p>We are a research-stage project. No real capital is deployed. We are seeking collaborators and investors who understand the difference between a validated research prototype and a live product — and who see the value in what's been built so far.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ RESEARCH LOG ════════════════════ -->
+<section id="research">
+  <div class="container">
+    <div class="sec-label reveal">Research Log</div>
+    <h2 class="sec-h2 reveal">Experiment History<br /><span class="grad">Every Run Logged</span></h2>
+    <p class="sec-p reveal">
+      Real experiment IDs, real timestamps, real metrics from disk.
+      Every run is reproducible from its checkpoint.
+    </p>
+    <div class="exp-table-wrap reveal">
+      <table class="exp-table" id="expTable">
+        <thead>
+          <tr>
+            <th>Run ID</th>
+            <th>Date</th>
+            <th>Algorithm</th>
+            <th>Steps</th>
+            <th>GPU SPS</th>
+            <th>Train Time</th>
+            <th>n_envs</th>
+            <th>Test Sharpe</th>
+            <th>Val Sharpe</th>
+            <th>Test Win%</th>
+            <th>Test Sortino</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="expTableBody">
+          <!-- populated by JS from site-data.json -->
+        </tbody>
+      </table>
+    </div>
+    <div class="exp-note reveal">
+      <p>Metrics logged to <code>final_metrics.json</code> per run. Checkpoints saved at best validation Sharpe. Training environment: WSL2 · Ubuntu · CUDA 12.6 · JAX 0.4.x · RTX 4000 Ada (6GB VRAM).</p>
+    </div>
+    <div class="progression reveal">
+      <h3>Observed Progression</h3>
+      <div class="prog-items">
+        <div class="prog-item">
+          <span class="prog-label">EXP-001 → EXP-002</span>
+          <span class="prog-delta up">Test Sharpe +5.2% &nbsp;·&nbsp; Win Rate +12.5pp &nbsp;·&nbsp; SPS +28.4%</span>
+        </div>
+        <div class="prog-item">
+          <span class="prog-label">Next experiments</span>
+          <span class="prog-plan">Walk-forward validation · Stress testing · Curriculum learning (plan.md Phase 4)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ TECHNOLOGY ════════════════════ -->
+<section id="technology">
+  <div class="container">
+    <div class="sec-label reveal">Technology</div>
+    <h2 class="sec-h2 reveal">Built on Production-Grade<br /><span class="grad">Open-Source Foundations</span></h2>
+    <div class="tech-row">
+      <div class="tech-card reveal"><div class="tech-badge py">Py</div><div><b>Python 3.11+</b><span>Core language</span></div></div>
+      <div class="tech-card reveal"><div class="tech-badge jax">JAX</div><div><b>Google JAX</b><span>XLA · lax.scan · vmap</span></div></div>
+      <div class="tech-card reveal"><div class="tech-badge pt">PT</div><div><b>PyTorch 2.1+</b><span>CUDA 12.6 · Windows native</span></div></div>
+      <div class="tech-card reveal"><div class="tech-badge gym">Gym</div><div><b>Gymnasium</b><span>RL env interface</span></div></div>
+      <div class="tech-card reveal"><div class="tech-badge kite">ZK</div><div><b>Kite Connect</b><span>Live broker API</span></div></div>
+      <div class="tech-card reveal"><div class="tech-badge st">ST</div><div><b>Streamlit</b><span>18-tab research UI</span></div></div>
+      <div class="tech-card reveal"><div class="tech-badge cu">CU</div><div><b>CUDA 12.6</b><span>RTX 4000 Ada · 6GB VRAM</span></div></div>
+      <div class="tech-card reveal"><div class="tech-badge pq">PQ</div><div><b>Parquet + SQLite</b><span>5,567 files · hybrid storage</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ ABOUT ════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="sec-label reveal">About</div>
+    <h2 class="sec-h2 reveal">The Builder</h2>
+    <div class="about-wrap">
+      <!-- ─────────────────────────────────────────────────────────────
+           PLACEHOLDER — Fill in your details here.
+           Replace the content inside .about-bio with your information.
+           ───────────────────────────────────────────────────────────── -->
+      <div class="about-card reveal">
+        <div class="about-avatar" id="aboutAvatar">
+          <!-- Avatar: replace with <img src="assets/photo.jpg" alt="Your Name" /> -->
+          <div class="avatar-placeholder">?</div>
+        </div>
+        <div class="about-bio">
+          <h3 class="about-name"><!-- Your Name Here -->&nbsp;</h3>
+          <div class="about-role"><!-- Your Role / Background -->&nbsp;</div>
+          <p class="about-desc">
+            <!-- A 2–3 sentence description of your background, why you built this,
+                 and what you're looking for. Example:
+                 "Former quant at X. Built this because RL in Indian markets is
+                 severely underexplored. Looking for institutional partners who
+                 want early access to a validated, production-bound trading engine." -->
+          </p>
+          <div class="about-links">
+            <!-- Uncomment and fill in:
+            <a href="https://linkedin.com/in/yourprofile" class="about-link" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/yourhandle" class="about-link" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:you@domain.com" class="about-link">Email</a>
+            -->
+            <span class="about-link-placeholder">← Fill in contact links in index.html</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-facts reveal">
+        <div class="fact-card">
+          <div class="fact-num mono">~15,000</div>
+          <div class="fact-lbl">Lines of code across 80+ files</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-num mono">2</div>
+          <div class="fact-lbl">Completed training experiments (more running)</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-num mono">6</div>
+          <div class="fact-lbl">Phase development roadmap (plan.md)</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-num mono">5,567</div>
+          <div class="fact-lbl">Real market data files on disk</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ USE CASES ════════════════════ -->
+<section id="usecases">
+  <div class="container">
+    <div class="sec-label reveal">Who This Is For</div>
+    <h2 class="sec-h2 reveal">Four Paths to Engagement</h2>
+    <div class="uc-grid">
+      <div class="uc-card reveal">
+        <div class="uc-n">01</div>
+        <h3>Investors</h3>
+        <p>Early-stage opportunity in a validated RL trading research platform built for Indian equities. Pipeline is clear. Risk gates are real. Two experiments complete, more running.</p>
+        <div class="uc-ask">→ Request due diligence materials and experiment logs</div>
+      </div>
+      <div class="uc-card reveal">
+        <div class="uc-n">02</div>
+        <h3>Quant Researchers</h3>
+        <p>Looking for a serious collaborator on RL for Indian markets? The infrastructure is built. The hard problems remaining are algorithmic: walk-forward consistency, multi-agent coordination, curriculum learning.</p>
+        <div class="uc-ask">→ Discuss research collaboration on specific open problems</div>
+      </div>
+      <div class="uc-card reveal">
+        <div class="uc-n">03</div>
+        <h3>ML / RL Engineers</h3>
+        <p>Interested in contributing to a production-bound RL system? Phases 3–6 of the roadmap involve architecture consolidation, AutoRL, and NIFTY 100+ universe expansion.</p>
+        <div class="uc-ask">→ Review the open roadmap and reach out with your background</div>
+      </div>
+      <div class="uc-card reveal">
+        <div class="uc-n">04</div>
+        <h3>FinTech / Institutions</h3>
+        <p>Need an AI trading engine for Indian equities that you can run in-house? This is modular: swap broker backends, risk profiles, and asset universes. Licensing and white-label options available post-Stage 5.</p>
+        <div class="uc-ask">→ Discuss licensing and integration after paper trading gate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CONTACT ════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-left reveal">
+        <div class="sec-label">Contact</div>
+        <h2 class="sec-h2">Let's Talk.<br /><span class="grad">Seriously.</span></h2>
+        <p>No pitch decks sent cold. If you've read this far, you understand what's been built and what stage it's at. That's the kind of conversation worth having.</p>
+        <div class="contact-items">
+          <div class="citem">
+            <span class="citem-icon cyan">◈</span>
+            <div>
+              <b>Investors</b>
+              <span>Experiment logs, checkpoint data, and detailed methodology available under NDA.</span>
+            </div>
+          </div>
+          <div class="citem">
+            <span class="citem-icon blue">◉</span>
+            <div>
+              <b>Collaborators</b>
+              <span>Tell me what problem you want to work on. Open problems listed in the roadmap.</span>
+            </div>
+          </div>
+          <div class="citem">
+            <span class="citem-icon green">▲</span>
+            <div>
+              <b>FinTech / Institutional</b>
+              <span>Licensing discussions welcome post-Stage 5. Let's establish a relationship now.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right reveal">
+        <form class="cform" id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="cform-group">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required />
+          </div>
+          <div class="cform-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@organisation.com" required />
+          </div>
+          <div class="cform-group">
+            <label>I am a…</label>
+            <select name="type">
+              <option value="">Select one</option>
+              <option>Investor / Fund Manager</option>
+              <option>Quant Researcher</option>
+              <option>ML / RL Engineer</option>
+              <option>FinTech Company</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="cform-group">
+            <label>Message</label>
+            <textarea name="message" rows="4" placeholder="What are you looking for? What's your background?"></textarea>
+          </div>
+          <button type="submit" class="btn-primary full">Send Message</button>
+          <p class="cform-note">Strictly confidential. No spam, ever.</p>
+        </form>
+        <div class="cform-success" id="formSuccess" style="display:none">
+          <div class="success-check">✓</div>
+          <h3>Received</h3>
+          <p>Will respond within 48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo">
+          <span class="logo-mark">◈</span>AlgoTrading<span class="logo-ai">AI</span>
+        </a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="#features">Features</a>
+          <a href="#pipeline">Pipeline</a>
+          <a href="#performance">Results</a>
+          <a href="#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="#stage">Current Stage</a>
+          <a href="#research">Research Log</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AlgoTrading AI. Proprietary &amp; Confidential. All rights reserved.</p>
+      <p class="footer-disc">Not financial advice. Past simulation results do not guarantee future live performance. No real capital is currently deployed. Trading involves significant risk of loss.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
