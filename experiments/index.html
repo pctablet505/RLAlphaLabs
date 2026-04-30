@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiments — RLAlphaLabs</title>
+  <meta name="description" content="Selected experiment results from RLAlphaLabs RL trading research on Indian equities." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="../research/">Research</a></li>
+      <li><a href="./">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="../research/">Research</a>
+    <a href="./">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Experiments</div>
+    <div class="sec-label">Experiments</div>
+    <h2 class="sec-h2">Experiment Log<br /><span class="grad">Selected Results</span></h2>
+    <p>Representative results from our research pipeline. Metrics on held-out test data with full caveats.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="card-list">
+      <a href="scaled-training.html" class="content-card reveal">
+        <div class="card-meta"><span class="tag">Complete</span> <span>Apr 2026</span></div>
+        <h3>Scaled Actor-Critic Training</h3>
+        <p>5M steps, multiple parallel environments, JAX XLA backend. Test Sharpe ~0.5, Win Rate ~65%. Scaled training with tuned hyperparameters for low-SNR financial data.</p>
+      </a>
+    </div>
+
+    <div class="callout info" style="margin-top:40px">
+      <strong>More experiments in progress.</strong> Walk-forward validation runs, adversarial stress tests, and curriculum learning pilots are active. Results will be published here as they complete.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="../research/">Research</a>
+          <a href="./">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

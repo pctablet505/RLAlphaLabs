@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiment Result — RLAlphaLabs</title>
+  <meta name="description" content="Scaled actor-critic training on NSE data. 5M steps, best result to date." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="../research/">Research</a></li>
+      <li><a href="./">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="../research/">Research</a>
+    <a href="./">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> <a href="./">Experiments</a> <span>/</span> Result</div>
+    <div class="sec-label">Apr 2026 · Complete</div>
+    <h2 class="sec-h2">Scaled Training Run<br /><span class="grad">Actor-Critic on NSE Data</span></h2>
+    <p>5M steps, multiple parallel environments, JAX XLA backend. Best result to date.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="article-prose">
+      <h2>Experiment Objective</h2>
+      <p>Test whether scaled training length and tuned hyperparameters for low-SNR financial data produce generalizable policies on NSE daily data that clear our promotion gates.</p>
+
+      <h2>Setup (High-Level)</h2>
+      <ul>
+        <li><strong>Universe:</strong> NIFTY 50 stocks by liquidity</li>
+        <li><strong>Granularity:</strong> Daily bars</li>
+        <li><strong>Algorithm:</strong> Actor-critic with dual value networks</li>
+        <li><strong>Backend:</strong> JAX with XLA compilation</li>
+        <li><strong>Training length:</strong> 5M steps</li>
+        <li><strong>Parallel environments:</strong> 64</li>
+        <li><strong>Episode length:</strong> 252 trading days</li>
+        <li><strong>Action space:</strong> Discrete multi-slot portfolio</li>
+      </ul>
+
+      <h2>Key Results</h2>
+      <div class="exp-metrics">
+        <div class="exp-metric"><div class="val">0.49</div><div class="lbl">Test Sharpe</div></div>
+        <div class="exp-metric"><div class="val">65%</div><div class="lbl">Test Win Rate</div></div>
+        <div class="exp-metric"><div class="val">1.30</div><div class="lbl">Val Sharpe</div></div>
+        <div class="exp-metric"><div class="val">9700+</div><div class="lbl">Steps/sec</div></div>
+      </div>
+
+      <h2>Summary</h2>
+      <ul>
+        <li><strong>Win rate 65%:</strong> Above threshold. The agent is reliably profitable across test episodes.</li>
+        <li><strong>Test Sharpe ~0.5:</strong> Positive risk-adjusted return on held-out data.</li>
+        <li><strong>Training speed 9700+ steps/sec:</strong> JAX XLA optimization delivered efficient throughput.</li>
+      </ul>
+
+      <h2>Known Limitations</h2>
+      <ul>
+        <li><strong>Val/test gap persists:</strong> Significant gap between validation and test performance.</li>
+        <li><strong>Test Sharpe below target:</strong> While positive, this is not yet competitive with sophisticated benchmarks on risk-adjusted terms.</li>
+        <li><strong>Single seed:</strong> This run used one random seed. Multiple seeds required for statistical confidence.</li>
+        <li><strong>No walk-forward yet:</strong> These results are from a single train/val/test split. Walk-forward validation may reveal additional gaps.</li>
+      </ul>
+
+      <h2>Next Steps</h2>
+      <p>This run clears the training gate but does not yet justify live deployment. Our next experiments focus on:</p>
+      <ul>
+        <li><strong>Walk-forward validation:</strong> Multi-window rolling test to prove generalization</li>
+        <li><strong>Multi-seed runs:</strong> 5 random seeds for statistical confidence</li>
+        <li><strong>Adversarial stress tests:</strong> Flash crash, volatility spike, trend reversal</li>
+        <li><strong>Longer training:</strong> Test whether 10M steps provides further improvement</li>
+      </ul>
+
+      <div class="cta-bar">
+        <a href="./" class="btn-primary">All Experiments</a>
+        <a href="../research/open-problems.html" class="btn-ghost">Open Problems</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="../research/">Research</a>
+          <a href="./">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

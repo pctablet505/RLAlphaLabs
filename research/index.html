@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — RLAlphaLabs</title>
+  <meta name="description" content="Public research hub for RLAlphaLabs: problem statement, methodology, open problems, and literature review on RL for Indian equity markets." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="./">Research</a></li>
+      <li><a href="../experiments/">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="./">Research</a>
+    <a href="../experiments/">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Research</div>
+    <div class="sec-label">Research</div>
+    <h2 class="sec-h2">Public Research Hub<br /><span class="grad">Open Knowledge</span></h2>
+    <p>We publish our problem definition, methodology, validated findings, open questions, and literature review. No source code, no proprietary configs — but the intellectual framework is here for anyone who wants to build on it.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="card-list">
+      <a href="problem-statement.html" class="content-card reveal">
+        <div class="card-meta"><span class="tag">Foundation</span> <span>April 2026</span></div>
+        <h3>Research Problem Statement</h3>
+        <p>The complete formulation of the RL-for-trading problem on Indian equities: MDP definition, market context, key challenges, and evaluation protocol. Everything you need to understand what we're solving and why it's hard.</p>
+      </a>
+
+      <a href="methodology.html" class="content-card reveal">
+        <div class="card-meta"><span class="tag">Approach</span> <span>Updated</span></div>
+        <h3>Methodology</h3>
+        <p>High-level overview of our approach: why SAC, why walk-forward validation, why dual JAX/PyTorch backends, and how we model NSE-realistic costs. The "what" and "why" without the "how" in code.</p>
+      </a>
+
+      <a href="open-problems.html" class="content-card reveal">
+        <div class="card-meta"><span class="tag">Recruiting</span> <span>Active</span></div>
+        <h3>Open Research Problems</h3>
+        <p>Twenty fundamental questions we have not solved yet. From regime-aware meta-learning to continuous target-weight action spaces. If you're working on any of these, we should talk.</p>
+      </a>
+
+      <a href="literature.html" class="content-card reveal">
+        <div class="card-meta"><span class="tag">Reference</span> <span>Curated</span></div>
+        <h3>Literature Review</h3>
+        <p>Key papers in RL for trading, meta-learning for finance, Indian market microstructure, and risk-sensitive RL — with our commentary on relevance to NSE-specific problems.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="./">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

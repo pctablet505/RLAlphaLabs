@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Problem Statement — RLAlphaLabs</title>
+  <meta name="description" content="Complete research problem definition for RL-based algorithmic trading on Indian equities (NSE/BSE): MDP formulation, market context, and evaluation protocol." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="./">Research</a></li>
+      <li><a href="../experiments/">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="./">Research</a>
+    <a href="../experiments/">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> <a href="./">Research</a> <span>/</span> Problem Statement</div>
+    <div class="sec-label">Foundation</div>
+    <h2 class="sec-h2">Research Problem Statement<br /><span class="grad">RL for Indian Equity Portfolio Management</span></h2>
+    <p>The complete formulation of what we're solving, why it's hard, and how we measure success. Sanitized for public consumption — no proprietary configs, no source code.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="research-layout">
+      <aside class="research-sidebar">
+        <h4>In this section</h4>
+        <ul>
+          <li><a href="#problem">Core Problem</a></li>
+          <li><a href="#mdp">MDP Formulation</a></li>
+          <li><a href="#challenges">Key Challenges</a></li>
+          <li><a href="#market">Market Context</a></li>
+          <li><a href="#costs">Transaction Costs</a></li>
+          <li><a href="#walkforward">Walk-Forward Validation</a></li>
+          <li><a href="#evaluation">Evaluation Protocol</a></li>
+          <li><a href="#baselines">Baseline Benchmarks</a></li>
+        </ul>
+      </aside>
+
+      <div class="article-prose">
+        <h2 id="problem">1. Core Problem</h2>
+        <p>Given a universe of Indian equities from NIFTY indices with historical OHLCV data at multiple granularities, learn a trading policy that:</p>
+        <ul>
+          <li>Selects which stocks to hold in a multi-slot portfolio</li>
+          <li>Decides when to enter and exit positions</li>
+          <li>Maximizes risk-adjusted returns after realistic costs</li>
+          <li>Respects transaction costs, slippage, and broker constraints</li>
+          <li>Generalizes across market regimes (bull, bear, sideways, crisis)</li>
+        </ul>
+
+        <h2 id="mdp">2. Formal MDP Formulation</h2>
+        <p>The problem is formulated as a finite-horizon Markov Decision Process (MDP):</p>
+        <ul>
+          <li><strong>State space S:</strong> Continuous, high-dimensional. Includes per-stock technical features, portfolio state, and global market context.</li>
+          <li><strong>Action space A:</strong> Discrete with HOLD, CLOSE position, and OPEN position actions.</li>
+          <li><strong>Transition dynamics T(s'|s,a):</strong> Determined by market price evolution (exogenous) plus position tracking (endogenous). The agent cannot influence market prices.</li>
+          <li><strong>Reward function R(s,a,s'):</strong> Composite, risk-conditioned signal combining portfolio value change, transaction cost penalty, drawdown aversion, cash underutilization penalty, and profit-taking bonuses.</li>
+          <li><strong>Discount factor γ:</strong> 0.99 (standard)</li>
+          <li><strong>Horizon H:</strong> 252 bars per episode (1 trading year of daily data)</li>
+        </ul>
+
+        <h2 id="challenges">3. Key Challenges</h2>
+        <p>Financial markets present unique difficulties for reinforcement learning:</p>
+
+        <h4>Non-stationarity</h4>
+        <p>Markets exhibit regime changes. A policy trained on 2019-2022 bull market data may fail catastrophically in 2022-2025 consolidation.</p>
+
+        <h4>Partial observability</h4>
+        <p>The agent observes price/volume features but not order flow, institutional positioning, corporate events, or macroeconomic surprises.</p>
+
+        <h4>High transaction costs</h4>
+        <p>Indian equity markets charge meaningful fees per trade (STT, stamp duty, exchange charges, GST). Excessive trading destroys alpha.</p>
+
+        <h4>Sparse signal</h4>
+        <p>Daily returns have very low signal-to-noise ratio. Most price movements are noise; genuine alpha signals are rare and weak.</p>
+
+        <h4>Multi-objective nature</h4>
+        <p>Maximizing returns conflicts with minimizing drawdowns. No single reward function captures all preferences.</p>
+
+        <h4>Sample efficiency</h4>
+        <p>With ~252 trading days per year and limited historical data, the effective training dataset is small relative to the observation dimensionality.</p>
+
+        <h4>Survivorship bias</h4>
+        <p>Historical data only includes stocks that still exist. Stocks that were delisted, merged, or delisted due to poor performance are missing.</p>
+
+        <h4>Execution risk</h4>
+        <p>The gap between simulated and live execution (slippage, partial fills, market impact, latency) can erode theoretical alpha.</p>
+
+        <h2 id="market">4. Market Context: Indian Equities</h2>
+        <h4>Market Structure</h4>
+        <ul>
+          <li><strong>Exchange:</strong> National Stock Exchange (NSE) — primary venue</li>
+          <li><strong>Trading hours:</strong> 09:15 - 15:30 IST (375 minutes per trading session)</li>
+          <li><strong>Trading days:</strong> ~252 per year (excludes weekends + 15-18 NSE holidays)</li>
+          <li><strong>Settlement:</strong> T+1 for equities (since January 2023)</li>
+          <li><strong>Circuit breakers:</strong> ±5%, ±10%, ±20% for individual stocks; market-wide at 10%, 15%, 20%</li>
+        </ul>
+
+        <h4>NSE-Specific Market Microstructure</h4>
+        <ul>
+          <li><strong>Tick size:</strong> ₹0.05 for most stocks (≥₹1 price)</li>
+          <li><strong>Lot sizes:</strong> 1 share for equity (no minimum lot in cash segment)</li>
+          <li><strong>Order types:</strong> Market, Limit, SL, and advanced variants</li>
+          <li><strong>Pre-open session:</strong> 09:00-09:08 (price discovery), 09:08-09:12 (order matching)</li>
+          <li><strong>Closing price:</strong> Weighted average of last 30 minutes (15:00-15:30)</li>
+          <li><strong>FII flows:</strong> Major driver of short-term volatility</li>
+          <li><strong>Retail participation:</strong> ~50% of NSE turnover since 2020 (post-COVID spike)</li>
+        </ul>
+
+        <h4>Market Regimes in Recent History</h4>
+        <table>
+          <tr><th>Period</th><th>Regime</th><th>NIFTY50 Annualized Return</th><th>Max Drawdown</th></tr>
+          <tr><td>2015-2017</td><td>Moderate bull</td><td>+8-12%</td><td>-12%</td></tr>
+          <tr><td>2018-2019</td><td>Consolidation/correction</td><td>+2-5%</td><td>-17%</td></tr>
+          <tr><td>2020 Q1</td><td>COVID crash</td><td>N/A (crash)</td><td>-38%</td></tr>
+          <tr><td>2020 Q2 - 2021</td><td>Strong bull (liquidity)</td><td>+60-80%</td><td>-8%</td></tr>
+          <tr><td>2022</td><td>Rate hike consolidation</td><td>-2%</td><td>-18%</td></tr>
+          <tr><td>2023-2024</td><td>Gradual recovery</td><td>+15-20%</td><td>-10%</td></tr>
+          <tr><td>2025</td><td>Mixed (election, global)</td><td>+5-8%</td><td>-15%</td></tr>
+        </table>
+        <p>These regime shifts are the primary challenge. A model trained on 2020-2021 bull market data will not generalize to 2022 consolidation without explicit regime awareness.</p>
+
+        <h4>Universe Composition</h4>
+        <table>
+          <tr><th>Index</th><th>Stocks</th><th>Liquidity</th><th>Spread</th><th>Use Case</th></tr>
+          <tr><td>NIFTY50</td><td>50</td><td>Very high</td><td>3-5 bps</td><td>Primary training universe</td></tr>
+          <tr><td>NIFTY NEXT 50</td><td>50</td><td>High</td><td>5-10 bps</td><td>Extension universe</td></tr>
+          <tr><td>NIFTY 100</td><td>100</td><td>High-Medium</td><td>5-15 bps</td><td>Balanced universe</td></tr>
+          <tr><td>NIFTY 500</td><td>500</td><td>Mixed</td><td>10-50 bps</td><td>Research (slippage concerns)</td></tr>
+          <tr><td>Full NSE</td><td>700+</td><td>Many illiquid</td><td>&gt;50 bps for small-cap</td><td>Data coverage only</td></tr>
+        </table>
+
+        <h2 id="costs">5. Transaction Cost Structure</h2>
+        <p>Indian equity markets have a complex fee structure that significantly impacts strategy profitability:</p>
+        <table>
+          <tr><th>Component</th><th>Delivery (CNC)</th><th>Intraday (MIS)</th></tr>
+          <tr><td>Brokerage</td><td>₹0 (free)</td><td>Small percentage or flat fee</td></tr>
+          <tr><td>STT</td><td>Material % on both sides</td><td>Material % on sell side only</td></tr>
+          <tr><td>Exchange charges</td><td>Small % per turnover</td><td>Small % per turnover</td></tr>
+          <tr><td>SEBI turnover fee</td><td>Fixed per-crore charge</td><td>Fixed per-crore charge</td></tr>
+          <tr><td>Stamp duty (buy only)</td><td>Small % on buy</td><td>Tiny % on buy</td></tr>
+          <tr><td>GST</td><td>Levied on (brokerage + exchange + SEBI)</td><td>Levied on (brokerage + exchange + SEBI)</td></tr>
+          <tr><td>DP charges (sell)</td><td>Fixed per company</td><td>N/A</td></tr>
+        </table>
+        <p>Effective cost per leg is material for delivery trades. A strategy must generate sufficient alpha per trade just to break even after costs. With frequent rebalancing, turnover costs compound significantly.</p>
+
+        <h2 id="walkforward">6. Walk-Forward Validation</h2>
+        <p>We use a rigorous walk-forward protocol to prevent curve fitting:</p>
+        <pre>For each fold:
+  1. Train on multi-year historical window
+  2. Validate on subsequent months
+  3. Test on held-out period after validation
+  4. Step forward and repeat
+  5. Repeat
+
+Aggregate: mean(Sharpe), std(Sharpe), max(drawdown), consistency ratio</pre>
+        <p><strong>Observed walk-forward degradation:</strong> Validation Sharpe → Test Sharpe degradation is significant on NSE. This gap is inherent to regime shifts and is one of our primary research targets.</p>
+
+        <h2 id="evaluation">7. Evaluation Protocol</h2>
+        <h4>Statistical Rigor Requirements</h4>
+        <ul>
+          <li><strong>Multiple seeds:</strong> Minimum 5 random seeds per configuration</li>
+          <li><strong>Confidence intervals:</strong> Report mean ± std, and 95% CI for Sharpe ratio</li>
+          <li><strong>Paired comparisons:</strong> Wilcoxon signed-rank test for algorithm A vs B</li>
+          <li><strong>Multiple testing correction:</strong> Bonferroni or FDR when comparing &gt;2 algorithms</li>
+          <li><strong>Effect size:</strong> Cohen's d for Sharpe ratio differences</li>
+        </ul>
+
+        <h4>Validation Metrics</h4>
+        <p>We evaluate using standard risk-adjusted metrics: Sharpe ratio, Sortino ratio, maximum drawdown, Calmar ratio, win rate, and profit factor. All reported on held-out test data the agent never saw during training.</p>
+
+        <h2 id="baselines">8. Baseline Benchmarks</h2>
+        <p>Every RL strategy must be compared against:</p>
+        <ol>
+          <li><strong>Buy-and-hold NIFTY50:</strong> Equal-weight buy and hold</li>
+          <li><strong>60/40 equity/bond:</strong> NIFTY50 60% + India 10Y bond 40%</li>
+          <li><strong>Momentum factor:</strong> Long top-20% momentum, short bottom-20%</li>
+          <li><strong>Mean-reversion factor:</strong> Buy oversold, sell overbought (RSI-based)</li>
+          <li><strong>Random policy:</strong> Uniform random action selection</li>
+          <li><strong>Always hold:</strong> Never trade (zero cost baseline)</li>
+        </ol>
+
+        <h4>NIFTY50 Buy-and-Hold Reference</h4>
+        <p>Buy-and-hold NIFTY50 is our primary benchmark. Historical performance varies significantly by period, from strong bull markets to severe drawdowns during crises. Any active strategy must convincingly outperform this benchmark on a risk-adjusted basis after costs to justify the complexity.</p>
+
+        <div class="cta-bar">
+          <a href="methodology.html" class="btn-primary">Read Methodology →</a>
+          <a href="open-problems.html" class="btn-ghost">Explore Open Problems</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="./">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

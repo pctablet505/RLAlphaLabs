@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — RLAlphaLabs</title>
+  <meta name="description" content="The builder behind RLAlphaLabs — a solo research project applying reinforcement learning to Indian equity markets." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="../research/">Research</a></li>
+      <li><a href="../experiments/">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="./">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="../research/">Research</a>
+    <a href="../experiments/">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="./">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> About</div>
+    <div class="sec-label">About</div>
+    <h2 class="sec-h2">Built by One Person.<br /><span class="grad">Backed by Rigour.</span></h2>
+    <p>RLAlphaLabs is a solo research initiative. No team, no VC backing, no hype cycle — just a relentless focus on building something that actually works.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="article-prose">
+      <p class="lead">I am an independent researcher and engineer working at the intersection of reinforcement learning, quantitative finance, and systems engineering. This project is the culmination of years of studying why AI trading systems fail — and building one that doesn't cut corners.</p>
+
+      <h2>Why This Project Exists</h2>
+      <p>Most "AI trading" products fall into one of two traps: they are either overfitted backtests masquerading as strategies, or black-box SaaS tools that hide their methodology. I wanted to build something different:</p>
+      <ul>
+        <li><strong>Open about methods:</strong> Every experiment is logged, every metric is on held-out data, and every claim is caveated.</li>
+        <li><strong>Realistic about costs:</strong> Indian markets have material transaction costs per leg. Ignoring this destroys alpha. We model every fee, tax, and slippage component.</li>
+        <li><strong>Rigorous about validation:</strong> Walk-forward testing, adversarial stress tests, and paper trading gates before any real capital touches the market.</li>
+        <li><strong>Honest about stage:</strong> We are in research. One published result. More in pipeline. No live capital yet. No guarantees.</li>
+      </ul>
+
+      <h2>Background</h2>
+      <p>My work spans machine learning research (deep RL, representation learning), quantitative systems (backtesting, risk modeling, execution simulation), and production software engineering (distributed systems, performance optimization). I have spent the last several years focused specifically on the challenges of applying RL to financial time series — a domain where standard assumptions break down quickly.</p>
+
+      <h2>Principles</h2>
+      <ul>
+        <li><strong>Validation over vanity metrics:</strong> A Sharpe of 2.0 on training data means nothing if test Sharpe is 0.3.</li>
+        <li><strong>Costs are not optional:</strong> Any backtest without realistic transaction costs is fiction.</li>
+        <li><strong>Risk is part of the objective:</strong> Drawdown constraints, concentration limits, and tail-risk awareness must be baked into the agent's reward function, not applied as afterthoughts.</li>
+        <li><strong>Speed enables intuition:</strong> If an experiment takes days, you cannot iterate. GPU acceleration and vectorized environments are not luxuries — they are requirements.</li>
+      </ul>
+
+      <h2>What I'm Looking For</h2>
+      <p>This is a research-stage project seeking the right collaborators, not the most collaborators. I am particularly interested in:</p>
+      <ul>
+        <li>Investors who understand the difference between a validated prototype and a live product</li>
+        <li>Quant researchers working on regime adaptation, meta-learning, or cross-sectional modeling</li>
+        <li>ML engineers who have shipped RL systems in production</li>
+        <li>FinTech teams who need an Indian-equity RL engine they can run in-house</li>
+      </ul>
+
+      <div class="callout info">
+        <strong>No recruiters, please.</strong> I am not looking for employment. I am looking for partners who want to build something real.
+      </div>
+
+      <div class="cta-bar">
+        <a href="../research/" class="btn-primary">Explore Research</a>
+        <a href="../#contact" class="btn-ghost">Get in Touch →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="../research/">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="./">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

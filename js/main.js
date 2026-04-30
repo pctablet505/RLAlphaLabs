@@ -17,10 +17,9 @@ fetch('data/site-data.json')
 /* ─── Minimal fallback (no network needed for local dev) ────────── */
 const FALLBACK_DATA = {
   experiments: [
-    { id:'EXP-001', date:'Mar 31, 2026', algo:'SAC (JAX)', total_steps:500000, sps:7562, train_time_sec:68, n_envs:64, n_assets:20, test_sharpe:0.4726, val_sharpe:0.9428, best_val_sharpe:0.7235, test_return_pct:9.59, val_return_pct:22.85, test_win_rate:53.1, val_win_rate:64.1, test_sortino:0.4301, status:'complete' },
-    { id:'EXP-002', date:'Apr 3, 2026',  algo:'SAC (JAX)', total_steps:5000000, sps:9708, train_time_sec:518, n_envs:64, n_assets:20, test_sharpe:0.4964, val_sharpe:1.3031, best_val_sharpe:0.9936, test_return_pct:10.46, val_return_pct:35.04, test_win_rate:65.6, val_win_rate:64.1, test_sortino:0.4670, status:'complete' }
+    { id:'Result', date:'Apr 2026', algo:'Actor-Critic (JAX)', total_steps:5000000, sps:9700, train_time_sec:520, n_envs:64, n_assets:20, test_sharpe:0.49, val_sharpe:1.30, best_val_sharpe:0.99, test_return_pct:10.5, val_return_pct:35.0, test_win_rate:65.0, val_win_rate:64.0, test_sortino:0.47, status:'complete' }
   ],
-  data_coverage: { total_stocks:746, total_parquet_files:5567, granularities:{'1min':597,'3min':746,'5min':746,'10min':746,'15min':681,'30min':711,'1hour':594,'daily':746}, indices:['Nifty 50','Nifty 100','Nifty 200','Nifty 500','Nifty Midcap 100','Nifty Smallcap 100'] },
+  data_coverage: { total_stocks:700, total_parquet_files:5000, granularities:{'1min':600,'3min':700,'5min':700,'10min':700,'15min':700,'30min':700,'1hour':600,'daily':700}, indices:['Nifty 50','Nifty 100','Nifty 200','Nifty 500','Nifty Midcap 100','Nifty Smallcap 100'] },
   portfolio_sample: { symbols:['RELIANCE','HDFCBANK','INFY','TCS','ICICIBANK','HINDUNILVR','SBIN','BAJFINANCE','AXISBANK','KOTAKBANK'], names:['Reliance Industries','HDFC Bank','Infosys','TCS','ICICI Bank','Hindustan Unilever','SBI','Bajaj Finance','Axis Bank','Kotak Mahindra'] },
   equity_curves: { labels:[], rl_portfolio:[], nifty50:[] },
   hero_curve: []
@@ -128,7 +127,7 @@ function initParticles() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   HERO CHART — parameterised from real EXP-002 test stats
+   HERO CHART — illustrative equity curve
    ═══════════════════════════════════════════════════════════════ */
 function initHeroChart(data) {
   const canvas = document.getElementById('heroChart');

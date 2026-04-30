@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Problems — RLAlphaLabs</title>
+  <meta name="description" content="Twenty open research problems in RL for Indian equity trading. Collaborators welcome." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="./">Research</a></li>
+      <li><a href="../experiments/">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="./">Research</a>
+    <a href="../experiments/">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> <a href="./">Research</a> <span>/</span> Open Problems</div>
+    <div class="sec-label">Recruiting</div>
+    <h2 class="sec-h2">Open Research Problems<br /><span class="grad">What We Haven't Solved</span></h2>
+    <p>Twenty fundamental questions. If you're working on any of these, we should talk. These are the problems that keep us up at night.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="research-layout">
+      <aside class="research-sidebar">
+        <h4>Categories</h4>
+        <ul>
+          <li><a href="#fundamental">Fundamental</a></li>
+          <li><a href="#algorithm">Algorithm Design</a></li>
+          <li><a href="#feature">Feature & Data</a></li>
+          <li><a href="#risk">Risk & Portfolio</a></li>
+        </ul>
+      </aside>
+
+      <div class="article-prose">
+        <p class="lead">These questions span the full stack of RL for trading: from theoretical foundations to practical implementation. They are intentionally broad — we believe the highest-impact work sits at the intersection of multiple disciplines.</p>
+
+        <h2 id="fundamental">Fundamental Questions</h2>
+
+        <h4>Q1. Can RL consistently beat buy-and-hold on Indian equities after realistic transaction costs?</h4>
+        <p>Current evidence: mixed. SAC achieves Sharpe 0.8-1.2 on test data, but buy-and-hold NIFTY50 averaged ~12% annually (2015-2024) with minimal costs. The bar is higher than it looks.</p>
+
+        <h4>Q2. What is the minimum signal-to-noise ratio required for RL to learn profitable policies?</h4>
+        <p>NSE daily data has SNR &lt; 0.05. Is this sufficient, or does RL require higher-frequency data (minute bars) to find exploitable patterns?</p>
+
+        <h4>Q3. Can a single policy generalize across all market regimes, or does regime-switching require explicit meta-learning?</h4>
+        <p>Current single-regime policies degrade 15-30% across regime transitions. Can we build a policy that is inherently robust, or do we need a meta-learner that selects regime-specific sub-policies?</p>
+
+        <h4>Q4. What is the optimal action space for portfolio management?</h4>
+        <p>Discrete K-slot (current) vs. continuous target weights vs. hierarchical buy/sell/size? Each has trade-offs in expressiveness, sample efficiency, and interpretability.</p>
+
+        <h4>Q5. How much does survivorship bias affect RL training on Indian equities?</h4>
+        <p>We only train on stocks that still exist. How much would including delisted stocks change performance? Can we model the selection process explicitly?</p>
+
+        <h2 id="algorithm">Algorithm Design Questions</h2>
+
+        <h4>Q6. Would offline RL outperform online RL for trading?</h4>
+        <p>Offline RL (CQL, IQL, Decision Transformer) avoids the sim-to-real gap by learning from historical data directly. Does this help or hurt given the limited data scale?</p>
+
+        <h4>Q7. Can curriculum learning accelerate convergence?</h4>
+        <p>Start with simplified environments (no transaction costs, single stock) and gradually increase complexity. Does the agent learn faster, or does it overfit to the curriculum?</p>
+
+        <h4>Q8. Would model-based RL be more sample-efficient?</h4>
+        <p>Learn a dynamics model of price evolution and plan within imagined trajectories. Financial time series are notoriously hard to model — can MBPO or Dreamer help?</p>
+
+        <h4>Q9. Can multi-agent RL capture adversarial market dynamics?</h4>
+        <p>Model other market participants as agents competing for alpha. Does this improve robustness, or does it introduce instability?</p>
+
+        <h4>Q10. Would distributional RL better capture tail risks?</h4>
+        <p>The return distribution is heavy-tailed; mean Q-values miss the tail risk. Can QR-DQN or IQN improve risk-adjusted performance?</p>
+
+        <h2 id="feature">Feature & Data Questions</h2>
+
+        <h4>Q11. Would alternative data add alpha?</h4>
+        <p>News sentiment, social media, satellite imagery — currently unused. Would any of these improve NSE-specific performance given data quality and latency constraints?</p>
+
+        <h4>Q12. Can attention mechanisms over the stock universe improve cross-sectional selection?</h4>
+        <p>Current features treat stocks independently. Can a transformer encoder model inter-stock relationships for better relative-value selection?</p>
+
+        <h4>Q13. Would graph neural networks capture inter-stock relationships?</h4>
+        <p>Sector membership, supply chain links, and correlation structure as graph edges. Does this improve diversification and risk management?</p>
+
+        <h4>Q14. How much value does intraday data add over daily bars?</h4>
+        <p>Current research focuses on daily data. Minute data has 375x more bars per day but also higher noise and infrastructure requirements. Where is the sweet spot?</p>
+
+        <h4>Q15. Can time-series foundation models provide useful embeddings?</h4>
+        <p>Chronos, TimesFM, Lag-Llama — pre-trained on diverse financial data and fine-tuned for NSE. Initial experiments show marginal improvement. Is the integration suboptimal?</p>
+
+        <h2 id="risk">Risk & Portfolio Questions</h2>
+
+        <h4>Q16. How should position sizing interact with the RL policy?</h4>
+        <p>Currently, the agent chooses which stock to trade but not how much. Should sizing be part of the action space, or should a separate risk layer handle it?</p>
+
+        <h4>Q17. Can risk parity be learned end-to-end?</h4>
+        <p>Rather than applying risk management as a post-hoc constraint, can the agent internalize equal-risk-contribution allocation?</p>
+
+        <h4>Q18. Would options strategies improve risk-adjusted returns?</h4>
+        <p>NSE F&O market is liquid enough for protective puts and covered calls. Can the agent learn to use derivatives for hedging?</p>
+
+        <h4>Q19. Can the agent learn to dynamically adjust its risk appetite based on regime detection?</h4>
+        <p>Currently, risk profiles are fixed per episode. Adaptive profiles within an episode could better respond to changing market conditions.</p>
+
+        <h4>Q20. What is the optimal stop-loss strategy for RL-managed positions?</h4>
+        <p>Current hard stop-loss may conflict with the agent's learned policy. Should stops be part of the reward structure, or should the agent learn its own exit logic?</p>
+
+        <div class="callout info">
+          <strong>Interested in any of these?</strong> We are actively seeking collaborators — researchers, engineers, and students — who want to work on specific open problems. Reach out with your background and which problem you want to tackle.
+        </div>
+
+        <div class="cta-bar">
+          <a href="../#contact" class="btn-primary">Get in Touch →</a>
+          <a href="literature.html" class="btn-ghost">Literature Review</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="./">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

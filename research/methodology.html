@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Methodology — RLAlphaLabs</title>
+  <meta name="description" content="High-level methodology overview for RLAlphaLabs: reinforcement learning for Indian equity trading." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="./">Research</a></li>
+      <li><a href="../experiments/">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="./">Research</a>
+    <a href="../experiments/">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> <a href="./">Research</a> <span>/</span> Methodology</div>
+    <div class="sec-label">Approach</div>
+    <h2 class="sec-h2">Methodology<br /><span class="grad">How We Build</span></h2>
+    <p>The high-level approach: what we do and why. No proprietary details — just the public-facing framework.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="research-layout">
+      <aside class="research-sidebar">
+        <h4>In this section</h4>
+        <ul>
+          <li><a href="#overview">System Overview</a></li>
+          <li><a href="#rl">Reinforcement Learning</a></li>
+          <li><a href="#walkforward">Walk-Forward</a></li>
+          <li><a href="#dual">Dual Backends</a></li>
+          <li><a href="#costs">Cost Modeling</a></li>
+          <li><a href="#risk">Risk Integration</a></li>
+          <li><a href="#validation">Validation Gates</a></li>
+        </ul>
+      </aside>
+
+      <div class="article-prose">
+        <h2 id="overview">System Overview</h2>
+        <p>Our platform follows a closed research loop: data ingestion → feature engineering → agent training → evaluation → promotion → (eventually) live trading. Each stage is gated — an agent cannot advance without clearing measurable criteria.</p>
+        <p>At a high level, the data flows through three planes:</p>
+        <ul>
+          <li><strong>Data Plane:</strong> Historical OHLCV from broker APIs → storage → feature pipeline</li>
+          <li><strong>Model Plane:</strong> Feature vectors → custom trading environment → RL agent → checkpoint registry</li>
+          <li><strong>Simulation Plane:</strong> Trained policy → backtest engine → simulated broker with realistic costs → performance metrics</li>
+        </ul>
+        <p>The same agent code runs against both the simulated broker (for validation) and the live broker (for eventual deployment) through a common interface. This ensures that what we validate is what we trade.</p>
+
+        <h2 id="rl">Reinforcement Learning</h2>
+        <p>We use actor-critic methods with continuous action spaces and twin value networks. The algorithm is sample-efficient, entropy-regularized, and off-policy — all desirable properties for financial data where experience is limited.</p>
+        <p>We also maintain implementations of PPO, TD3, A2C, and DQN for comparative benchmarking. The primary algorithm has shown promising results in our experiments.</p>
+
+        <h2 id="walkforward">Walk-Forward Validation</h2>
+        <p>Standard train/test splits are insufficient for financial time series because they assume i.i.d. data. Markets are non-stationary — a model trained on a bull market will fail in a bear market.</p>
+        <p>Our walk-forward protocol uses rolling windows:</p>
+        <ul>
+          <li>Train on multi-year historical window</li>
+          <li>Validate on subsequent months</li>
+          <li>Test on held-out period after validation</li>
+          <li>Step forward and repeat</li>
+        </ul>
+        <p>This produces ~20-30 independent folds. An agent must generalize across <em>all</em> folds — not just one lucky period.</p>
+
+        <h2 id="dual">Dual Training Backends</h2>
+        <p>We maintain two independent training implementations:</p>
+        <ul>
+          <li><strong>JAX (primary research):</strong> XLA-compiled, pure functional, vectorized. Fastest training speed. Runs on Linux with CUDA.</li>
+          <li><strong>PyTorch (rapid iteration):</strong> Desktop native, easier debugging, rapid prototyping. Runs on desktop OS with CUDA.</li>
+        </ul>
+        <p>Both implementations are validated against each other — identical hyperparameters should produce statistically equivalent results. This cross-validation catches implementation bugs and ensures that our findings are backend-agnostic.</p>
+
+        <h2 id="costs">NSE-Realistic Cost Modeling</h2>
+        <p>Ignoring transaction costs is the most common failure mode in retail algo trading. Our simulation includes:</p>
+        <ul>
+          <li><strong>STT (Securities Transaction Tax):</strong> Material percentage on both sides for delivery</li>
+          <li><strong>Exchange charges:</strong> Small percentage per turnover</li>
+          <li><strong>SEBI turnover fee:</strong> Fixed per-crore charge</li>
+          <li><strong>Stamp duty:</strong> Small percentage on buy side</li>
+          <li><strong>GST:</strong> Levied on brokerage + exchange + SEBI</li>
+          <li><strong>DP charges:</strong> Fixed per-sell-company charge</li>
+          <li><strong>Slippage:</strong> Configurable percentage based on liquidity</li>
+        </ul>
+        <p>Effective round-trip costs for delivery trades are material. A strategy must generate sufficient alpha per trade just to break even.</p>
+
+        <h2 id="risk">Risk-Aware Reward Design</h2>
+        <p>Standard RL maximizes cumulative return. In trading, this produces reckless agents that take excessive risk. Our reward function incorporates risk discipline directly:</p>
+        <ul>
+          <li><strong>Portfolio value change:</strong> The primary signal — log returns scaled appropriately</li>
+          <li><strong>Transaction cost penalty:</strong> Penalizes excessive trading proportional to costs incurred</li>
+          <li><strong>Drawdown aversion:</strong> Penalizes declines from peak portfolio value</li>
+          <li><strong>Cash underutilization:</strong> Mild penalty for holding too much cash</li>
+          <li><strong>Concentration limits:</strong> Penalizes over-concentration in single positions</li>
+          <li><strong>Holding incentives:</strong> Rewards letting winners run, penalizes stale positions</li>
+        </ul>
+        <p>The weights are tuned to produce risk-adjusted returns rather than raw return maximization.</p>
+
+        <h2 id="validation">Promotion Gates</h2>
+        <p>An agent advances through a strict promotion ladder:</p>
+        <ol>
+          <li><strong>SIM → PAPER:</strong> Checkpoint exists + backtest metrics pass basic thresholds</li>
+          <li><strong>PAPER → CANARY:</strong> Sustained paper trading period + all health checks green</li>
+          <li><strong>CANARY → FULL:</strong> Extended stable period + no manual interventions + risk within limits</li>
+        </ol>
+        <p>Each gate has explicit, measurable criteria. No exceptions. An agent that cannot pass paper trading does not see real capital.</p>
+
+        <div class="cta-bar">
+          <a href="open-problems.html" class="btn-primary">See Open Problems →</a>
+          <a href="literature.html" class="btn-ghost">Literature Review</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="./">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

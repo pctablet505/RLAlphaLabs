@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Literature Review — RLAlphaLabs</title>
+  <meta name="description" content="Curated literature review: key papers in RL for trading, meta-learning for finance, Indian market microstructure, and risk-sensitive RL." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">NSE PORTFOLIO</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../#features">Features</a></li>
+      <li><a href="./">Research</a></li>
+      <li><a href="../experiments/">Experiments</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../#features">Features</a>
+    <a href="./">Research</a>
+    <a href="../experiments/">Experiments</a>
+    <a href="../blog/">Blog</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> <a href="./">Research</a> <span>/</span> Literature</div>
+    <div class="sec-label">Reference</div>
+    <h2 class="sec-h2">Literature Review<br /><span class="grad">What We Build On</span></h2>
+    <p>Key papers in RL for trading, meta-learning, Indian market microstructure, and risk-sensitive RL — with our commentary on relevance to NSE-specific problems.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="article-prose">
+      <h2>RL for Trading — Key Papers</h2>
+      <table>
+        <tr><th>Paper</th><th>Year</th><th>Contribution</th><th>Relevance</th></tr>
+        <tr>
+          <td>Moody & Saffell, "Learning to trade via direct RL"</td>
+          <td>2001</td>
+          <td>First RL trading agent using policy gradient methods</td>
+          <td>Historical foundation. Showed RL could learn trading policies before deep learning existed.</td>
+        </tr>
+        <tr>
+          <td>Deng et al., "Deep direct RL for financial signal representation"</td>
+          <td>2017</td>
+          <td>Deep RL for financial feature learning with autoencoder pre-training</td>
+          <td>Feature engineering insight: pre-training on price structure helps RL convergence.</td>
+        </tr>
+        <tr>
+          <td>Jiang et al., "Deep RL for portfolio management"</td>
+          <td>2017</td>
+          <td>Continuous portfolio weights with CNN encoder for price images</td>
+          <td>Action space design: continuous weights are more expressive than discrete slot selection.</td>
+        </tr>
+        <tr>
+          <td>Liang et al., "Adversarial deep RL in portfolio management"</td>
+          <td>2018</td>
+          <td>Adversarial training for robustness to market shocks</td>
+          <td>Generalization: adversarial perturbations during training improve walk-forward performance.</td>
+        </tr>
+        <tr>
+          <td>Yang et al., "Deep RL for automated stock trading (FinRL)"</td>
+          <td>2020</td>
+          <td>Open-source RL trading framework with benchmark datasets</td>
+          <td>Closest comparable system. Our architecture differs in NSE-specific cost modeling and validation rigor.</td>
+        </tr>
+        <tr>
+          <td>Liu et al., "FinRL: DRL framework for quantitative finance"</td>
+          <td>2021</td>
+          <td>Comprehensive FinRL library with multiple algorithms and markets</td>
+          <td>Baseline comparison: FinRL's default cost models are US-centric and underestimate Indian fees.</td>
+        </tr>
+        <tr>
+          <td>Fang et al., "Universal trading for order execution"</td>
+          <td>2021</td>
+          <td>Execution optimization with RL using universal value function</td>
+          <td>Market impact: our slippage model is simpler, but this is the direction for future work.</td>
+        </tr>
+        <tr>
+          <td>Sun et al., "DeepScalper: RL-based high-frequency trading"</td>
+          <td>2022</td>
+          <td>Intraday RL strategies with minute-bar data</td>
+          <td>Intraday extension: higher SNR but higher infrastructure requirements.</td>
+        </tr>
+      </table>
+
+      <h2>Meta-Learning & Regime Adaptation</h2>
+      <table>
+        <tr><th>Paper</th><th>Year</th><th>Contribution</th><th>Relevance</th></tr>
+        <tr>
+          <td>Finn et al., "Model-Agnostic Meta-Learning (MAML)"</td>
+          <td>2017</td>
+          <td>Gradient-based meta-learning for rapid adaptation</td>
+          <td>Core algorithm for our Priority 1 research direction: regime-aware meta-learning.</td>
+        </tr>
+        <tr>
+          <td>Li et al., "Meta-learning for financial trading"</td>
+          <td>2020</td>
+          <td>Meta-RL for market regime adaptation</td>
+          <td>Directly relevant: shows MAML can adapt trading policies across regimes.</td>
+        </tr>
+        <tr>
+          <td>Xu et al., "Meta-learning for trading with switching regimes"</td>
+          <td>2022</td>
+          <td>HMM + meta-policy for regime detection and adaptation</td>
+          <td>Hybrid approach: explicit regime detection + meta-learning. Promising for NSE.</td>
+        </tr>
+      </table>
+
+      <h2>Indian Market Specific</h2>
+      <table>
+        <tr><th>Paper</th><th>Year</th><th>Contribution</th><th>Relevance</th></tr>
+        <tr>
+          <td>Jain & Jain, "ML for Indian stock market prediction"</td>
+          <td>2019</td>
+          <td>NSE-specific ML approaches and feature selection</td>
+          <td>Feature relevance: confirms technical indicators have predictive power on NSE, but lower than US markets.</td>
+        </tr>
+        <tr>
+          <td>Gupta et al., "DRL for Indian equity portfolio"</td>
+          <td>2021</td>
+          <td>SAC/PPO on NIFTY50 with simplified cost models</td>
+          <td>Closest Indian RL work. Our work extends this with realistic costs, walk-forward validation, and multi-granularity data.</td>
+        </tr>
+        <tr>
+          <td>Mondal et al., "Algorithmic trading in Indian markets"</td>
+          <td>2023</td>
+          <td>Market microstructure analysis of NSE</td>
+          <td>Microstructure: bid-ask spreads, liquidity patterns, and impact costs on NSE. Informs our slippage model.</td>
+        </tr>
+      </table>
+
+      <h2>Risk Management in RL</h2>
+      <table>
+        <tr><th>Paper</th><th>Year</th><th>Contribution</th><th>Relevance</th></tr>
+        <tr>
+          <td>Tamar et al., "Risk-sensitive RL"</td>
+          <td>2015</td>
+          <td>CVaR optimization in MDPs</td>
+          <td>Theoretical foundation for risk-aware reward design. We use CVaR-inspired penalties.</td>
+        </tr>
+        <tr>
+          <td>Chow et al., "Risk-constrained RL with CVaR"</td>
+          <td>2017</td>
+          <td>Constrained optimization for tail-risk control</td>
+          <td>Constrained RL: hard constraints on drawdown rather than soft penalties. Future direction.</td>
+        </tr>
+        <tr>
+          <td>Dabney et al., "Distributional RL with quantile regression"</td>
+          <td>2018</td>
+          <td>QR-DQN for modeling full return distribution</td>
+          <td>Tail risk: modeling the full distribution rather than just mean Q-values. Relevant for Q20.</td>
+        </tr>
+      </table>
+
+      <h2>Our Commentary</h2>
+      <p>The RL-for-trading literature has grown rapidly, but several gaps remain:</p>
+      <ul>
+        <li><strong>Cost realism:</strong> Most papers use simplified cost models (flat 0.1% or less). Indian markets have complex, non-linear fee structures that significantly impact strategy design.</li>
+        <li><strong>Validation rigor:</strong> Many papers report results on a single train/test split. Walk-forward validation with multiple folds and statistical testing is rare but essential.</li>
+        <li><strong>Market specificity:</strong> Papers trained on US equities rarely generalize to Indian markets due to different microstructure, liquidity patterns, and regulatory environments.</li>
+        <li><strong>Reproducibility:</strong> Few papers release code or exact hyperparameters. We aim to be transparent about methodology even if source code remains proprietary.</li>
+      </ul>
+
+      <div class="cta-bar">
+        <a href="open-problems.html" class="btn-primary">See Open Problems →</a>
+        <a href="../experiments/" class="btn-ghost">Experiment Log</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="./">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../blog/">Blog</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
