@@ -43,8 +43,8 @@
   --t0:  #f0f4ff;   /* headings */
   --t1:  #c5d0e8;   /* body */
   --t2:  #7a92b4;   /* secondary */
-  --t3:  #3d526e;   /* muted */
-  --t4:  #1e2d45;   /* faintest */
+  --t3:  #6d84a6;   /* muted — lightened for WCAG AA contrast on dark bg */
+  --t4:  #566d90;   /* faintest — lightened for WCAG AA contrast on dark bg */
 
   /* Type */
   --sans:  'Inter', system-ui, sans-serif;
@@ -395,7 +395,7 @@ body::before {
   border-radius: 100px;
 }
 .shell-badge.up { background: var(--green-d); color: var(--green); }
-.chart-note { font-family: var(--mono); font-size: 9px; color: var(--t4); padding: 8px 16px; text-align: center; }
+.chart-note { font-family: var(--mono); font-size: 10px; color: var(--t3); padding: 8px 16px; text-align: center; }
 
 .scroll-cue {
   position: absolute;
@@ -615,7 +615,7 @@ body::before {
 .leg { font-family: var(--mono); font-size: 11px; }
 .cyan-leg { color: var(--cyan); }
 .muted-leg { color: var(--t4); }
-.chart-disc { margin-top: 14px; font-size: 11px; color: var(--t4); font-family: var(--mono); line-height: 1.6; }
+.chart-disc { margin-top: 14px; font-size: 11px; color: var(--t3); font-family: var(--mono); line-height: 1.6; }
 
 /* ═══════════════════════════════════════════════════════════════
    STAGE

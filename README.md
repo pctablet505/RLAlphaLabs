@@ -13,7 +13,7 @@ backtests or black-box hype.
 
 - **Coverage:** 700+ NSE stocks, 6 market indices, across 8 time granularities
 - **Data:** 5,000+ processed data files powering training and evaluation
-- **Agents:** PPO and DQN implemented in JAX, trained across 128 vectorized environments
+- **Agents:** actor-critic RL over a discrete, multi-slot portfolio action space, implemented in JAX and trained across many vectorized environments
 - **Validation:** walk-forward testing on held-out data (not just backtests), plus
   adversarial stress tests and a paper-trading gate — not single-run backtest metrics
 - **Costs modeled explicitly:** NSE/BSE fees, STT, and other transaction costs are

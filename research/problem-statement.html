@@ -14,7 +14,7 @@
 
 <div id="ticker">
   <div class="ticker-inner">
-    <span class="ticker-label">NSE PORTFOLIO</span>
+    <span class="ticker-label">SAMPLE UNIVERSE</span>
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
 </div>
@@ -26,7 +26,6 @@
       <li><a href="../#features">Features</a></li>
       <li><a href="./">Research</a></li>
       <li><a href="../experiments/">Experiments</a></li>
-      <li><a href="../blog/">Blog</a></li>
       <li><a href="../about/">About</a></li>
       <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
@@ -36,7 +35,6 @@
     <a href="../#features">Features</a>
     <a href="./">Research</a>
     <a href="../experiments/">Experiments</a>
-    <a href="../blog/">Blog</a>
     <a href="../about/">About</a>
     <a href="../#contact" class="nav-cta">Get in Touch</a>
   </div>
@@ -85,7 +83,7 @@
           <li><strong>State space S:</strong> Continuous, high-dimensional. Includes per-stock technical features, portfolio state, and global market context.</li>
           <li><strong>Action space A:</strong> Discrete with HOLD, CLOSE position, and OPEN position actions.</li>
           <li><strong>Transition dynamics T(s'|s,a):</strong> Determined by market price evolution (exogenous) plus position tracking (endogenous). The agent cannot influence market prices.</li>
-          <li><strong>Reward function R(s,a,s'):</strong> Composite, risk-conditioned signal combining portfolio value change, transaction cost penalty, drawdown aversion, cash underutilization penalty, and profit-taking bonuses.</li>
+          <li><strong>Reward function R(s,a,s'):</strong> Composite, risk-conditioned signal combining portfolio value change, a transaction cost penalty, and drawdown aversion, plus additional auxiliary risk terms.</li>
           <li><strong>Discount factor γ:</strong> 0.99 (standard)</li>
           <li><strong>Horizon H:</strong> 252 bars per episode (1 trading year of daily data)</li>
         </ul>
@@ -242,7 +240,6 @@ Aggregate: mean(Sharpe), std(Sharpe), max(drawdown), consistency ratio</pre>
           <b>Project</b>
           <a href="./">Research</a>
           <a href="../experiments/">Experiments</a>
-          <a href="../blog/">Blog</a>
           <a href="../about/">About</a>
           <a href="../#contact">Contact</a>
         </div>
@@ -250,7 +247,7 @@ Aggregate: mean(Sharpe), std(Sharpe), max(drawdown), consistency ratio</pre>
     </div>
     <div class="footer-bottom">
       <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
-      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. RLAlphaLabs is a research project and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
     </div>
   </div>
 </footer>

@@ -17,7 +17,7 @@ fetch('data/site-data.json')
 /* ─── Minimal fallback (no network needed for local dev) ────────── */
 const FALLBACK_DATA = {
   experiments: [
-    { id:'Result', date:'Apr 2026', algo:'Actor-Critic (JAX)', total_steps:5000000, sps:9700, train_time_sec:520, n_envs:64, n_assets:20, test_sharpe:0.49, val_sharpe:1.30, best_val_sharpe:0.99, test_return_pct:10.5, val_return_pct:35.0, test_win_rate:65.0, val_win_rate:64.0, test_sortino:0.47, status:'complete' }
+    { id:'Result', date:'Apr 2026', algo:'Actor-Critic (JAX)', total_steps:5000000, sps:9700, n_envs:64, n_assets:20, test_sharpe:0.49, val_sharpe:1.30, test_win_rate:65.0, test_sortino:0.47, status:'complete' }
   ],
   data_coverage: { total_stocks:700, total_parquet_files:5000, granularities:{'1min':600,'3min':700,'5min':700,'10min':700,'15min':700,'30min':700,'1hour':600,'daily':700}, indices:['Nifty 50','Nifty 100','Nifty 200','Nifty 500','Nifty Midcap 100','Nifty Smallcap 100'] },
   portfolio_sample: { symbols:['RELIANCE','HDFCBANK','INFY','TCS','ICICIBANK','HINDUNILVR','SBIN','BAJFINANCE','AXISBANK','KOTAKBANK'], names:['Reliance Industries','HDFC Bank','Infosys','TCS','ICICI Bank','Hindustan Unilever','SBI','Bajaj Finance','Axis Bank','Kotak Mahindra'] },
@@ -54,13 +54,14 @@ function initNav() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   TICKER — real NIFTY 50 symbols with fake but plausible prices
+   TICKER — illustrative sample universe symbols with placeholder,
+   non-live prices/changes. NOT live prices, NOT holdings.
    ═══════════════════════════════════════════════════════════════ */
 function initTicker(symbols) {
   const track = document.getElementById('tickerTrack');
   if (!track) return;
 
-  // Generate plausible prices/changes (not real, labeled as portfolio sample)
+  // Placeholder prices/changes — illustrative only, not real market data
   const seed_prices = [2850, 1680, 1520, 3940, 1280, 2440, 820, 6890, 1140, 1890,
                        720, 4200, 1360, 4800, 980, 2100, 1890, 430, 2760, 1150];
   const seed_chg    = [1.2, -0.4, 0.8, -1.1, 2.1, 0.3, -0.7, 1.5, -0.2, 0.9,
@@ -139,9 +140,7 @@ function initHeroChart(data) {
   if (!n) return;
 
   const labels = Array.from({ length: n }, (_, i) => i);
-  const ret    = ((curve[n - 1] / curve[0]) - 1) * 100;
-  const badge  = document.getElementById('heroReturn');
-  if (badge) badge.textContent = (ret >= 0 ? '+' : '') + ret.toFixed(1) + '%';
+  // Hero curve is illustrative shape only — no numeric return figure is derived or displayed.
 
   const grad = ctx.createLinearGradient(0, 0, 0, 200);
   grad.addColorStop(0, 'rgba(0,200,240,0.25)');
@@ -260,12 +259,11 @@ function initExperimentTable(experiments) {
       <td style="color:var(--t2)">${e.algo}</td>
       <td>${(e.total_steps / 1e6).toFixed(1)}M</td>
       <td class="${e.sps > 9000 ? 'val-good' : 'val-ok'}">${e.sps.toLocaleString()}</td>
-      <td style="color:var(--t2)">${e.train_time_sec}s</td>
       <td style="color:var(--t3)">${e.n_envs}</td>
-      <td class="${e.test_sharpe >= 0.45 ? 'val-good' : 'val-ok'}">${e.test_sharpe.toFixed(4)}</td>
-      <td class="${e.val_sharpe >= 1.0 ? 'val-good' : 'val-ok'}">${e.val_sharpe.toFixed(4)}</td>
+      <td class="${e.test_sharpe >= 0.45 ? 'val-good' : 'val-ok'}">${e.test_sharpe.toFixed(2)}</td>
+      <td class="${e.val_sharpe >= 1.0 ? 'val-good' : 'val-ok'}">${e.val_sharpe.toFixed(2)}</td>
       <td class="${e.test_win_rate >= 60 ? 'val-good' : 'val-ok'}">${e.test_win_rate.toFixed(1)}%</td>
-      <td style="color:var(--t2)">${e.test_sortino.toFixed(4)}</td>
+      <td style="color:var(--t2)">${e.test_sortino.toFixed(2)}</td>
       <td><span class="status-done">✓ ${e.status}</span></td>
     </tr>
   `).join('');

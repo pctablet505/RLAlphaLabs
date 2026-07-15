@@ -14,7 +14,7 @@
 
 <div id="ticker">
   <div class="ticker-inner">
-    <span class="ticker-label">NSE PORTFOLIO</span>
+    <span class="ticker-label">SAMPLE UNIVERSE</span>
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
 </div>
@@ -26,7 +26,6 @@
       <li><a href="../#features">Features</a></li>
       <li><a href="./">Research</a></li>
       <li><a href="../experiments/">Experiments</a></li>
-      <li><a href="../blog/">Blog</a></li>
       <li><a href="../about/">About</a></li>
       <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
@@ -36,7 +35,6 @@
     <a href="../#features">Features</a>
     <a href="./">Research</a>
     <a href="../experiments/">Experiments</a>
-    <a href="../blog/">Blog</a>
     <a href="../about/">About</a>
     <a href="../#contact" class="nav-cta">Get in Touch</a>
   </div>
@@ -70,13 +68,13 @@
         <h2 id="fundamental">Fundamental Questions</h2>
 
         <h4>Q1. Can RL consistently beat buy-and-hold on Indian equities after realistic transaction costs?</h4>
-        <p>Current evidence: mixed. SAC achieves Sharpe 0.8-1.2 on test data, but buy-and-hold NIFTY50 averaged ~12% annually (2015-2024) with minimal costs. The bar is higher than it looks.</p>
+        <p>Current evidence: mixed. Our agents show positive but not-yet-competitive risk-adjusted returns on held-out test data, while buy-and-hold NIFTY50 averaged ~12% annually (2015-2024) with minimal costs. The bar is higher than it looks.</p>
 
         <h4>Q2. What is the minimum signal-to-noise ratio required for RL to learn profitable policies?</h4>
         <p>NSE daily data has SNR &lt; 0.05. Is this sufficient, or does RL require higher-frequency data (minute bars) to find exploitable patterns?</p>
 
         <h4>Q3. Can a single policy generalize across all market regimes, or does regime-switching require explicit meta-learning?</h4>
-        <p>Current single-regime policies degrade 15-30% across regime transitions. Can we build a policy that is inherently robust, or do we need a meta-learner that selects regime-specific sub-policies?</p>
+        <p>Current single-regime policies degrade meaningfully across regime transitions. Can we build a policy that is inherently robust, or do we need a meta-learner that selects regime-specific sub-policies?</p>
 
         <h4>Q4. What is the optimal action space for portfolio management?</h4>
         <p>Discrete K-slot (current) vs. continuous target weights vs. hierarchical buy/sell/size? Each has trade-offs in expressiveness, sample efficiency, and interpretability.</p>
@@ -167,7 +165,6 @@
           <b>Project</b>
           <a href="./">Research</a>
           <a href="../experiments/">Experiments</a>
-          <a href="../blog/">Blog</a>
           <a href="../about/">About</a>
           <a href="../#contact">Contact</a>
         </div>
@@ -175,7 +172,7 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
-      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. RLAlphaLabs is a research project and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
     </div>
   </div>
 </footer>

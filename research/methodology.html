@@ -14,7 +14,7 @@
 
 <div id="ticker">
   <div class="ticker-inner">
-    <span class="ticker-label">NSE PORTFOLIO</span>
+    <span class="ticker-label">SAMPLE UNIVERSE</span>
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
 </div>
@@ -26,7 +26,6 @@
       <li><a href="../#features">Features</a></li>
       <li><a href="./">Research</a></li>
       <li><a href="../experiments/">Experiments</a></li>
-      <li><a href="../blog/">Blog</a></li>
       <li><a href="../about/">About</a></li>
       <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
@@ -36,7 +35,6 @@
     <a href="../#features">Features</a>
     <a href="./">Research</a>
     <a href="../experiments/">Experiments</a>
-    <a href="../blog/">Blog</a>
     <a href="../about/">About</a>
     <a href="../#contact" class="nav-cta">Get in Touch</a>
   </div>
@@ -79,8 +77,8 @@
         <p>The same agent code runs against both the simulated broker (for validation) and the live broker (for eventual deployment) through a common interface. This ensures that what we validate is what we trade.</p>
 
         <h2 id="rl">Reinforcement Learning</h2>
-        <p>We use actor-critic methods with continuous action spaces and twin value networks. The algorithm is sample-efficient, entropy-regularized, and off-policy — all desirable properties for financial data where experience is limited.</p>
-        <p>We also maintain implementations of PPO, TD3, A2C, and DQN for comparative benchmarking. The primary algorithm has shown promising results in our experiments.</p>
+        <p>Our primary agent is an actor-critic method operating over a discrete, multi-slot portfolio action space, with twin value networks and entropy regularization to encourage exploration. These properties are desirable for financial data, where experience is limited and the signal-to-noise ratio is low.</p>
+        <p>We also maintain additional algorithm implementations for comparative benchmarking. The primary algorithm has shown promising results in our experiments.</p>
 
         <h2 id="walkforward">Walk-Forward Validation</h2>
         <p>Standard train/test splits are insufficient for financial time series because they assume i.i.d. data. Markets are non-stationary — a model trained on a bull market will fail in a bear market.</p>
@@ -117,14 +115,11 @@
         <h2 id="risk">Risk-Aware Reward Design</h2>
         <p>Standard RL maximizes cumulative return. In trading, this produces reckless agents that take excessive risk. Our reward function incorporates risk discipline directly:</p>
         <ul>
-          <li><strong>Portfolio value change:</strong> The primary signal — log returns scaled appropriately</li>
+          <li><strong>Portfolio value change:</strong> The primary signal — risk-adjusted returns rather than raw PnL</li>
           <li><strong>Transaction cost penalty:</strong> Penalizes excessive trading proportional to costs incurred</li>
           <li><strong>Drawdown aversion:</strong> Penalizes declines from peak portfolio value</li>
-          <li><strong>Cash underutilization:</strong> Mild penalty for holding too much cash</li>
-          <li><strong>Concentration limits:</strong> Penalizes over-concentration in single positions</li>
-          <li><strong>Holding incentives:</strong> Rewards letting winners run, penalizes stale positions</li>
         </ul>
-        <p>The weights are tuned to produce risk-adjusted returns rather than raw return maximization.</p>
+        <p>Additional auxiliary terms encode further risk discipline. The component weights are tuned to produce risk-adjusted returns rather than raw return maximization.</p>
 
         <h2 id="validation">Promotion Gates</h2>
         <p>An agent advances through a strict promotion ladder:</p>
@@ -163,7 +158,6 @@
           <b>Project</b>
           <a href="./">Research</a>
           <a href="../experiments/">Experiments</a>
-          <a href="../blog/">Blog</a>
           <a href="../about/">About</a>
           <a href="../#contact">Contact</a>
         </div>
@@ -171,7 +165,7 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
-      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. RLAlphaLabs is a research project and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
     </div>
   </div>
 </footer>
