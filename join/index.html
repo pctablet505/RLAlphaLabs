@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join — RLAlphaLabs</title>
+  <meta name="description" content="What working with RLAlphaLabs actually looks like: a solo, self-funded, pre-revenue research project — comp reality, the environment, and the open projects." />
+  <meta property="og:title" content="Join — RLAlphaLabs" />
+  <meta property="og:description" content="The honest picture before you apply: solo founder, no live capital, mostly-unpaid today — and the research environment itself." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">SAMPLE UNIVERSE</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="../traction/">Traction</a></li>
+      <li><a href="../research/">Research</a></li>
+      <li><a href="./">Join</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../traction/">Traction</a>
+    <a href="../research/">Research</a>
+    <a href="./">Join</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Join</div>
+    <div class="sec-label">Join</div>
+    <h2 class="sec-h2">The Honest Picture,<br /><span class="grad">Before You Apply</span></h2>
+    <p>Read this whole page before you reach out. It's written so nobody joins expecting something this project isn't.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="article-prose">
+
+      <h2>The reality, up front</h2>
+      <div class="callout warn">
+        <strong>This is a solo, self-funded research project.</strong> You would be the only other person, working directly with one founder — no other team, no manager, no peers, no org chart. There is currently no defined hiring plan; we are evaluating a small number of collaborators (roughly one to three) at a time, not building out a headcount.
+      </div>
+
+      <h3>Compensation, stated plainly</h3>
+      <p>There is no single answer — it depends on the track, and every track is stated honestly rather than dressed up:</p>
+      <ul>
+        <li><strong>Unpaid research collaboration with co-authorship.</strong> You work on an open problem, your contribution is credited, and the work itself (plus the resulting writeup or result) is the compensation.</li>
+        <li><strong>Equity partnership.</strong> For a deeper, ongoing commitment, equity in the research venture can be discussed directly — terms are individually negotiated, never posted publicly.</li>
+        <li><strong>A role that may become paid if and when funding is secured</strong> — with no guarantee of timing, and no guarantee that it occurs at all.</li>
+      </ul>
+      <p><strong>The realistic default: today, pre-funding, nearly every slot is unpaid.</strong> If you need paid work now, this is not that — and it's better to know that before either of us spends time on a conversation.</p>
+
+      <h3>No live capital, no revenue</h3>
+      <p>There is currently no live capital deployed and no revenue. There is no near-term funded-employment path independent of a successful raise. This is more decision-relevant than any GPU spec below, which is why it's stated here rather than buried in an FAQ.</p>
+
+      <h2>A day in the life — the environment</h2>
+      <p>This part is the genuinely engaging reason to work here, and it's real — but every claim below is checked against what's actually wired today, not what's designed on paper.</p>
+      <ul>
+        <li><strong>You launch from a single frozen config</strong> — one source of truth for a run, not a pile of ad-hoc notebooks and hand-edited scripts.</li>
+        <li><strong>Automated run-health guardrails abort pathological runs early.</strong> You won't waste a weekend on a run that was dead in the first hour. <em>(Guardrails are implemented for the core failure modes; broader coverage is still expanding — designed for more than is live today.)</em></li>
+        <li><strong>Every run produces a deterministic evaluation dossier</strong> on held-out data before it's taken seriously.</li>
+        <li><strong>An agent advances — sim → paper → canary → full — only by clearing a qualitative set of promotion gates</strong>, not by looking good on one chart. <em>(Sim and paper stages are live; canary/full-deployment stages are designed, not yet built — there is no live capital today, see above.)</em></li>
+        <li><strong>You work inside a reproducible pipeline:</strong> same seed, same code, same data → the same result, byte for byte. Determinism is a hard requirement, not an aspiration.</li>
+      </ul>
+      <p>In short: a rigorous, guard-railed research pipeline — not a pile of notebooks — but still a one-person infrastructure, so "designed" and "built" are not always the same thing, and this page says which is which.</p>
+
+      <h2>How your experiment would be run</h2>
+      <p>Every experiment starts from the same template, adapted from the one used for every published result on this site:</p>
+      <ul>
+        <li><strong>Fixed / independent / dependent variables</strong> stated explicitly before the run starts, not reverse-engineered from the result afterward.</li>
+        <li><strong>Multiple random seeds</strong> where the question requires statistical confidence, not a single lucky run.</li>
+        <li><strong>Pre-declared statistical tests</strong> (confidence intervals, effect sizes) rather than eyeballing a chart.</li>
+        <li><strong>Explicit success criteria written down before you start</strong> — including what a negative result looks like, and a commitment to report it as a negative result rather than quietly shelving it.</li>
+      </ul>
+
+      <h2>The hard constraints you'd be fighting</h2>
+      <p>Beating these constraints — not working around them — is the actual job:</p>
+      <ul>
+        <li><strong>Low signal-to-noise ratio.</strong> Financial time series are close to the hardest domain in applied RL for exactly this reason.</li>
+        <li><strong>Roughly a decade of daily history per stock.</strong> Not the scale of a modern deep-learning dataset — every method has to work with limited data.</li>
+        <li><strong>No order-book, fundamental, or alternative data</strong> in scope today — price/volume-derived signals only.</li>
+        <li><strong>Survivorship bias</strong> in the underlying universe is a known, unresolved limitation, not something already solved.</li>
+        <li><strong>Single consumer GPU, one workstation, no cloud.</strong> Everything has to run efficiently on hardware you could buy yourself.</li>
+      </ul>
+
+      <h2>What you'd own</h2>
+      <p>These are real, currently-open problems — not busywork. Full detail, with the reasoning behind each, lives on <a href="../research/open-problems.html">Open Research Problems</a>.</p>
+      <ul>
+        <li><strong>Regime-aware meta-learning</strong> — agents that detect and adapt to regime shifts instead of degrading silently.</li>
+        <li><strong>Continuous target-weight action spaces</strong> — moving beyond discrete position sizing toward continuous portfolio-weight control.</li>
+        <li><strong>Offline RL (CQL / IQL)</strong> — learning from logged data to reduce reliance on simulation-to-reality transfer.</li>
+        <li><strong>Attention / transformer cross-sectional selection</strong> — architectures that reason jointly across the stock universe, not one asset at a time.</li>
+        <li><strong>Multi-objective / Pareto RL</strong> — treating return and risk as a genuine trade-off frontier instead of a single scalar reward.</li>
+      </ul>
+
+      <h2>Role scopes &amp; logistics</h2>
+      <ul>
+        <li><strong>Research collaborator:</strong> owns one open problem end-to-end — hypothesis, experiment, writeup.</li>
+        <li><strong>ML / RL engineer:</strong> works on the training loop, the walk-forward evaluation harness, and pipeline reliability (no internal module or constant names shared outside the codebase — this page describes scope, not implementation).</li>
+        <li><strong>Stack in practice:</strong> Python, a JAX-based training loop, PyTorch for parts of the pipeline, a walk-forward evaluation harness, Parquet/SQLite for data.</li>
+        <li><strong>Remote, async-friendly.</strong> No fixed office, no fixed time zone requirement — overlap for regular sync is appreciated, not mandated.</li>
+      </ul>
+
+      <div class="cta-bar">
+        <a href="#interest" class="btn-primary">Express Interest</a>
+        <a href="../research/open-problems.html" class="btn-ghost">See Open Problems →</a>
+      </div>
+
+      <h2 id="interest">Express interest</h2>
+      <p>This is a lightweight qualifying form, not a raw inbox — it helps focus a reply on your actual question. It opens your own email client with the message pre-filled; nothing is stored on any RLAlphaLabs server. See the <a href="../privacy/">privacy notice</a> for details.</p>
+    </div>
+
+    <div class="contact-right" style="max-width:520px;margin:0 auto;">
+      <form class="cform" id="joinForm" onsubmit="handleSubmit(event)">
+        <div class="cform-group">
+          <label for="join-name">Name</label>
+          <input id="join-name" type="text" name="name" placeholder="Your name" required />
+        </div>
+        <div class="cform-group">
+          <label for="join-email">Email</label>
+          <input id="join-email" type="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="cform-group">
+          <label for="join-type">Which track?</label>
+          <select id="join-type" name="type">
+            <option value="">Select one</option>
+            <option>Research Collaborator</option>
+            <option>ML / RL Engineer</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="cform-group">
+          <label for="join-message">Message</label>
+          <textarea id="join-message" name="message" rows="4" placeholder="Which open problem interests you, and what's your background?"></textarea>
+        </div>
+        <button type="submit" class="btn-primary full">Send Message</button>
+        <p class="cform-note">Opens your email client. See our <a href="../privacy/">privacy notice</a>.</p>
+      </form>
+      <div class="cform-success" id="formSuccess" style="display:none">
+        <div class="success-check">✓</div>
+        <h3>Your email client should now be open</h3>
+        <p>We've pre-filled a message to pctablet505@gmail.com — just review and hit send. If nothing opened, email us directly at pctablet505@gmail.com.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="../research/">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+        <div class="fnav-col">
+          <b>For You</b>
+          <a href="../traction/">Investors</a>
+          <a href="../join/">Collaborators / Join</a>
+          <a href="../privacy/">Privacy Notice</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. RLAlphaLabs is a research project and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

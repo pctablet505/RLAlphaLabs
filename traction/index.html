@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traction — RLAlphaLabs</title>
+  <meta name="description" content="Where RLAlphaLabs actually stands: one validated baseline result, the market thesis, business-model direction, regulatory posture, and a compliance-ordered roadmap." />
+  <meta property="og:title" content="Traction — RLAlphaLabs" />
+  <meta property="og:description" content="An honest investor overview: one validated baseline, the market thesis, and a passive invitation to talk — not a pitch deck." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-label">SAMPLE UNIVERSE</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+    <ul class="nav-links">
+      <li><a href="./">Traction</a></li>
+      <li><a href="../research/">Research</a></li>
+      <li><a href="../join/">Join</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="./">Traction</a>
+    <a href="../research/">Research</a>
+    <a href="../join/">Join</a>
+    <a href="../about/">About</a>
+    <a href="../#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Traction</div>
+    <div class="sec-label">Traction</div>
+    <h2 class="sec-h2">Where This Actually Stands.<br /><span class="grad">No Trend Dressed Up.</span></h2>
+    <p>One validated baseline result, honestly labeled — plus the thesis, the model, and the posture behind it. Not a pitch deck.</p>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="article-prose">
+
+      <div class="callout warn">
+        <strong>RLAlphaLabs is not registered with SEBI in any capacity.</strong> We do not manage money for clients, do not accept funds for trading, do not provide investment advice, and do not offer any investment scheme or product. Any investor discussion on this page concerns equity participation in the research venture only — never money into a trading strategy.
+      </div>
+
+      <h2>Progress, honestly framed</h2>
+      <p>There is one validated baseline result to date, from one genuine training run evaluated on held-out data. We are not going to dress a single data point up as a trend line — that would be worse than just saying so. A second hypothesis-driven experiment is in progress; when it lands, this section updates to show the real trajectory, not before.</p>
+
+      <div class="exp-metrics">
+        <div class="exp-metric"><div class="val">0.49</div><div class="lbl">Test Sharpe</div></div>
+        <div class="exp-metric"><div class="val">65%</div><div class="lbl">Test Win Rate</div></div>
+        <div class="exp-metric"><div class="val">1</div><div class="lbl">Validated Baseline</div></div>
+        <div class="exp-metric"><div class="val">1</div><div class="lbl">More in Pipeline</div></div>
+      </div>
+      <p class="chart-disc">
+        Simulated/backtest results on historical data; past performance, simulated or real, does not guarantee future results; not investment advice; not an offer of securities.
+        Full write-up, caveats (single seed, no walk-forward yet), and the equity curve live on
+        <a href="../experiments/scaled-training.html">the Experiments page</a> — we link out rather than duplicate the chart, so there is exactly one normalized curve per experiment, not a re-drawn copy.
+      </p>
+
+      <h2>Market thesis</h2>
+      <p>Indian equity markets are structurally harder to trade profitably than they look, and structurally under-served by existing tooling:</p>
+      <ul>
+        <li><strong>Transaction costs are materially higher and more complex than US markets</strong> — STT, stamp duty, exchange charges, and GST stack up and meaningfully change what "profitable" means after costs.</li>
+        <li><strong>Most published RL-for-trading research is US-centric</strong> and systematically underestimates Indian fee structures — a strategy that looks profitable in a US-calibrated backtest often is not, once NSE-realistic costs are applied.</li>
+        <li><strong>India-specific RL trading research is sparse</strong> relative to the size and growth of the market.</li>
+        <li><strong>Retail participation has been roughly half of NSE turnover since 2020</strong> — a large, structurally distinct market where imported solutions built for other markets tend to fail quietly.</li>
+      </ul>
+      <p>The opportunity is not "RL trading" in the abstract — it's a rigorous, cost-realistic system built for this specific market from first principles.</p>
+
+      <h2>Business model — directional</h2>
+      <p>We are currently leaning toward <strong>B2B: licensing a validated RL engine to funds and brokerages</strong>, rather than running a proprietary trading book directly or selling a consumer signal product — though this is a direction, not a locked decision, and it will be revisited as the research and regulatory picture firms up. The rough framing: a large, underserved base of Indian brokerages and smaller funds that want systematic capability without building an RL research team from scratch.</p>
+
+      <h2>Why rigor is the moat</h2>
+      <p>The differentiator is not "our returns are better" — current results are candidly mixed, and we say so throughout this site. The differentiator is a system that is <strong>explainable, self-hosted, runs with no dependency on third-party cloud infrastructure, and is auditable end-to-end</strong> — every claim traceable to a logged experiment, every promotion decision gated by pre-declared, overfitting-aware criteria rather than a chart someone liked. In a category full of backtested fiction, a process a counterparty can actually audit is the asset.</p>
+
+      <h2>Regulatory posture</h2>
+      <p>We are aware of the SEBI frameworks that would govern any future client-facing deployment of this system — algorithmic-trading rules, portfolio-management/AIF regimes, and investment-adviser / research-analyst registration regimes. Any client-facing deployment or capital-management arrangement will occur only after the applicable registrations and exchange approvals are in place. Nothing on this site is, or is intended to be, a step toward operating any of those regimes without the required registration.</p>
+
+      <h2>Roadmap — compliance ordered</h2>
+      <p>Directional milestones, not commitments. Dates are rough quarters; the compliance and registration pathway is deliberately sequenced <em>before</em> any live-deployment or white-label milestone, not after.</p>
+      <table>
+        <thead><tr><th>Roughly when</th><th>Milestone</th></tr></thead>
+        <tbody>
+          <tr><td>Now</td><td>Walk-forward validation, adversarial stress testing, multi-seed statistical confidence</td></tr>
+          <tr><td>Next</td><td>Paper-trading gate (live simulation, no real capital) sustained over an extended window</td></tr>
+          <tr><td>Then</td><td>Regulatory / compliance pathway review — before any capital-facing step, not after</td></tr>
+          <tr><td>Later</td><td>Canary deployment under applicable registrations, small scale, tightly bounded risk</td></tr>
+          <tr><td>Directional</td><td>B2B licensing conversations, contingent on the above clearing in order</td></tr>
+        </tbody>
+      </table>
+
+      <h2>The invitation</h2>
+      <p>Open to conversations with aligned investors and partners. Any investor discussion concerns equity participation in the research venture only — <strong>nothing on this site is an offer, invitation, or solicitation to purchase securities or invest in any scheme.</strong> There is no public raise open, no stated amount, and no securities terms published anywhere on this site; specifics are discussed only in a private, individually-screened conversation.</p>
+
+      <div class="callout info">
+        <strong>Get in touch directly</strong> rather than through a public self-serve form — email <a href="mailto:pctablet505@gmail.com">pctablet505@gmail.com</a> with a short note on your background and interest. See the <a href="../privacy/">privacy notice</a> for what happens to that email.
+      </div>
+
+      <div class="cta-bar">
+        <a href="mailto:pctablet505@gmail.com" class="btn-primary">Get in Touch</a>
+        <a href="../research/" class="btn-ghost">Explore the Research →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
+        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="fnav-col">
+          <b>Platform</b>
+          <a href="../#features">Features</a>
+          <a href="../#pipeline">Pipeline</a>
+          <a href="../#performance">Results</a>
+          <a href="../#technology">Technology</a>
+        </div>
+        <div class="fnav-col">
+          <b>Project</b>
+          <a href="../research/">Research</a>
+          <a href="../experiments/">Experiments</a>
+          <a href="../about/">About</a>
+          <a href="../#contact">Contact</a>
+        </div>
+        <div class="fnav-col">
+          <b>For You</b>
+          <a href="../traction/">Investors</a>
+          <a href="../join/">Collaborators / Join</a>
+          <a href="../privacy/">Privacy Notice</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
+      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. RLAlphaLabs is a research project and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
