@@ -7,7 +7,7 @@ quantitative trading on Indian markets — built with a focus on realistic costs
 rigorous validation, and honesty about what actually works, rather than overfit
 backtests or black-box hype.
 
-**Live site:** https://pctablet505.github.io/RLAlphaLabs/
+**Live site:** https://rlalphalabs.mattersettle.com/
 
 ## Highlights
 
@@ -25,8 +25,8 @@ backtests or black-box hype.
 
 This project is in an active **research phase** — not a live trading product.
 There is no live capital deployed and no performance guarantee. See the
-[Research](https://pctablet505.github.io/RLAlphaLabs/research/) page for
-published results and methodology, and [About](https://pctablet505.github.io/RLAlphaLabs/about/)
+[Research](https://rlalphalabs.mattersettle.com/research/) page for
+published results and methodology, and [About](https://rlalphalabs.mattersettle.com/about/)
 for the project's goals and principles.
 
 ## About this repository
@@ -36,5 +36,5 @@ This repository hosts the public **GitHub Pages site** for RLAlphaLabs
 codebase — data pipelines, environments, and training infrastructure — is
 private; this site is the public window into that work.
 
-- Site: https://pctablet505.github.io/RLAlphaLabs/
+- Site: https://rlalphalabs.mattersettle.com/
 - Author: [github.com/pctablet505](https://github.com/pctablet505)
