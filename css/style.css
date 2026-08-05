@@ -883,20 +883,15 @@ h2:hover .anchor-link, h3:hover .anchor-link { opacity: 1; }
   .psample-wrap { grid-template-columns: 1fr; padding: 34px; }
   .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
   .research-layout { grid-template-columns: 1fr; }
-  .research-sidebar { position: static; order: 2; margin-top: 40px; }
   .footer-top { grid-template-columns: 1fr; gap: 34px; }
 }
 @media (max-width: 860px) {
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .theme-toggle { margin-left: auto; }
-  section { padding: 80px 0; }
-  .hero-stats { gap: 16px; }
-  .hstat-sep { display: none; }
   .about-card { flex-direction: column; }
 }
 @media (max-width: 560px) {
-  .hero-h1 { letter-spacing: -0.8px; }
   .cform, .cta-bar { padding: 24px; }
   .footer-nav { grid-template-columns: 1fr 1fr; }
   .metric-row { grid-template-columns: 1fr 1fr; }
@@ -909,4 +904,145 @@ h2:hover .anchor-link, h3:hover .anchor-link { opacity: 1; }
   .ticker-track { animation: none; }
   .scroll-cue, .pipe-status.active { animation: none; }
   #heroParticles { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   11. MOBILE UX ENGINEERING (≤860px / touch)
+   Desktop styles above are untouched — everything here only
+   activates on small screens or touch devices.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Touch devices: kill sticky-hover lifts, show anchors, kill tap flash */
+@media (hover: none) {
+  body { -webkit-tap-highlight-color: transparent; }
+  .prob-card:hover, .feat-card:hover, .mcard:hover, .tech-card:hover,
+  .uc-card:hover, .content-card:hover, .stock-chip:hover, .stage-card:hover {
+    transform: none; box-shadow: none;
+  }
+  .anchor-link { opacity: 0.6; }
+  #sectionDots { display: none; }
+}
+
+@media (max-width: 860px) {
+  body { line-height: 1.65; }
+  section { padding: 72px 0; }
+  .container { padding: 0 20px; }
+  .sec-p { font-size: 16px; margin-bottom: 38px; }
+
+  /* Ticker slimmer */
+  .ticker-inner { height: 32px; }
+  .ticker-label { font-size: 8px; padding: 0 10px; letter-spacing: 1px; }
+
+  /* Hero — svh so mobile browser chrome doesn't jump the layout */
+  #hero { min-height: calc(100svh - 96px); padding: 44px 0 72px; }
+  .hero-inner { gap: 38px; }
+  .hero-h1 { font-size: clamp(34px, 9.6vw, 46px); letter-spacing: -1px; margin-bottom: 16px; }
+  .hero-p { font-size: 16px; margin-bottom: 28px; }
+  .hero-pills { margin-bottom: 20px; }
+  .hero-ctas { flex-direction: column; gap: 12px; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-ghost { width: 100%; text-align: center; padding: 15px 28px; font-size: 16px; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; margin-bottom: 30px; }
+  .hstat-sep { display: none; }
+  .hstat-val { font-size: 24px; }
+  .scroll-cue { display: none; }
+
+  /* Touch targets ≥ 40px */
+  .theme-toggle { width: 40px; height: 40px; }
+  .hamburger { padding: 12px 10px; margin-right: -10px; }
+
+  /* Mobile menu — animated collapse, 48px targets */
+  .mobile-menu {
+    display: flex;
+    max-height: 0; overflow: hidden;
+    padding: 0 24px;
+    border-bottom: 1px solid transparent;
+    transition: max-height 0.32s var(--ease), padding 0.32s var(--ease), border-color 0.32s var(--ease);
+  }
+  .mobile-menu.open { max-height: 520px; padding: 8px 24px 16px; border-bottom-color: var(--border); }
+  .mobile-menu a { min-height: 48px; display: flex; align-items: center; font-size: 16px; }
+
+  /* Menu backdrop (element created by JS) */
+  .menu-backdrop {
+    position: fixed; inset: 0; z-index: 190;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+  .menu-backdrop.show { opacity: 1; pointer-events: auto; }
+
+  /* Cards & grids breathe on small screens */
+  .feat-grid, .prob-grid, .uc-grid, .stage-grid { gap: 14px; }
+  .feat-card, .prob-card, .uc-card, .stage-card { padding: 24px 22px; }
+  .psample-wrap { padding: 28px 22px; gap: 32px; }
+  .mcard { padding: 20px; }
+  .mcard-val { font-size: 27px; }
+  .tech-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tech-card { padding: 14px; gap: 10px; }
+  .tech-badge { width: 38px; height: 38px; font-size: 11px; }
+  .about-card, .cform { padding: 26px 22px; }
+  .about-facts { gap: 10px; }
+  .fact-card { padding: 16px; }
+  .fact-num { font-size: 19px; }
+  .pipe-step { gap: 16px; }
+  .perf-chart-wrap { padding: 18px 14px; }
+
+  /* iOS: inputs < 16px trigger focus zoom — prevent it */
+  .cform-group input, .cform-group select, .cform-group textarea { font-size: 16px; }
+
+  /* Tables scroll smoothly on touch */
+  .exp-table-wrap { -webkit-overflow-scrolling: touch; }
+
+  /* Article TOC — collapsed panel above the prose */
+  .research-sidebar {
+    position: static; order: -1; margin: 0 0 30px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--rl); padding: 14px 18px;
+  }
+  .research-sidebar .toc-title {
+    cursor: pointer; margin-bottom: 0; padding: 6px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    user-select: none;
+  }
+  .research-sidebar .toc-title::after { content: '+'; font-size: 15px; color: var(--t3); }
+  .research-sidebar.toc-open .toc-title::after { content: '–'; }
+  #tocList {
+    max-height: 0; overflow: hidden; border-left: none;
+    transition: max-height 0.3s var(--ease), margin 0.3s var(--ease);
+    margin-top: 0;
+  }
+  .research-sidebar.toc-open #tocList { max-height: 640px; margin-top: 8px; }
+  .toc-reading-time { margin-top: 10px; }
+
+  /* Fixed chrome respects notches / home indicator */
+  #backTop {
+    width: 44px; height: 44px; right: 16px;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Sticky bottom CTA (home only, injected by JS) */
+  #mobileCta {
+    position: fixed; left: 14px; right: 14px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 180;
+    transform: translateY(140%);
+    transition: transform 0.35s var(--ease);
+  }
+  #mobileCta.show { transform: none; }
+  #mobileCta .btn-primary {
+    display: block; width: 100%; text-align: center;
+    padding: 15px; font-size: 16px; border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Footer bottom padding so the sticky CTA never covers the disclaimer */
+  footer { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (max-width: 560px) {
+  .hero-h1 { letter-spacing: -0.8px; }
+  .psample-stats { gap: 14px; }
+  .pstat .mono { font-size: 20px; }
+  .stock-chip { font-size: 10.5px; padding: 5px 10px; }
+  .cta-bar { flex-direction: column; align-items: stretch; text-align: center; }
+  .cta-bar .btn-primary { width: 100%; }
 }

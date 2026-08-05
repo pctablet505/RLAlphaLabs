@@ -86,6 +86,7 @@ function boot(data) {
   initStockGrid(data.portfolio_sample);
   initCounters();
   initReveal();
+  initMobileCta();
   initMobileMenu();
   initActiveNav();
   initArticleEnhancements();
@@ -212,7 +213,8 @@ function initParticles() {
   function frame() { ctx.clearRect(0, 0, W, H); connect(); pts.forEach(p => { p.tick(); p.draw(); }); requestAnimationFrame(frame); }
 
   resize();
-  pts = Array.from({ length: 80 }, () => new Pt());
+  const COUNT = window.innerWidth < 760 ? 36 : 80;
+  pts = Array.from({ length: COUNT }, () => new Pt());
   frame();
   window.addEventListener('resize', () => { resize(); }, { passive: true });
 }
@@ -438,14 +440,23 @@ function initMobileMenu() {
   const btn  = document.getElementById('hamburger');
   const menu = document.getElementById('mobileMenu');
   if (!btn || !menu) return;
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('open');
-    btn.classList.toggle('open');
-  });
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    menu.classList.remove('open');
-    btn.classList.remove('open');
-  }));
+
+  // Backdrop: tap-outside-to-close
+  const backdrop = document.createElement('div');
+  backdrop.className = 'menu-backdrop';
+  document.body.appendChild(backdrop);
+
+  const setOpen = open => {
+    menu.classList.toggle('open', open);
+    btn.classList.toggle('open', open);
+    backdrop.classList.toggle('show', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  btn.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+  backdrop.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+
   // Smooth scroll for same-page anchors
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -455,6 +466,34 @@ function initMobileMenu() {
       window.scrollTo({ top: tgt.getBoundingClientRect().top + window.scrollY - 72, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
     });
   });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STICKY BOTTOM CTA — mobile only, home only. Appears after the
+   hero, hides when the contact section is on screen.
+   ═══════════════════════════════════════════════════════════════ */
+function initMobileCta() {
+  const contact = document.getElementById('contact');
+  if (!contact) return;
+  if (!window.matchMedia('(max-width: 860px)').matches) return;
+
+  const bar = document.createElement('div');
+  bar.id = 'mobileCta';
+  bar.innerHTML = '<a href="#contact" class="btn-primary">Request Access</a>';
+  document.body.appendChild(bar);
+
+  const hero = document.getElementById('hero');
+  let contactInView = false;
+  const update = () => {
+    const past = window.scrollY > (hero ? hero.offsetHeight * 0.7 : 480);
+    bar.classList.toggle('show', past && !contactInView);
+  };
+  new IntersectionObserver(es => {
+    contactInView = es[0].isIntersecting;
+    update();
+  }, { rootMargin: '-10% 0px -10% 0px' }).observe(contact);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -518,6 +557,12 @@ function initArticleEnhancements() {
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
     headings.forEach(h => obs.observe(h));
+    // Mobile: "On this page" title toggles the collapsed panel (CSS ≤860px)
+    const title = toc.closest('.research-sidebar')?.querySelector('.toc-title');
+    if (title) {
+      title.addEventListener('click', () =>
+        title.closest('.research-sidebar').classList.toggle('toc-open'));
+    }
   }
 
   // Reading time
