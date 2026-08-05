@@ -1,20 +1,28 @@
 /* ═══════════════════════════════════════════════════════════════
-  RLAlphaLabs — Main JS v2
-   Real data from site-data.json · Grounded charts · Trust-first UX
+  RLAlphaLabs — Main JS v3
+   Dual-theme · engagement chrome · real data · grounded charts
+   Works on every page: features activate only when their target
+   elements exist on the page.
    ═══════════════════════════════════════════════════════════════ */
 'use strict';
 
-/* ─── Load real data then boot ──────────────────────────────────── */
-fetch('data/site-data.json')
+/* ─── Resolve site-data.json relative to THIS script (subpage-safe) ─ */
+const SCRIPT_URL = document.currentScript ? document.currentScript.src : '';
+const DATA_URL = SCRIPT_URL
+  ? new URL('../data/site-data.json', SCRIPT_URL).href
+  : 'data/site-data.json';
+
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+fetch(DATA_URL)
   .then(r => r.json())
   .then(data => boot(data))
   .catch(() => {
-    // Fallback if fetch fails (local file:// protocol)
     console.warn('Could not fetch site-data.json — using embedded fallback');
     boot(FALLBACK_DATA);
   });
 
-/* ─── Minimal fallback (no network needed for local dev) ────────── */
+/* ─── Minimal fallback (offline / file:// dev) ────────────────── */
 const FALLBACK_DATA = {
   experiments: [
     { id:'Result', date:'Apr 2026', algo:'Actor-Critic (JAX)', total_steps:5000000, sps:9700, n_envs:64, n_assets:20, test_sharpe:0.49, val_sharpe:1.30, test_win_rate:65.0, test_sortino:0.47, status:'complete' }
@@ -26,31 +34,113 @@ const FALLBACK_DATA = {
 };
 
 /* ═══════════════════════════════════════════════════════════════
-   BOOT — wires everything up once data is ready
+   THEME — dark default, persisted, 'T' shortcut, chart re-render
+   ═══════════════════════════════════════════════════════════════ */
+const THEME_KEY = 'rlal-theme';
+
+function currentTheme() {
+  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+}
+
+function setTheme(theme, persist = true) {
+  document.documentElement.dataset.theme = theme;
+  if (persist) { try { localStorage.setItem(THEME_KEY, theme); } catch (e) {} }
+  document.dispatchEvent(new CustomEvent('rlal:theme', { detail: theme }));
+}
+
+function initTheme() {
+  // One frame of no-transitions so first paint doesn't cross-fade
+  document.body.classList.add('no-transitions');
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    document.body.classList.remove('no-transitions')));
+
+  document.querySelectorAll('.theme-toggle').forEach(btn =>
+    btn.addEventListener('click', () =>
+      setTheme(currentTheme() === 'dark' ? 'light' : 'dark')));
+
+  document.addEventListener('keydown', e => {
+    if (e.key.toLowerCase() !== 't') return;
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+    setTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+  });
+}
+
+/* Read a CSS custom property (theme-aware colors for canvas) */
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOOT
    ═══════════════════════════════════════════════════════════════ */
 function boot(data) {
+  initTheme();
   initNav();
+  initScrollChrome();
+  initSectionDots();
   initTicker(data.portfolio_sample.symbols);
   initParticles();
-  initHeroChart(data);
-  initPerfChart(data);
+  Charts.init(data);
   initExperimentTable(data.experiments);
   initStockGrid(data.portfolio_sample);
   initCounters();
   initReveal();
   initMobileMenu();
   initActiveNav();
-  initForm();
+  initArticleEnhancements();
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   NAV scroll behavior
+   NAV scroll state
    ═══════════════════════════════════════════════════════════════ */
 function initNav() {
   const nav = document.getElementById('navbar');
+  if (!nav) return;
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL CHROME — progress bar + back-to-top
+   ═══════════════════════════════════════════════════════════════ */
+function initScrollChrome() {
+  const bar = document.getElementById('scrollProgress');
+  const top = document.getElementById('backTop');
+  const onScroll = () => {
+    if (bar) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    }
+    if (top) top.classList.toggle('show', window.scrollY > 600);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  if (top) top.addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' }));
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION DOTS — fixed right rail on the home page
+   ═══════════════════════════════════════════════════════════════ */
+function initSectionDots() {
+  const rail = document.getElementById('sectionDots');
+  if (!rail) return;
+  const sections = [...document.querySelectorAll('section[id][data-dot]')];
+  if (!sections.length) { rail.remove(); return; }
+
+  rail.innerHTML = sections.map(s =>
+    `<a href="#${s.id}" data-label="${s.dataset.dot}" data-for="${s.id}" aria-label="${s.dataset.dot}"></a>`).join('');
+
+  const links = rail.querySelectorAll('a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(l => l.classList.toggle('on', l.dataset.for === e.target.id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => obs.observe(s));
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -67,7 +157,7 @@ function initTicker(symbols) {
   const seed_chg    = [1.2, -0.4, 0.8, -1.1, 2.1, 0.3, -0.7, 1.5, -0.2, 0.9,
                        -1.3, 0.6, 1.8, -0.5, 2.3, -0.8, 0.4, -1.6, 0.7, 1.1];
 
-  const buildItems = () => symbols.slice(0, 20).map((sym, i) => {
+  const items = symbols.slice(0, 20).map((sym, i) => {
     const price = seed_prices[i] || 1000;
     const chg   = seed_chg[i] || 0;
     const cls   = chg >= 0 ? 'tick-up' : 'tick-dn';
@@ -75,19 +165,19 @@ function initTicker(symbols) {
     return `<span class="ticker-item"><span class="tick-sym">${sym}</span>₹${price.toLocaleString('en-IN')} <span class="${cls}">${sign}${chg}%</span></span>`;
   }).join('');
 
-  // Duplicate for seamless loop
-  const items = buildItems();
-  track.innerHTML = items + items;
+  track.innerHTML = items + items; // duplicate for seamless loop
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PARTICLES
+   PARTICLES (theme-aware, disabled under reduced motion)
    ═══════════════════════════════════════════════════════════════ */
 function initParticles() {
   const canvas = document.getElementById('heroParticles');
-  if (!canvas) return;
+  if (!canvas || REDUCED_MOTION) return;
   const ctx = canvas.getContext('2d');
   let W, H, pts = [];
+
+  const alpha = () => parseFloat(cssVar('--particle-a')) || 0.3;
 
   function resize() {
     W = canvas.width  = canvas.offsetWidth;
@@ -102,7 +192,7 @@ function initParticles() {
       this.vx = (Math.random() - 0.5) * 0.3;
       this.vy = -(Math.random() * 0.35 + 0.1);
       this.r  = Math.random() * 1.2 + 0.4;
-      this.a  = Math.random() * 0.35 + 0.05;
+      this.a  = Math.random() * alpha() + 0.05;
       this.c  = Math.random() > 0.55 ? '0,200,240' : '110,168,254';
     }
     tick() { this.x += this.vx; this.y += this.vy; if (this.y < -8) this.reset(); }
@@ -128,122 +218,131 @@ function initParticles() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   HERO CHART — illustrative equity curve
+   CHARTS — theme-aware; re-rendered on theme change
    ═══════════════════════════════════════════════════════════════ */
-function initHeroChart(data) {
-  const canvas = document.getElementById('heroChart');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+const Charts = (() => {
+  let data = null;
+  let heroChart = null, perfChart = null;
 
-  let curve = data.hero_curve;
-  const n   = curve.length;
-  if (!n) return;
+  function palette() {
+    return {
+      line:    cssVar('--chart-line')   || '#00c8f0',
+      bench:   cssVar('--chart-bench')  || '#3d526e',
+      grid:    cssVar('--chart-grid')   || 'rgba(255,255,255,0.04)',
+      tick:    cssVar('--chart-tick')   || '#3d526e',
+      fillA:   cssVar('--chart-fill-a') || 'rgba(0,200,240,0.2)',
+      fillB:   cssVar('--chart-fill-b') || 'rgba(0,200,240,0)',
+      tipBg:   cssVar('--tooltip-bg')   || 'rgba(6,13,28,0.95)',
+    };
+  }
 
-  const labels = Array.from({ length: n }, (_, i) => i);
-  // Hero curve is illustrative shape only — no numeric return figure is derived or displayed.
+  function tooltipStyle(p) {
+    return {
+      mode: 'index', intersect: false,
+      backgroundColor: p.tipBg,
+      borderColor: p.grid, borderWidth: 1,
+      titleColor: '#c5d0e8', bodyColor: '#7a92b4',
+      callbacks: { label: c => ` ${c.dataset.label || 'Portfolio'}: ${c.parsed.y.toFixed(1)}` }
+    };
+  }
 
-  const grad = ctx.createLinearGradient(0, 0, 0, 200);
-  grad.addColorStop(0, 'rgba(0,200,240,0.25)');
-  grad.addColorStop(1, 'rgba(0,200,240,0)');
+  function axisStyle(p) {
+    return {
+      grid: { color: p.grid, drawBorder: false },
+      ticks: { color: p.tick, font: { family: "'JetBrains Mono'", size: 10 } },
+      border: { display: false }
+    };
+  }
 
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        data: curve,
-        borderColor: '#00c8f0',
-        borderWidth: 2,
-        pointRadius: 0,
-        fill: true,
-        backgroundColor: grad,
-        tension: 0.4,
-      }]
-    },
-    options: {
-      responsive: true,
-      animation: { duration: 1800, easing: 'easeInOutQuart' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          mode: 'index', intersect: false,
-          backgroundColor: 'rgba(6,13,28,0.95)',
-          borderColor: 'rgba(0,200,240,0.2)', borderWidth: 1,
-          titleColor: '#c5d0e8', bodyColor: '#7a92b4',
-          callbacks: { label: c => ` Portfolio: ${c.parsed.y.toFixed(1)}` }
-        }
+  function renderHero(p) {
+    const canvas = document.getElementById('heroChart');
+    if (!canvas || typeof Chart === 'undefined') return;
+    const curve = data.hero_curve;
+    if (!curve || !curve.length) return;
+
+    const grad = canvas.getContext('2d').createLinearGradient(0, 0, 0, 200);
+    grad.addColorStop(0, p.fillA);
+    grad.addColorStop(1, p.fillB);
+
+    // Hero curve is illustrative shape only — no numeric return figure is derived or displayed.
+    if (heroChart) heroChart.destroy();
+    heroChart = new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: curve.map((_, i) => i),
+        datasets: [{ data: curve, borderColor: p.line, borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: grad, tension: 0.4 }]
       },
-      scales: {
-        x: { display: false },
-        y: {
-          display: true,
-          grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false },
-          ticks: { color: '#3d526e', font: { family: "'JetBrains Mono'", size: 10 }, callback: v => v.toFixed(0) },
-          border: { display: false },
-        }
+      options: {
+        responsive: true,
+        animation: REDUCED_MOTION ? false : { duration: 1800, easing: 'easeInOutQuart' },
+        plugins: { legend: { display: false }, tooltip: tooltipStyle(p) },
+        scales: {
+          x: { display: false },
+          y: Object.assign(axisStyle(p), { ticks: Object.assign(axisStyle(p).ticks, { callback: v => v.toFixed(0) }) })
+        },
+        interaction: { mode: 'nearest', axis: 'x', intersect: false }
+      }
+    });
+  }
+
+  function renderPerf(p) {
+    const canvas = document.getElementById('perfChart');
+    if (!canvas || typeof Chart === 'undefined') return;
+    const { labels, rl_portfolio, nifty50 } = data.equity_curves;
+    if (!rl_portfolio || !rl_portfolio.length) return;
+
+    const ctx = canvas.getContext('2d');
+    const gradRL = ctx.createLinearGradient(0, 0, 0, 320);
+    gradRL.addColorStop(0, p.fillA);
+    gradRL.addColorStop(1, p.fillB);
+    const gradBench = ctx.createLinearGradient(0, 0, 0, 320);
+    gradBench.addColorStop(0, p.grid);
+    gradBench.addColorStop(1, 'rgba(0,0,0,0)');
+
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const n = labels.length;
+    const monthLabels = labels.map((_, i) => {
+      const m = Math.floor(i / (n / 12));
+      return i % Math.round(n / 12) === 0 ? months[Math.min(m, 11)] : '';
+    });
+
+    if (perfChart) perfChart.destroy();
+    perfChart = new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: monthLabels,
+        datasets: [
+          { label: 'RL Portfolio', data: rl_portfolio, borderColor: p.line, borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: gradRL, tension: 0.4 },
+          { label: 'NIFTY 50', data: nifty50, borderColor: p.bench, borderWidth: 1.5, pointRadius: 0, fill: true, backgroundColor: gradBench, tension: 0.4, borderDash: [5, 4] }
+        ]
       },
-      interaction: { mode: 'nearest', axis: 'x', intersect: false }
-    }
-  });
-}
+      options: {
+        responsive: true,
+        animation: REDUCED_MOTION ? false : { duration: 1400, easing: 'easeInOutQuart' },
+        plugins: { legend: { display: false }, tooltip: tooltipStyle(p) },
+        scales: {
+          x: axisStyle(p),
+          y: Object.assign(axisStyle(p), { ticks: Object.assign(axisStyle(p).ticks, { callback: v => v.toFixed(0) }) })
+        },
+        interaction: { mode: 'nearest', axis: 'x', intersect: false }
+      }
+    });
+  }
 
-/* ═══════════════════════════════════════════════════════════════
-   PERFORMANCE CHART — equity curves from real stats
-   ═══════════════════════════════════════════════════════════════ */
-function initPerfChart(data) {
-  const canvas = document.getElementById('perfChart');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  function renderAll() {
+    const p = palette();
+    renderHero(p);
+    renderPerf(p);
+  }
 
-  const { labels, rl_portfolio, nifty50 } = data.equity_curves;
-  if (!rl_portfolio.length) return;
+  function init(d) {
+    data = d;
+    renderAll();
+    document.addEventListener('rlal:theme', () => renderAll());
+  }
 
-  const gradRL = ctx.createLinearGradient(0, 0, 0, 320);
-  gradRL.addColorStop(0, 'rgba(0,200,240,0.18)');
-  gradRL.addColorStop(1, 'rgba(0,200,240,0)');
-
-  const gradBench = ctx.createLinearGradient(0, 0, 0, 320);
-  gradBench.addColorStop(0, 'rgba(61,82,110,0.12)');
-  gradBench.addColorStop(1, 'rgba(61,82,110,0)');
-
-  // Build month labels
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const n = labels.length;
-  const monthLabels = labels.map((_, i) => {
-    const m = Math.floor(i / (n / 12));
-    return i % Math.round(n / 12) === 0 ? months[Math.min(m, 11)] : '';
-  });
-
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: monthLabels,
-      datasets: [
-        { label: 'RL Portfolio', data: rl_portfolio, borderColor: '#00c8f0', borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: gradRL, tension: 0.4 },
-        { label: 'NIFTY 50',    data: nifty50,       borderColor: '#3d526e', borderWidth: 1.5, pointRadius: 0, fill: true, backgroundColor: gradBench, tension: 0.4, borderDash: [5, 4] }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: { duration: 1400, easing: 'easeInOutQuart' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          mode: 'index', intersect: false,
-          backgroundColor: 'rgba(6,13,28,0.95)',
-          borderColor: 'rgba(0,200,240,0.2)', borderWidth: 1,
-          titleColor: '#c5d0e8', bodyColor: '#7a92b4',
-          callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}` }
-        }
-      },
-      scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false }, ticks: { color: '#3d526e', font: { family: "'JetBrains Mono'", size: 10 } }, border: { display: false } },
-        y: { grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false }, ticks: { color: '#3d526e', font: { family: "'JetBrains Mono'", size: 10 }, callback: v => v.toFixed(0) }, border: { display: false } }
-      },
-      interaction: { mode: 'nearest', axis: 'x', intersect: false }
-    }
-  });
-}
+  return { init };
+})();
 
 /* ═══════════════════════════════════════════════════════════════
    EXPERIMENT TABLE — real data from JSON
@@ -276,8 +375,7 @@ function initStockGrid(sample) {
   const grid = document.getElementById('stockGrid');
   if (!grid) return;
   grid.innerHTML = sample.symbols.map(sym =>
-    `<div class="stock-chip">${sym}</div>`
-  ).join('');
+    `<div class="stock-chip">${sym}</div>`).join('');
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -285,6 +383,7 @@ function initStockGrid(sample) {
    ═══════════════════════════════════════════════════════════════ */
 function initCounters() {
   const els = document.querySelectorAll('[data-target]');
+  if (!els.length) return;
   const ease = t => 1 - Math.pow(1 - t, 3);
 
   const observer = new IntersectionObserver(entries => {
@@ -294,6 +393,7 @@ function initCounters() {
       const end = parseFloat(el.dataset.target);
       const dec = parseInt(el.dataset.dec || '0');
       const sfx = el.dataset.sfx || '';
+      if (REDUCED_MOTION) { el.textContent = end.toFixed(dec) + sfx; observer.unobserve(el); return; }
       const dur = 1800;
       const t0  = performance.now();
 
@@ -316,10 +416,11 @@ function initCounters() {
    ═══════════════════════════════════════════════════════════════ */
 function initReveal() {
   const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (REDUCED_MOTION) { els.forEach(el => el.classList.add('visible')); return; }
   const obs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      // Stagger siblings
       const parent = entry.target.parentElement;
       const pending = parent ? [...parent.querySelectorAll('.reveal:not(.visible)')] : [];
       const i = pending.indexOf(entry.target);
@@ -331,50 +432,105 @@ function initReveal() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MOBILE MENU
+   MOBILE MENU + smooth anchor scroll
    ═══════════════════════════════════════════════════════════════ */
 function initMobileMenu() {
   const btn  = document.getElementById('hamburger');
   const menu = document.getElementById('mobileMenu');
   if (!btn || !menu) return;
-  btn.addEventListener('click', () => menu.classList.toggle('open'));
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
-  // Smooth scroll
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+  }));
+  // Smooth scroll for same-page anchors
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const tgt = document.querySelector(a.getAttribute('href'));
       if (!tgt) return;
       e.preventDefault();
-      window.scrollTo({ top: tgt.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+      window.scrollTo({ top: tgt.getBoundingClientRect().top + window.scrollY - 72, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
     });
   });
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   ACTIVE NAV HIGHLIGHT
+   ACTIVE NAV HIGHLIGHT (home page sections)
    ═══════════════════════════════════════════════════════════════ */
 function initActiveNav() {
   const sections = document.querySelectorAll('section[id]');
   const links    = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (!sections.length || !links.length) return;
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(a => a.style.color = '');
-        const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-        if (a) a.style.color = 'var(--cyan)';
-      }
+      if (!e.isIntersecting) return;
+      links.forEach(a => a.classList.remove('nav-on'));
+      const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('nav-on');
     });
   }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach(s => obs.observe(s));
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CONTACT FORM (mailto for static hosting)
+   ARTICLE ENHANCEMENTS — TOC scrollspy, heading anchors,
+   reading time. Activate only where the markup exists.
    ═══════════════════════════════════════════════════════════════ */
-function initForm() {
-  // exposed globally for onsubmit=""
+function initArticleEnhancements() {
+  const prose = document.querySelector('.article-prose');
+  if (!prose) return;
+  const headings = [...prose.querySelectorAll('h2, h3')];
+
+  // Slugify + assign ids + anchor links
+  const used = new Set();
+  headings.forEach(h => {
+    if (!h.id) {
+      let slug = h.textContent.trim().toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'section';
+      let s = slug, n = 2;
+      while (used.has(s)) s = `${slug}-${n++}`;
+      used.add(s);
+      h.id = s;
+    }
+    if (!h.querySelector('.anchor-link')) {
+      const a = document.createElement('a');
+      a.className = 'anchor-link';
+      a.href = `#${h.id}`;
+      a.textContent = '#';
+      a.setAttribute('aria-label', `Link to ${h.textContent.trim()}`);
+      h.appendChild(a);
+    }
+  });
+
+  // TOC
+  const toc = document.getElementById('tocList');
+  if (toc && headings.length) {
+    toc.innerHTML = headings.map(h =>
+      `<li><a href="#${h.id}" class="${h.tagName === 'H3' ? 'toc-h3' : ''}">${h.textContent.replace('#', '').trim()}</a></li>`).join('');
+    const tocLinks = toc.querySelectorAll('a');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        tocLinks.forEach(l => l.classList.toggle('on', l.getAttribute('href') === `#${e.target.id}`));
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    headings.forEach(h => obs.observe(h));
+  }
+
+  // Reading time
+  const rt = document.querySelector('[data-reading-time]');
+  if (rt) {
+    const words = prose.textContent.trim().split(/\s+/).length;
+    rt.textContent = `~${Math.max(1, Math.round(words / 200))} min read`;
+  }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT FORM (mailto for static hosting)
+   ═══════════════════════════════════════════════════════════════ */
 function handleSubmit(e) {
   e.preventDefault();
   const f    = e.target;
