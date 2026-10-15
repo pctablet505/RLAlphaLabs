@@ -1,37 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
-  RLAlphaLabs — Main JS v3
-   Dual-theme · engagement chrome · real data · grounded charts
-   Works on every page: features activate only when their target
-   elements exist on the page.
+  RL Alpha Labs, site v3 on the live design. One script for every page; every page works without it.
+  Content is hidden for its entrance only while this script runs (html.js-reveal), and is shown again after
+  2.5 s if the browser never reports an element as seen. Theme, nav, progress bar, section dots, particles,
+  counters, the contact flow.
    ═══════════════════════════════════════════════════════════════ */
 'use strict';
 
-/* ─── Resolve site-data.json relative to THIS script (subpage-safe) ─ */
-const SCRIPT_URL = document.currentScript ? document.currentScript.src : '';
-const DATA_URL = SCRIPT_URL
-  ? new URL('../data/site-data.json', SCRIPT_URL).href
-  : 'data/site-data.json';
+/* ==== SITE CONSTANTS: the only place these values live ====
+   The mailbox Send writes to is kept as character codes, so the address never appears as text in any file or
+   on the page. It is put together only when a visitor presses Send or Copy (the owner, 2026-10-15). */
+const SITE = {
+  FOUNDER_FIRST_NAME: 'Rahul',
+  FOUNDER_LINKEDIN_URL: 'https://www.linkedin.com/in/pctablet505',
+  MAIL_USER: [119, 111, 114, 107, 46, 114, 97, 104, 117, 108, 49, 50, 54],
+  MAIL_DOMAIN: [103, 109, 97, 105, 108, 46, 99, 111, 109]
+};
+/* ==== END SITE CONSTANTS ==== */
 
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-fetch(DATA_URL)
-  .then(r => r.json())
-  .then(data => boot(data))
-  .catch(() => {
-    console.warn('Could not fetch site-data.json — using embedded fallback');
-    boot(FALLBACK_DATA);
-  });
-
-/* ─── Minimal fallback (offline / file:// dev) ────────────────── */
-const FALLBACK_DATA = {
-  experiments: [
-    { id:'Result', date:'Apr 2026', algo:'Actor-Critic (JAX)', total_steps:5000000, sps:9700, n_envs:64, n_assets:20, test_sharpe:0.49, val_sharpe:1.30, test_win_rate:65.0, test_sortino:0.47, status:'complete' }
-  ],
-  data_coverage: { total_stocks:700, total_parquet_files:5000, granularities:{'1min':600,'3min':700,'5min':700,'10min':700,'15min':700,'30min':700,'1hour':600,'daily':700}, indices:['Nifty 50','Nifty 100','Nifty 200','Nifty 500','Nifty Midcap 100','Nifty Smallcap 100'] },
-  portfolio_sample: { symbols:['RELIANCE','HDFCBANK','INFY','TCS','ICICIBANK','HINDUNILVR','SBIN','BAJFINANCE','AXISBANK','KOTAKBANK'], names:['Reliance Industries','HDFC Bank','Infosys','TCS','ICICI Bank','Hindustan Unilever','SBI','Bajaj Finance','Axis Bank','Kotak Mahindra'] },
-  equity_curves: { labels:[], rl_portfolio:[], nifty50:[] },
-  hero_curve: []
-};
 
 /* ═══════════════════════════════════════════════════════════════
    THEME — dark default, persisted, 'T' shortcut, chart re-render
@@ -71,25 +57,24 @@ function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
+
 /* ═══════════════════════════════════════════════════════════════
-   BOOT
+   BOOT (runs at the end of the file, once every function exists)
    ═══════════════════════════════════════════════════════════════ */
-function boot(data) {
+function boot() {
   initTheme();
   initNav();
   initScrollChrome();
   initSectionDots();
-  initTicker(data.portfolio_sample.symbols);
   initParticles();
-  Charts.init(data);
-  initExperimentTable(data.experiments);
-  initStockGrid(data.portfolio_sample);
   initCounters();
   initReveal();
+  try { initGuess(); initTypewriter(); } catch (e) { /* the page reads the same without them */ }
   initMobileCta();
   initMobileMenu();
   initActiveNav();
   initArticleEnhancements();
+  initContact();
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -145,31 +130,6 @@ function initSectionDots() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   TICKER — illustrative sample universe symbols with placeholder,
-   non-live prices/changes. NOT live prices, NOT holdings.
-   ═══════════════════════════════════════════════════════════════ */
-function initTicker(symbols) {
-  const track = document.getElementById('tickerTrack');
-  if (!track) return;
-
-  // Placeholder prices/changes — illustrative only, not real market data
-  const seed_prices = [2850, 1680, 1520, 3940, 1280, 2440, 820, 6890, 1140, 1890,
-                       720, 4200, 1360, 4800, 980, 2100, 1890, 430, 2760, 1150];
-  const seed_chg    = [1.2, -0.4, 0.8, -1.1, 2.1, 0.3, -0.7, 1.5, -0.2, 0.9,
-                       -1.3, 0.6, 1.8, -0.5, 2.3, -0.8, 0.4, -1.6, 0.7, 1.1];
-
-  const items = symbols.slice(0, 20).map((sym, i) => {
-    const price = seed_prices[i] || 1000;
-    const chg   = seed_chg[i] || 0;
-    const cls   = chg >= 0 ? 'tick-up' : 'tick-dn';
-    const sign  = chg >= 0 ? '+' : '';
-    return `<span class="ticker-item"><span class="tick-sym">${sym}</span>₹${price.toLocaleString('en-IN')} <span class="${cls}">${sign}${chg}%</span></span>`;
-  }).join('');
-
-  track.innerHTML = items + items; // duplicate for seamless loop
-}
-
-/* ═══════════════════════════════════════════════════════════════
    PARTICLES (theme-aware, disabled under reduced motion)
    ═══════════════════════════════════════════════════════════════ */
 function initParticles() {
@@ -219,220 +179,156 @@ function initParticles() {
   window.addEventListener('resize', () => { resize(); }, { passive: true });
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CHARTS — theme-aware; re-rendered on theme change
-   ═══════════════════════════════════════════════════════════════ */
-const Charts = (() => {
-  let data = null;
-  let heroChart = null, perfChart = null;
-
-  function palette() {
-    return {
-      line:    cssVar('--chart-line')   || '#00c8f0',
-      bench:   cssVar('--chart-bench')  || '#3d526e',
-      grid:    cssVar('--chart-grid')   || 'rgba(255,255,255,0.04)',
-      tick:    cssVar('--chart-tick')   || '#3d526e',
-      fillA:   cssVar('--chart-fill-a') || 'rgba(0,200,240,0.2)',
-      fillB:   cssVar('--chart-fill-b') || 'rgba(0,200,240,0)',
-      tipBg:   cssVar('--tooltip-bg')   || 'rgba(6,13,28,0.95)',
-    };
-  }
-
-  function tooltipStyle(p) {
-    return {
-      mode: 'index', intersect: false,
-      backgroundColor: p.tipBg,
-      borderColor: p.grid, borderWidth: 1,
-      titleColor: '#c5d0e8', bodyColor: '#7a92b4',
-      callbacks: { label: c => ` ${c.dataset.label || 'Portfolio'}: ${c.parsed.y.toFixed(1)}` }
-    };
-  }
-
-  function axisStyle(p) {
-    return {
-      grid: { color: p.grid, drawBorder: false },
-      ticks: { color: p.tick, font: { family: "'JetBrains Mono'", size: 10 } },
-      border: { display: false }
-    };
-  }
-
-  function renderHero(p) {
-    const canvas = document.getElementById('heroChart');
-    if (!canvas || typeof Chart === 'undefined') return;
-    const curve = data.hero_curve;
-    if (!curve || !curve.length) return;
-
-    const grad = canvas.getContext('2d').createLinearGradient(0, 0, 0, 200);
-    grad.addColorStop(0, p.fillA);
-    grad.addColorStop(1, p.fillB);
-
-    // Hero curve is illustrative shape only — no numeric return figure is derived or displayed.
-    if (heroChart) heroChart.destroy();
-    heroChart = new Chart(canvas, {
-      type: 'line',
-      data: {
-        labels: curve.map((_, i) => i),
-        datasets: [{ data: curve, borderColor: p.line, borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: grad, tension: 0.4 }]
-      },
-      options: {
-        responsive: true,
-        animation: REDUCED_MOTION ? false : { duration: 1800, easing: 'easeInOutQuart' },
-        plugins: { legend: { display: false }, tooltip: tooltipStyle(p) },
-        scales: {
-          x: { display: false },
-          y: Object.assign(axisStyle(p), { ticks: Object.assign(axisStyle(p).ticks, { callback: v => v.toFixed(0) }) })
-        },
-        interaction: { mode: 'nearest', axis: 'x', intersect: false }
-      }
-    });
-  }
-
-  function renderPerf(p) {
-    const canvas = document.getElementById('perfChart');
-    if (!canvas || typeof Chart === 'undefined') return;
-    const { labels, rl_portfolio, nifty50 } = data.equity_curves;
-    if (!rl_portfolio || !rl_portfolio.length) return;
-
-    const ctx = canvas.getContext('2d');
-    const gradRL = ctx.createLinearGradient(0, 0, 0, 320);
-    gradRL.addColorStop(0, p.fillA);
-    gradRL.addColorStop(1, p.fillB);
-    const gradBench = ctx.createLinearGradient(0, 0, 0, 320);
-    gradBench.addColorStop(0, p.grid);
-    gradBench.addColorStop(1, 'rgba(0,0,0,0)');
-
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const n = labels.length;
-    const monthLabels = labels.map((_, i) => {
-      const m = Math.floor(i / (n / 12));
-      return i % Math.round(n / 12) === 0 ? months[Math.min(m, 11)] : '';
-    });
-
-    if (perfChart) perfChart.destroy();
-    perfChart = new Chart(canvas, {
-      type: 'line',
-      data: {
-        labels: monthLabels,
-        datasets: [
-          { label: 'RL Portfolio', data: rl_portfolio, borderColor: p.line, borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: gradRL, tension: 0.4 },
-          { label: 'NIFTY 50', data: nifty50, borderColor: p.bench, borderWidth: 1.5, pointRadius: 0, fill: true, backgroundColor: gradBench, tension: 0.4, borderDash: [5, 4] }
-        ]
-      },
-      options: {
-        responsive: true,
-        animation: REDUCED_MOTION ? false : { duration: 1400, easing: 'easeInOutQuart' },
-        plugins: { legend: { display: false }, tooltip: tooltipStyle(p) },
-        scales: {
-          x: axisStyle(p),
-          y: Object.assign(axisStyle(p), { ticks: Object.assign(axisStyle(p).ticks, { callback: v => v.toFixed(0) }) })
-        },
-        interaction: { mode: 'nearest', axis: 'x', intersect: false }
-      }
-    });
-  }
-
-  function renderAll() {
-    const p = palette();
-    renderHero(p);
-    renderPerf(p);
-  }
-
-  function init(d) {
-    data = d;
-    renderAll();
-    document.addEventListener('rlal:theme', () => renderAll());
-  }
-
-  return { init };
-})();
 
 /* ═══════════════════════════════════════════════════════════════
-   EXPERIMENT TABLE — real data from JSON
-   ═══════════════════════════════════════════════════════════════ */
-function initExperimentTable(experiments) {
-  const tbody = document.getElementById('expTableBody');
-  if (!tbody) return;
-
-  tbody.innerHTML = experiments.map(e => `
-    <tr>
-      <td class="run-id">${e.id}</td>
-      <td style="color:var(--t3)">${e.date}</td>
-      <td style="color:var(--t2)">${e.algo}</td>
-      <td>${(e.total_steps / 1e6).toFixed(1)}M</td>
-      <td class="${e.sps > 9000 ? 'val-good' : 'val-ok'}">${e.sps.toLocaleString()}</td>
-      <td style="color:var(--t3)">${e.n_envs}</td>
-      <td class="${e.test_sharpe >= 0.45 ? 'val-good' : 'val-ok'}">${e.test_sharpe.toFixed(2)}</td>
-      <td class="${e.val_sharpe >= 1.0 ? 'val-good' : 'val-ok'}">${e.val_sharpe.toFixed(2)}</td>
-      <td class="${e.test_win_rate >= 60 ? 'val-good' : 'val-ok'}">${e.test_win_rate.toFixed(1)}%</td>
-      <td style="color:var(--t2)">${e.test_sortino.toFixed(2)}</td>
-      <td><span class="status-done">✓ ${e.status}</span></td>
-    </tr>
-  `).join('');
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   STOCK GRID — real NIFTY 50 symbols
-   ═══════════════════════════════════════════════════════════════ */
-function initStockGrid(sample) {
-  const grid = document.getElementById('stockGrid');
-  if (!grid) return;
-  grid.innerHTML = sample.symbols.map(sym =>
-    `<div class="stock-chip">${sym}</div>`).join('');
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ANIMATED COUNTERS (easeOut cubic)
+   COUNTERS — the page already shows the final numbers; on sight they count up once.
+   A timer sets the final value again, so a hidden tab never leaves a half-count.
    ═══════════════════════════════════════════════════════════════ */
 function initCounters() {
   const els = document.querySelectorAll('[data-target]');
-  if (!els.length) return;
+  if (!els.length || REDUCED_MOTION || !('IntersectionObserver' in window)) return;
   const ease = t => 1 - Math.pow(1 - t, 3);
-
+  const show = (el, v) => {
+    const dec = parseInt(el.dataset.dec || '0', 10);
+    const sfx = el.dataset.sfx || '';
+    const n = el.dataset.fmt ? v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }) : v.toFixed(dec);
+    el.textContent = n + sfx;
+  };
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      const el  = entry.target;
+      const el = entry.target;
       const end = parseFloat(el.dataset.target);
-      const dec = parseInt(el.dataset.dec || '0');
-      const sfx = el.dataset.sfx || '';
-      if (REDUCED_MOTION) { el.textContent = end.toFixed(dec) + sfx; observer.unobserve(el); return; }
-      const dur = 1800;
-      const t0  = performance.now();
-
+      const dur = 1600;
+      const t0 = performance.now();
+      observer.unobserve(el);
       (function tick(now) {
-        const t   = Math.min((now - t0) / dur, 1);
-        const val = end * ease(t);
-        el.textContent = val.toFixed(dec) + sfx;
+        const t = Math.min((now - t0) / dur, 1);
+        show(el, end * ease(t));
         if (t < 1) requestAnimationFrame(tick);
       })(t0);
-
-      observer.unobserve(el);
+      setTimeout(() => show(el, end), dur + 300);
     });
   }, { threshold: 0.6 });
-
   els.forEach(el => observer.observe(el));
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SCROLL REVEAL
+   SCROLL REVEAL — entrance only; nothing needs a click or a hover
    ═══════════════════════════════════════════════════════════════ */
 function initReveal() {
   const els = document.querySelectorAll('.reveal');
-  if (!els.length) return;
-  if (REDUCED_MOTION) { els.forEach(el => el.classList.add('visible')); return; }
+  const bars = document.querySelectorAll('.bars');
+  const showAll = () => { els.forEach(el => el.classList.add('visible')); bars.forEach(b => b.classList.add('in')); };
+  if (!document.documentElement.classList.contains('js-reveal') || !('IntersectionObserver' in window)) { showAll(); return; }
+
+  let heard = 0;
   const obs = new IntersectionObserver(entries => {
+    heard += entries.length;
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      const parent = entry.target.parentElement;
-      const pending = parent ? [...parent.querySelectorAll('.reveal:not(.visible)')] : [];
-      const i = pending.indexOf(entry.target);
-      setTimeout(() => entry.target.classList.add('visible'), Math.min(i * 70, 350));
-      obs.unobserve(entry.target);
+      const el = entry.target;
+      obs.unobserve(el);
+      const parent = el.parentElement;
+      const pending = parent ? Array.from(parent.children).filter(c => c.classList.contains('reveal') && !c.classList.contains('visible')) : [];
+      const i = Math.max(0, pending.indexOf(el));
+      setTimeout(() => el.classList.add('visible'), Math.min(i * 70, 350));
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
   els.forEach(el => obs.observe(el));
+
+  const barObs = new IntersectionObserver(entries => {
+    heard += entries.length;
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); barObs.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  bars.forEach(b => barObs.observe(b));
+
+  /* If the browser never reported anything (a hidden tab or pane), show what is on screen now, and from then on
+     whatever scrolls into view, so nothing can stay hidden where the observer is silent. */
+  const onScreen = () => {
+    els.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible'); });
+    bars.forEach(b => { if (b.getBoundingClientRect().top < window.innerHeight) b.classList.add('in'); });
+  };
+  setTimeout(() => {
+    if (heard) return;
+    onScreen();
+    let queued = false;   /* a timer, not an animation frame: it also runs while the tab is throttled */
+    window.addEventListener('scroll', () => {
+      if (heard || queued) return;
+      queued = true;
+      setTimeout(() => { queued = false; onScreen(); }, 80);
+    }, { passive: true });
+  }, 2500);
 }
 
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   GUESS FIRST — the answer appears by itself a moment after its card is seen (CSS keys it to .seen, and shows
+   it in any case five seconds after .visible). A tap on an option shows it at once and marks the guess.
+   ═══════════════════════════════════════════════════════════════ */
+function initGuess() {
+  const cards = Array.from(document.querySelectorAll('.guess-card'));
+  if (!cards.length) return;
+  const total = document.querySelector('.guess-total');
+  const WORDS = ['none', 'one', 'two', 'three', 'four', 'five', 'six'];
+  let played = 0, right = 0;
+
+  cards.forEach(card => {
+    const want = parseInt(card.dataset.right, 10);
+    const opts = Array.from(card.querySelectorAll('.gopt'));
+    const mark = card.querySelector('.guess-mark');
+    opts.forEach(btn => btn.addEventListener('click', () => {
+      if (card.classList.contains('told')) return;
+      const pick = parseInt(btn.dataset.i, 10);
+      const hit = pick === want;
+      card.classList.add('told');
+      opts.forEach(b => {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+        b.classList.toggle('right', parseInt(b.dataset.i, 10) === want);
+        b.classList.toggle('wrong', b === btn && !hit);
+        b.disabled = true;
+      });
+      played += 1;
+      right += hit ? 1 : 0;
+      mark.textContent = hit ? '✓ You got it' : '✗ Not quite';
+      mark.className = 'guess-mark mono ' + (hit ? 'hit' : 'miss');
+      if (total) total.textContent = 'Your guesses so far: ' + WORDS[right] + ' of ' + WORDS[played] + ' right';
+    }));
+  });
+
+  if (!document.documentElement.classList.contains('js-reveal') || !('IntersectionObserver' in window)) return;
+  let heard = 0;
+  const obs = new IntersectionObserver(entries => {
+    heard += entries.length;
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio >= 0.5) { e.target.classList.add('seen'); obs.unobserve(e.target); }
+    });
+  }, { threshold: [0.5] });
+  cards.forEach(c => obs.observe(c));
+  setTimeout(() => { if (!heard) cards.forEach(c => c.classList.add('seen')); }, 3000);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPEWRITER — the chart shell's title is complete in the HTML; on load the script retypes it once.
+   ═══════════════════════════════════════════════════════════════ */
+function initTypewriter() {
+  const el = document.getElementById('shellTitle');
+  if (!el || REDUCED_MOTION) return;
+  const text = el.textContent;
+  el.textContent = '';
+  el.classList.add('typing');
+  let i = 0;
+  const step = () => {
+    i += 1;
+    el.textContent = text.slice(0, i);
+    if (i < text.length) setTimeout(step, text[i - 1] === '·' ? 240 : 26);
+    else setTimeout(() => el.classList.remove('typing'), 1800);
+  };
+  setTimeout(step, 450);
+  setTimeout(() => { el.textContent = text; el.classList.remove('typing'); }, 7000);   /* whatever happened, the title is complete */
+}
 /* ═══════════════════════════════════════════════════════════════
    MOBILE MENU + smooth anchor scroll
    ═══════════════════════════════════════════════════════════════ */
@@ -468,9 +364,10 @@ function initMobileMenu() {
   });
 }
 
+
 /* ═══════════════════════════════════════════════════════════════
-   STICKY BOTTOM CTA — mobile only, home only. Appears after the
-   hero, hides when the contact section is on screen.
+   STICKY BOTTOM CTA — phones, home page only. Appears after the first screen,
+   hides while the contact section is on screen.
    ═══════════════════════════════════════════════════════════════ */
 function initMobileCta() {
   const contact = document.getElementById('contact');
@@ -479,7 +376,7 @@ function initMobileCta() {
 
   const bar = document.createElement('div');
   bar.id = 'mobileCta';
-  bar.innerHTML = '<a href="#contact" class="btn-primary">Request Access</a>';
+  bar.innerHTML = '<a href="#contact" class="btn-primary">Write to ' + SITE.FOUNDER_FIRST_NAME + '</a>';
   document.body.appendChild(bar);
 
   const hero = document.getElementById('hero');
@@ -573,24 +470,91 @@ function initArticleEnhancements() {
   }
 }
 
+
 /* ═══════════════════════════════════════════════════════════════
-   CONTACT FORM (mailto for static hosting)
+   CONTACT — Send opens the visitor's own mail app with the message ready.
+   A link from another page, or a topic button, can choose the topic first.
+   The address is built from character codes at click time; Copy puts it on the clipboard only.
    ═══════════════════════════════════════════════════════════════ */
-function handleSubmit(e) {
-  e.preventDefault();
-  const f    = e.target;
-  const name = f.name.value.trim();
-  const mail = f.email.value.trim();
-  const type = f.type.value;
-  const msg  = f.message.value.trim();
-  if (!name || !mail) return;
+function initContact() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  const msg = document.getElementById('f-msg');
+  const status = document.getElementById('f-status');
+  const done = document.getElementById('formSuccess');
+  const chip = document.getElementById('topicChip');
+  const chipText = document.getElementById('topicText');
+  const copyStatus = document.getElementById('copyStatus');
+  const mailbox = () => String.fromCharCode.apply(null, SITE.MAIL_USER) + String.fromCharCode(64) +
+                        String.fromCharCode.apply(null, SITE.MAIL_DOMAIN);
+  let topic = '';
+  let composed = '';
+  const known = new Set(Array.from(document.querySelectorAll('[data-topic]')).map(a => a.getAttribute('data-topic')));
 
-  const sub  = encodeURIComponent(`[RLAlphaLabs] ${type || 'Inquiry'} from ${name}`);
-  const body = encodeURIComponent(`Name: ${name}\nEmail: ${mail}\nType: ${type}\n\n${msg}`);
-  window.location.href = `mailto:connect@rlalphalabs.com?subject=${sub}&body=${body}`;
+  const setTopic = t => {
+    topic = known.has(t) ? t : '';
+    chip.hidden = !topic;
+    chipText.textContent = topic;
+  };
+  const say = (text, kind) => { status.textContent = text; status.className = 'form-status' + (kind ? ' ' + kind : ''); };
 
-  setTimeout(() => {
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display  = 'block';
-  }, 300);
+  document.querySelectorAll('[data-topic]').forEach(a => a.addEventListener('click', () => {
+    setTopic(a.getAttribute('data-topic'));
+    done.hidden = true;
+    say('');
+    setTimeout(() => msg.focus({ preventScroll: true }), REDUCED_MOTION ? 0 : 600);
+  }));
+  document.getElementById('topicClear').addEventListener('click', () => setTopic(''));
+  document.querySelectorAll('[data-role]').forEach(a => a.addEventListener('click', () => {
+    const want = a.getAttribute('data-role');
+    Array.from(form.querySelectorAll('input[name="role"]')).forEach(r => { r.checked = r.value === want; });
+  }));
+
+  const q = new URLSearchParams(location.search);
+  if (q.get('topic')) setTopic(q.get('topic'));
+  const wanted = q.get('role');
+  if (wanted) Array.from(form.querySelectorAll('input[name="role"]')).forEach(r => { if (r.value === wanted) r.checked = true; });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const text = msg.value.trim();
+    if (text.length < 5) { say('Write a few words first.', 'err'); msg.focus(); return; }
+    const role = form.elements['role'].value || '';
+    const bits = [role, topic].filter(Boolean);
+    const subject = 'RL Alpha Labs: ' + (bits.length ? bits.join(', ') : 'a message from the site');
+    const body = (role ? 'I am a: ' + role + '\r\n' : '') + (topic ? 'About: ' + topic + '\r\n' : '') + (bits.length ? '\r\n' : '') + text;
+    composed = subject + '\r\n\r\n' + body;
+    const a = document.createElement('a');
+    a.href = 'mailto:' + mailbox() + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    a.hidden = true;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    say('');
+    copyStatus.textContent = '';
+    done.hidden = false;
+  });
+
+  const copy = async (text, ok) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      copyStatus.textContent = ok;
+      return;
+    } catch (err) { /* fall through to the older way */ }
+    const t = document.createElement('textarea');
+    t.value = text;
+    t.setAttribute('readonly', '');
+    t.style.position = 'fixed';
+    t.style.opacity = '0';
+    document.body.appendChild(t);
+    t.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch (err) { copied = false; }
+    t.remove();
+    copyStatus.textContent = copied ? ok : 'Copying did not work here. Message ' + SITE.FOUNDER_FIRST_NAME + ' on LinkedIn instead.';
+  };
+  document.getElementById('copyMsg').addEventListener('click', () => copy(composed, 'Message copied.'));
+  document.getElementById('copyAddr').addEventListener('click', () => copy(mailbox(), 'Address copied.'));
 }
+
+boot();

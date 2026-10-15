@@ -3,187 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Traction — RLAlphaLabs</title>
-  <meta name="description" content="Where RLAlphaLabs actually stands: one validated baseline result, the market thesis, business-model direction, regulatory posture, and a compliance-ordered roadmap." />
+  <title>Where we are · RL Alpha Labs</title>
+  <meta name="description" content="The honest status of RL Alpha Labs: research stage, paper trading only, self-funded, and what we have so far." />
   <link rel="canonical" href="https://rlalphalabs.com/traction/" />
   <meta property="og:url" content="https://rlalphalabs.com/traction/" />
-  <meta property="og:title" content="Traction — RLAlphaLabs" />
-  <meta property="og:description" content="An honest investor overview: one validated baseline, the market thesis, and a passive invitation to talk — not a pitch deck." />
+  <meta property="og:title" content="Where we are · RL Alpha Labs" />
+  <meta property="og:description" content="The honest status of RL Alpha Labs: research stage, paper trading only, self-funded, and what we have so far." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Where we are · RL Alpha Labs" />
+  <meta name="twitter:description" content="The honest status of RL Alpha Labs: research stage, paper trading only, self-funded, and what we have so far." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>" />
+  <script>(function(){try{var t=localStorage.getItem('rlal-theme');if(!t)t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}try{if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal');}catch(e){}})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <script>
-    /* No-FOUC theme bootstrap: apply saved/preferred theme before first paint */
-    (function () {
-      try {
-        var t = localStorage.getItem('rlal-theme');
-        if (!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        document.documentElement.dataset.theme = t;
-      } catch (e) { document.documentElement.dataset.theme = 'dark'; }
-    })();
-  </script>
   <link rel="stylesheet" href="../css/style.css" />
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 <div id="scrollProgress"></div>
-
-<div id="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-label">SAMPLE UNIVERSE</span>
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
-</div>
-
+<div id="tape" aria-label="Recent verdicts"><div class="tape-inner"><span class="tape-label">Recent verdicts</span><div class="tape-track"><span class="tape-item"><span class="tape-sym">AI reading filings</span>almost a tie with the numbers-only forecast<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Index additions</span>rose before the news<span class="tape-chip tape-late">too late</span></span><span class="tape-item"><span class="tape-sym">Chart-pattern setups</span>gain smaller than one round trip of fees<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Writing index options</span>holding the fund won<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Commodity shocks</span>predicted results, lost money<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Order-book signals</span>perfect foresight barely paid the cost<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Buying news-driven jumps</span>no follow-through<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Reinforcement-learning agents</span>no better than a placebo agent<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Supply-chain maps from reports</span>missed the accuracy bars<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Hand-picked stock baskets</span>trailed the index fund after tax<span class="tape-chip tape-cost">costs</span></span><span class="tape-dup" aria-hidden="true"><span class="tape-item"><span class="tape-sym">AI reading filings</span>almost a tie with the numbers-only forecast<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Index additions</span>rose before the news<span class="tape-chip tape-late">too late</span></span><span class="tape-item"><span class="tape-sym">Chart-pattern setups</span>gain smaller than one round trip of fees<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Writing index options</span>holding the fund won<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Commodity shocks</span>predicted results, lost money<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Order-book signals</span>perfect foresight barely paid the cost<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Buying news-driven jumps</span>no follow-through<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Reinforcement-learning agents</span>no better than a placebo agent<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Supply-chain maps from reports</span>missed the accuracy bars<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Hand-picked stock baskets</span>trailed the index fund after tax<span class="tape-chip tape-cost">costs</span></span></span></div></div></div>
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
-    <ul class="nav-links">
-      <li><a href="./">Traction</a></li>
-      <li><a href="../research/">Research</a></li>
-      <li><a href="../blog/">Blog</a></li>
-      <li><a href="../join/">Join</a></li>
-      <li><a href="../about/">About</a></li>
-      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
-    </ul>
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RL Alpha Labs</a>
+    <ul class="nav-links"><li><a href="../#closed">Closed ideas</a></li><li><a href="../#open">Problems</a></li><li><a href="../research/">Notes</a></li><li><a href="../join/">Join</a></li><li><a href="../about/">About</a></li><li><a href="../#contact" class="nav-cta">Write to Rahul</a></li></ul>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle theme (T)">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
-    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="./">Traction</a>
-    <a href="../research/">Research</a>
-    <a href="../blog/">Blog</a>
-    <a href="../join/">Join</a>
-    <a href="../about/">About</a>
-    <a href="../#contact" class="nav-cta">Get in Touch</a>
-  </div>
+  <div class="mobile-menu" id="mobileMenu"><a href="../#closed">Closed ideas</a><a href="../#open">Problems</a><a href="../research/">Notes</a><a href="../join/">Join</a><a href="../about/">About</a><a href="../#contact" class="nav-cta">Write to Rahul</a></div>
 </nav>
 
-<section class="page-header" id="main">
+<main id="main">
+<header class="page-header">
   <div class="container">
-    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Traction</div>
-    <div class="sec-label">Traction</div>
-    <h2 class="sec-h2">Where This Actually Stands.<br /><span class="grad">No Trend Dressed Up.</span></h2>
-    <p>One validated baseline result, honestly labeled — plus the thesis, the model, and the posture behind it. Not a pitch deck.</p>
+    <div class="breadcrumbs"><a href="../">Home</a><span>/</span>Where we are</div>
+    <div class="sec-label">Honest Status</div>
+    <h1 class="sec-h2">Where We Are</h1>
+    <p class="lead">The honest status of the lab, as of October 2026.</p>
   </div>
-</section>
-
-<section class="page-content">
+</header>
+<div class="page-content">
   <div class="container">
-    <div class="article-prose">
+    <div class="prose-page">
 
-      <div class="callout warn">
-        <strong>RLAlphaLabs is not registered with SEBI in any capacity.</strong> We do not manage money for clients, do not accept funds for trading, do not provide investment advice, and do not offer any investment scheme or product. Any investor discussion on this page concerns equity participation in the research venture only — never money into a trading strategy.
-      </div>
-
-      <h2>Progress, honestly framed</h2>
-      <p>There is one validated baseline result to date, from one genuine training run evaluated on held-out data. We are not going to dress a single data point up as a trend line — that would be worse than just saying so. A second hypothesis-driven experiment is in progress; when it lands, this section updates to show the real trajectory, not before.</p>
-
-      <div class="exp-metrics">
-        <div class="exp-metric"><div class="val">0.49</div><div class="lbl">Test Sharpe</div></div>
-        <div class="exp-metric"><div class="val">65%</div><div class="lbl">Test Win Rate</div></div>
-        <div class="exp-metric"><div class="val">1</div><div class="lbl">Validated Baseline</div></div>
-        <div class="exp-metric"><div class="val">1</div><div class="lbl">More in Pipeline</div></div>
-      </div>
-      <p class="chart-disc">
-        Simulated/backtest results on historical data; past performance, simulated or real, does not guarantee future results; not investment advice; not an offer of securities.
-        Full write-up, caveats (single seed, no walk-forward yet), and the equity curve live on
-        <a href="../experiments/scaled-training.html">the Experiments page</a> — we link out rather than duplicate the chart, so there is exactly one normalized curve per experiment, not a re-drawn copy.
-      </p>
-
-      <h2>Market thesis</h2>
-      <p>Indian equity markets are structurally harder to trade profitably than they look, and structurally under-served by existing tooling:</p>
+      <h2>Status</h2>
       <ul>
-        <li><strong>Transaction costs are materially higher and more complex than US markets</strong> — STT, stamp duty, exchange charges, and GST stack up and meaningfully change what "profitable" means after costs.</li>
-        <li><strong>Most published RL-for-trading research is US-centric</strong> and systematically underestimates Indian fee structures — a strategy that looks profitable in a US-calibrated backtest often is not, once NSE-realistic costs are applied.</li>
-        <li><strong>India-specific RL trading research is sparse</strong> relative to the size and growth of the market.</li>
-        <li><strong>Retail participation has been roughly half of NSE turnover since 2020</strong> — a large, structurally distinct market where imported solutions built for other markets tend to fail quietly.</li>
+        <li>Research stage since May 2025.</li>
+        <li>Paper trading only. No real money is traded. Live market data is used for measurement only.</li>
+        <li>Self-funded. No outside investors.</li>
+        <li>One founder, working with AI agents.</li>
+        <li>No revenue, and no client money.</li>
+        <li>No method has yet cleared our own evidence bar for live trading.</li>
       </ul>
-      <p>The opportunity is not "RL trading" in the abstract — it's a rigorous, cost-realistic system built for this specific market from first principles.</p>
 
-      <h2>Business model — directional</h2>
-      <p>We are currently leaning toward <strong>B2B: licensing a validated RL engine to funds and brokerages</strong>, rather than running a proprietary trading book directly or selling a consumer signal product — though this is a direction, not a locked decision, and it will be revisited as the research and regulatory picture firms up. The rough framing: a large, underserved base of Indian brokerages and smaller funds that want systematic capability without building an RL research team from scratch.</p>
-
-      <h2>Why rigor is the moat</h2>
-      <p>The differentiator is not "our returns are better" — current results are candidly mixed, and we say so throughout this site. The differentiator is a system that is <strong>explainable, self-hosted, runs with no dependency on third-party cloud infrastructure, and is auditable end-to-end</strong> — every claim traceable to a logged experiment, every promotion decision gated by pre-declared, overfitting-aware criteria rather than a chart someone liked. In a category full of backtested fiction, a process a counterparty can actually audit is the asset.</p>
+      <h2>What we have so far</h2>
+      <ul>
+        <li>More than 30 ideas tested. Most are closed, and each verdict is on record with its reason.</li>
+        <li>A few ideas run forward on paper, scored as new results come in.</li>
+        <li>3,479 commits and 37,260 automated tests in the research code since May 2025, and a written record of every decision.</li>
+      </ul>
+      <p><a href="../research/">Read the notes →</a></p>
 
       <h2>Regulatory posture</h2>
-      <p>We are aware of the SEBI frameworks that would govern any future client-facing deployment of this system — algorithmic-trading rules, portfolio-management/AIF regimes, and investment-adviser / research-analyst registration regimes. Any client-facing deployment or capital-management arrangement will occur only after the applicable registrations and exchange approvals are in place. Nothing on this site is, or is intended to be, a step toward operating any of those regimes without the required registration.</p>
+      <p>We are aware of the SEBI frameworks that would govern any future client-facing deployment of our work: algorithmic-trading rules, portfolio-management and AIF regimes, and investment-adviser and research-analyst registration regimes. Any client-facing deployment or capital-management arrangement will occur only after the applicable registrations and exchange approvals are in place. Nothing on this site is, or is intended to be, a step toward operating any of those regimes without the required registration.</p>
 
-      <h2>Roadmap — compliance ordered</h2>
-      <p>Directional milestones, not commitments. Dates are rough quarters; the compliance and registration pathway is deliberately sequenced <em>before</em> any live-deployment or white-label milestone, not after.</p>
-      <table>
-        <thead><tr><th>Roughly when</th><th>Milestone</th></tr></thead>
-        <tbody>
-          <tr><td>Now</td><td>Walk-forward validation, adversarial stress testing, multi-seed statistical confidence</td></tr>
-          <tr><td>Next</td><td>Paper-trading gate (live simulation, no real capital) sustained over an extended window</td></tr>
-          <tr><td>Then</td><td>Regulatory / compliance pathway review — before any capital-facing step, not after</td></tr>
-          <tr><td>Later</td><td>Canary deployment under applicable registrations, small scale, tightly bounded risk</td></tr>
-          <tr><td>Directional</td><td>B2B licensing conversations, contingent on the above clearing in order</td></tr>
-        </tbody>
-      </table>
-
-      <h2>The invitation</h2>
-      <p>Open to conversations with aligned investors and partners. Any investor discussion concerns equity participation in the research venture only — <strong>nothing on this site is an offer, invitation, or solicitation to purchase securities or invest in any scheme.</strong> There is no public raise open, no stated amount, and no securities terms published anywhere on this site; specifics are discussed only in a private, individually-screened conversation.</p>
-
-      <div class="callout info">
-        <strong>Get in touch directly</strong> rather than through a public self-serve form — email <a href="mailto:connect@rlalphalabs.com">connect@rlalphalabs.com</a> with a short note on your background and interest. See the <a href="../privacy/">privacy notice</a> for what happens to that email.
+      <h2>For investors</h2>
+      <p>If you would like to fund a full-time team, write to us and we will walk you through the plan and the evidence privately. Equity in the research venture only; we do not manage money, take deposits or give investment advice.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="../?topic=Investing&amp;role=Investor#contact">Write to us as an investor →</a>
       </div>
 
-      <div class="cta-bar">
-        <a href="mailto:connect@rlalphalabs.com" class="btn-primary">Get in Touch</a>
-        <a href="../research/" class="btn-ghost">Explore the Research →</a>
-      </div>
     </div>
   </div>
-</section>
+</div>
+
+</main>
 
 <footer>
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
-        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RL Alpha Labs</a>
+        <p>A research lab testing trading ideas on Indian equities.<br />Research stage. Paper trading only.</p>
       </div>
       <div class="footer-nav">
         <div class="fnav-col">
-          <b>Platform</b>
-          <a href="../#features">Features</a>
-          <a href="../#pipeline">Pipeline</a>
-          <a href="../#performance">Results</a>
-          <a href="../#technology">Technology</a>
+          <b>The work</b>
+          <a href="../#look">The test</a>
+          <a href="../#closed">Closed ideas</a>
+          <a href="../#traps">Backtest traps</a>
+          <a href="../#open">Open problems</a>
         </div>
         <div class="fnav-col">
-          <b>Project</b>
-          <a href="../research/">Research</a>
-          <a href="../experiments/">Experiments</a>
-          <a href="../blog/">Blog</a>
+          <b>The lab</b>
+          <a href="../research/">Notes</a>
+          <a href="../join/">Join</a>
           <a href="../about/">About</a>
-          <a href="../#contact">Contact</a>
+          <a href="../traction/">Where we are</a>
         </div>
         <div class="fnav-col">
-          <b>For You</b>
-          <a href="../traction/">Investors</a>
-          <a href="../join/">Collaborators / Join</a>
-          <a href="../privacy/">Privacy Notice</a>
+          <b>Find us</b>
+          <a href="https://www.linkedin.com/in/pctablet505" rel="noopener" target="_blank">Rahul on LinkedIn</a>
+          <a href="https://www.linkedin.com/company/rl-alpha-labs/" rel="noopener" target="_blank">RL Alpha Labs on LinkedIn</a>
+          <a href="https://github.com/pctablet505" rel="noopener" target="_blank">GitHub</a>
+          <a href="../privacy/">Privacy</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
-      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
+      <p>© 2026 RL Alpha Labs. Research stage. Not financial advice.</p>
+      <p class="footer-disc">No investment advice. We do not manage money or accept deposits. No real money is traded. Results of tests do not predict live results, and trading involves significant risk of loss. Nothing here is a solicitation to trade.</p>
     </div>
   </div>
 </footer>
-
 <button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
-
 <script src="../js/main.js"></script>
 </body>
 </html>

@@ -3,148 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Research — RLAlphaLabs</title>
-  <meta name="description" content="Public research hub for RLAlphaLabs: problem statement, methodology, open problems, and literature review on RL for Indian equity markets." />
+  <title>Notes · RL Alpha Labs</title>
+  <meta name="description" content="Notes from RL Alpha Labs: ideas we closed, backtest traps that fooled us, and how one person runs a lab with AI agents." />
   <link rel="canonical" href="https://rlalphalabs.com/research/" />
   <meta property="og:url" content="https://rlalphalabs.com/research/" />
+  <meta property="og:title" content="Notes · RL Alpha Labs" />
+  <meta property="og:description" content="Notes from RL Alpha Labs: ideas we closed, backtest traps that fooled us, and how one person runs a lab with AI agents." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Notes · RL Alpha Labs" />
+  <meta name="twitter:description" content="Notes from RL Alpha Labs: ideas we closed, backtest traps that fooled us, and how one person runs a lab with AI agents." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>" />
+  <script>(function(){try{var t=localStorage.getItem('rlal-theme');if(!t)t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}try{if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal');}catch(e){}})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <script>
-    /* No-FOUC theme bootstrap: apply saved/preferred theme before first paint */
-    (function () {
-      try {
-        var t = localStorage.getItem('rlal-theme');
-        if (!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        document.documentElement.dataset.theme = t;
-      } catch (e) { document.documentElement.dataset.theme = 'dark'; }
-    })();
-  </script>
   <link rel="stylesheet" href="../css/style.css" />
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 <div id="scrollProgress"></div>
-
-<div id="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-label">SAMPLE UNIVERSE</span>
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
-</div>
-
+<div id="tape" aria-label="Recent verdicts"><div class="tape-inner"><span class="tape-label">Recent verdicts</span><div class="tape-track"><span class="tape-item"><span class="tape-sym">AI reading filings</span>almost a tie with the numbers-only forecast<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Index additions</span>rose before the news<span class="tape-chip tape-late">too late</span></span><span class="tape-item"><span class="tape-sym">Chart-pattern setups</span>gain smaller than one round trip of fees<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Writing index options</span>holding the fund won<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Commodity shocks</span>predicted results, lost money<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Order-book signals</span>perfect foresight barely paid the cost<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Buying news-driven jumps</span>no follow-through<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Reinforcement-learning agents</span>no better than a placebo agent<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Supply-chain maps from reports</span>missed the accuracy bars<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Hand-picked stock baskets</span>trailed the index fund after tax<span class="tape-chip tape-cost">costs</span></span><span class="tape-dup" aria-hidden="true"><span class="tape-item"><span class="tape-sym">AI reading filings</span>almost a tie with the numbers-only forecast<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Index additions</span>rose before the news<span class="tape-chip tape-late">too late</span></span><span class="tape-item"><span class="tape-sym">Chart-pattern setups</span>gain smaller than one round trip of fees<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Writing index options</span>holding the fund won<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Commodity shocks</span>predicted results, lost money<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Order-book signals</span>perfect foresight barely paid the cost<span class="tape-chip tape-cost">costs</span></span><span class="tape-item"><span class="tape-sym">Buying news-driven jumps</span>no follow-through<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Reinforcement-learning agents</span>no better than a placebo agent<span class="tape-chip tape-edge">no edge</span></span><span class="tape-item"><span class="tape-sym">Supply-chain maps from reports</span>missed the accuracy bars<span class="tape-chip tape-ai">below bar</span></span><span class="tape-item"><span class="tape-sym">Hand-picked stock baskets</span>trailed the index fund after tax<span class="tape-chip tape-cost">costs</span></span></span></div></div></div>
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
-    <ul class="nav-links">
-      <li><a href="../#features">Features</a></li>
-      <li><a href="../traction/">Traction</a></li>
-      <li><a href="./">Research</a></li>
-      <li><a href="../join/">Join</a></li>
-      <li><a href="../experiments/">Experiments</a></li>
-      <li><a href="../blog/">Blog</a></li>
-      <li><a href="../about/">About</a></li>
-      <li><a href="../#contact" class="nav-cta">Get in Touch</a></li>
-    </ul>
+    <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RL Alpha Labs</a>
+    <ul class="nav-links"><li><a href="../#closed">Closed ideas</a></li><li><a href="../#open">Problems</a></li><li><a href="../research/">Notes</a></li><li><a href="../join/">Join</a></li><li><a href="../about/">About</a></li><li><a href="../#contact" class="nav-cta">Write to Rahul</a></li></ul>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle theme (T)">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
-    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="../#features">Features</a>
-    <a href="../traction/">Traction</a>
-    <a href="./">Research</a>
-    <a href="../join/">Join</a>
-    <a href="../experiments/">Experiments</a>
-    <a href="../blog/">Blog</a>
-    <a href="../about/">About</a>
-    <a href="../#contact" class="nav-cta">Get in Touch</a>
-  </div>
+  <div class="mobile-menu" id="mobileMenu"><a href="../#closed">Closed ideas</a><a href="../#open">Problems</a><a href="../research/">Notes</a><a href="../join/">Join</a><a href="../about/">About</a><a href="../#contact" class="nav-cta">Write to Rahul</a></div>
 </nav>
 
-<section class="page-header" id="main">
+<main id="main">
+<header class="page-header">
   <div class="container">
-    <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Research</div>
-    <div class="sec-label">Research</div>
-    <h2 class="sec-h2">Public Research Hub<br /><span class="grad">Open Knowledge</span></h2>
-    <p>We publish our problem definition, methodology, validated findings, open questions, and literature review. No source code, no proprietary configs — but the intellectual framework is here for anyone who wants to build on it.</p>
+    <div class="breadcrumbs"><a href="../">Home</a><span>/</span>Notes</div>
+    <div class="sec-label">Notes</div>
+    <h1 class="sec-h2">What We Have Learned,<br /><span class="grad">Written Down</span></h1>
+    <p class="dateline mono">Updated October 2026</p>
+    <p class="lead">Written for researchers and engineers. Method and lessons only: no signals, parameters or code.</p>
   </div>
-</section>
-
-<section class="page-content">
+</header>
+<div class="page-content">
   <div class="container">
     <div class="card-list">
-      <a href="problem-statement.html" class="content-card reveal">
-        <div class="card-meta"><span class="tag">Foundation</span> <span>April 2026</span></div>
-        <h3>Research Problem Statement</h3>
-        <p>The complete formulation of the RL-for-trading problem on Indian equities: MDP definition, market context, key challenges, and evaluation protocol. Everything you need to understand what we're solving and why it's hard.</p>
+
+      <a class="content-card reveal" href="../notes/ideas-we-closed/">
+        <div class="card-meta"><span class="tag">Note</span><span>Twelve ideas</span></div>
+        <h3>Ideas we closed</h3>
+        <p>Twelve ideas we tested and closed, each with its reason. Costs and taxes closed four; five showed no edge, or only luck.</p>
+        <p class="uc-ask">Read the note →</p>
       </a>
 
-      <a href="methodology.html" class="content-card reveal">
-        <div class="card-meta"><span class="tag">Approach</span> <span>Updated</span></div>
-        <h3>Methodology</h3>
-        <p>High-level overview of our approach: why actor-critic RL, why walk-forward validation, why dual JAX/PyTorch backends, and how we model NSE-realistic costs. The "what" and "why" without the "how" in code.</p>
+      <a class="content-card reveal" href="../notes/backtest-traps/">
+        <div class="card-meta"><span class="tag">Note</span><span>Eight traps</span></div>
+        <h3>Backtest traps that fooled us</h3>
+        <p>The dangerous mistakes raise no error. They make a result look better, or a check look passed.</p>
+        <p class="uc-ask">Read the note →</p>
       </a>
 
-      <a href="open-problems.html" class="content-card reveal">
-        <div class="card-meta"><span class="tag">Recruiting</span> <span>Active</span></div>
-        <h3>Open Research Problems</h3>
-        <p>Twenty fundamental questions we have not solved yet. From regime-aware meta-learning to continuous target-weight action spaces. If you're working on any of these, we should talk.</p>
+      <a class="content-card reveal" href="../notes/how-we-run-ai-agents/">
+        <div class="card-meta"><span class="tag">Note</span><span>Principles and mistakes</span></div>
+        <h3>How one person runs a lab with AI agents</h3>
+        <p>Our rulebook grew out of real mistakes, and automated guards refuse the dangerous actions before they happen.</p>
+        <p class="uc-ask">Read the note →</p>
       </a>
 
-      <a href="literature.html" class="content-card reveal">
-        <div class="card-meta"><span class="tag">Reference</span> <span>Curated</span></div>
-        <h3>Literature Review</h3>
-        <p>Key papers in RL for trading, meta-learning for finance, Indian market microstructure, and risk-sensitive RL — with our commentary on relevance to NSE-specific problems.</p>
-      </a>
+    </div>
+    <div class="cta-row">
+      <a class="btn-primary" href="../#open">See the open problems</a>
+      <a class="btn-ghost" href="../#contact">Write to Rahul</a>
     </div>
   </div>
-</section>
+</div>
+
+</main>
 
 <footer>
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RLAlphaLabs</a>
-        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+        <a href="../" class="nav-logo"><span class="logo-mark">◈</span>RL Alpha Labs</a>
+        <p>A research lab testing trading ideas on Indian equities.<br />Research stage. Paper trading only.</p>
       </div>
       <div class="footer-nav">
         <div class="fnav-col">
-          <b>Platform</b>
-          <a href="../#features">Features</a>
-          <a href="../#pipeline">Pipeline</a>
-          <a href="../#performance">Results</a>
-          <a href="../#technology">Technology</a>
+          <b>The work</b>
+          <a href="../#look">The test</a>
+          <a href="../#closed">Closed ideas</a>
+          <a href="../#traps">Backtest traps</a>
+          <a href="../#open">Open problems</a>
         </div>
         <div class="fnav-col">
-          <b>Project</b>
-          <a href="./">Research</a>
-          <a href="../experiments/">Experiments</a>
-          <a href="../blog/">Blog</a>
+          <b>The lab</b>
+          <a href="../research/">Notes</a>
+          <a href="../join/">Join</a>
           <a href="../about/">About</a>
-          <a href="../#contact">Contact</a>
+          <a href="../traction/">Where we are</a>
         </div>
         <div class="fnav-col">
-          <b>For You</b>
-          <a href="../traction/">Investors</a>
-          <a href="../join/">Collaborators / Join</a>
-          <a href="../privacy/">Privacy Notice</a>
+          <b>Find us</b>
+          <a href="https://www.linkedin.com/in/pctablet505" rel="noopener" target="_blank">Rahul on LinkedIn</a>
+          <a href="https://www.linkedin.com/company/rl-alpha-labs/" rel="noopener" target="_blank">RL Alpha Labs on LinkedIn</a>
+          <a href="https://github.com/pctablet505" rel="noopener" target="_blank">GitHub</a>
+          <a href="../privacy/">Privacy</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
-      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
+      <p>© 2026 RL Alpha Labs. Research stage. Not financial advice.</p>
+      <p class="footer-disc">No investment advice. We do not manage money or accept deposits. No real money is traded. Results of tests do not predict live results, and trading involves significant risk of loss. Nothing here is a solicitation to trade.</p>
     </div>
   </div>
 </footer>
-
 <button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
-
 <script src="../js/main.js"></script>
 </body>
 </html>
