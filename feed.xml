@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>RL Alpha Labs — Quantitative Research &amp; Field Notes</title>
+  <subtitle>Survivorship-free Indian equity (NSE/BSE) simulation, statutory &amp; FIFO tax modeling, and pure-JAX XLA reinforcement learning research.</subtitle>
+  <link href="https://rlalphalabs.com/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://rlalphalabs.com/" rel="alternate" type="text/html" />
+  <id>https://rlalphalabs.com/</id>
+  <updated>2026-10-15T15:30:00Z</updated>
+  <icon>https://rlalphalabs.com/favicon-96x96.png</icon>
+  <logo>https://rlalphalabs.com/og.png</logo>
+  <author>
+    <name>RL Alpha Labs</name>
+    <email>connect@rlalphalabs.com</email>
+    <uri>https://rlalphalabs.com/</uri>
+  </author>
+
+  <entry>
+    <title>Indian Equity Trading Costs, CDSL ₹15.34 DP Charges &amp; FIFO Capital-Gains Tax Hurdle</title>
+    <link href="https://rlalphalabs.com/notes/trading-costs/" rel="alternate" />
+    <id>https://rlalphalabs.com/notes/trading-costs/</id>
+    <updated>2026-10-15T12:00:00Z</updated>
+    <summary>Why retail NSE equity delivery portfolios face a steep nonlinear hurdle from STT, stamp duty, GST, flat ₹15.34 CDSL depository sell charges, and mandatory FIFO s.111A/s.112A capital-gains realizations.</summary>
+  </entry>
+
+  <entry>
+    <title>The 8 Backtest Traps That Inflate Indian Equity Returns (+0.3%/yr to +29.6%/yr)</title>
+    <link href="https://rlalphalabs.com/notes/backtest-traps/" rel="alternate" />
+    <id>https://rlalphalabs.com/notes/backtest-traps/</id>
+    <updated>2026-10-15T12:00:00Z</updated>
+    <summary>Forensic audit of 8 common Indian market backtest errors: survivorship bias from dropped delisted NSE symbols, same-bar close fills, quarter-end vs. broadcast timestamp leakage, and unadjusted corporate actions.</summary>
+  </entry>
+
+  <entry>
+    <title>Twelve Trading Ideas We Tested on NSE and Closed (And Why)</title>
+    <link href="https://rlalphalabs.com/notes/ideas-we-closed/" rel="alternate" />
+    <id>https://rlalphalabs.com/notes/ideas-we-closed/</id>
+    <updated>2026-10-15T12:00:00Z</updated>
+    <summary>Empirical post-mortems across 12 closed Indian equity hypotheses—from high-turnover continuous RL and LLM corporate filing readers to equal-weight 300-stock retail baskets.</summary>
+  </entry>
+
+  <entry>
+    <title>How We Run AI Research and Coding Agents Under Frozen Pre-Registration</title>
+    <link href="https://rlalphalabs.com/notes/how-we-run-ai-agents/" rel="alternate" />
+    <id>https://rlalphalabs.com/notes/how-we-run-ai-agents/</id>
+    <updated>2026-10-15T12:00:00Z</updated>
+    <summary>Lab rules for operating multi-model AI research and engineering agents with SHA-256 frozen experimental designs, AST lookahead gates, and human sign-off at every promotion stage.</summary>
+  </entry>
+
+  <entry>
+    <title>Problem Formulation &amp; Indian Market (NSE/BSE) Microstructure</title>
+    <link href="https://rlalphalabs.com/research/problem-statement.html" rel="alternate" />
+    <id>https://rlalphalabs.com/research/problem-statement.html</id>
+    <updated>2026-10-15T12:00:00Z</updated>
+    <summary>Formal POMDP formulation, 2015–2025 Indian equity regime breakdown, NIFTY 50/100/500 liquidity and bid-ask spread tables, and statutory CNC vs. MIS cost equations.</summary>
+  </entry>
+
+  <entry>
+    <title>Three-Plane Architecture &amp; Anti-Overfit Research Methodology</title>
+    <link href="https://rlalphalabs.com/research/methodology.html" rel="alternate" />
+    <id>https://rlalphalabs.com/research/methodology.html</id>
+    <updated>2026-10-15T12:00:00Z</updated>
+    <summary>Point-in-time Data Plane (8.77M security-session rows), Pure-JAX XLA Model Plane, and One-World Simulation Plane pinned to 1e-9 precision across 3,865 pre-registered trials.</summary>
+  </entry>
+
+  <entry>
+    <title>Pure-JAX XLA Scaled Training &amp; GPU Throughput Benchmarks</title>
+    <link href="https://rlalphalabs.com/experiments/scaled-training.html" rel="alternate" />
+    <id>https://rlalphalabs.com/experiments/scaled-training.html</id>
+    <updated>2026-10-15T12:00:00Z</updated>
+    <summary>Hardware benchmarks across vectorized environments (500,000 env-steps/sec), fused jax.lax.scan loops, Patch-GTrXL sector-graph transformers, and 51× replay buffer HBM compression.</summary>
+  </entry>
+</feed>

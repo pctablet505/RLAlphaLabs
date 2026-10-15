@@ -1,0 +1,34 @@
+# RL Alpha Labs (rlalphalabs.com)
+
+> RL Alpha Labs is a quantitative research and financial systems engineering startup focused on Indian equities (NSE and BSE). We stress-test AI, machine learning, reinforcement learning, and systematic trading hypotheses against survivorship-free point-in-time market history, exact statutory delivery costs, flat ₹15.34 CDSL depository sell charges, and mandatory FIFO capital-gains taxes. All strategies run in simulation and paper trading; no live capital is deployed.
+
+## Key Empirical & Engineering Facts
+- **Point-in-Time (PIT) Data Plane:** 8.77M security-session rows reconstructed from 6,632+ raw exchange archives (2000–2026), covering 4,277 continuous security chains, 1,142 delisted NSE companies (~30%), and 24,203 corporate actions.
+- **One-World Statutory & FIFO Tax Engine:** Rupee-exact STT, stamp duty, exchange/SEBI fees, 18% GST, flat ₹15.34 CDSL DP sell charges, and bitemporal FIFO s.111A (20.8% STCG) / s.112A (13.0% LTCG) demat tax-lot accounting pinned to `1e-9` precision.
+- **Pure-JAX + Optax XLA Stack:** 8 RL algorithms (SAC, Temporal SAC, TQC, TD3, PPO, A2C, DQN/QR-DQN/IQN), 15-sector Patch-GTrXL transformer + Ragged-Dot MoE, `500,000 env-steps/sec` environment stepping, and `51×` replay buffer HBM compression (`314 GB -> 0.31 GB`).
+- **Empirical Verdict Ledger (3,865 Pre-Registered Trials across 34 Hypothesis Families):**
+  - **3 Survived All Stress Gates:** Low-turnover post-filing earnings drift (`+5–7%/yr net`, `t > 2.5`), hysteresis band + LTCG tax-gate architecture (`-58%` turnover, `+0.45%/yr` net tax alpha), and turnover-matched low-volatility tilt (`+1.52%/yr` vs matched null).
+  - **31 Closed With Documented Post-Mortems:** 11 closed due to NSE cost & FIFO tax friction (including high-turnover RL at `-1.96 IR` and direct 300-stock baskets trailing a NIFTY 500 index fund in 69 of 70 tiers), 14 closed due to zero out-of-sample edge against matched null controls, and 6 closed as survivorship or broadcast-timestamp artifacts.
+
+## Core Pages & Technical Documentation
+- [Home & Interactive NSE Friction Simulator](https://rlalphalabs.com/): Interactive retail cost/tax hurdle calculator, 6-study quant intuition quiz, and 34-family empirical verdict ledger.
+- [Research Hub](https://rlalphalabs.com/research/): Overview of problem formulation, three-plane architecture, open questions, and literature.
+- [01 · Problem Formulation & NSE Microstructure](https://rlalphalabs.com/research/problem-statement.html): Formal POMDP definition, NIFTY 50/100/500 spread & liquidity tables, and statutory cost equations.
+- [02 · Three-Plane Architecture & Methodology](https://rlalphalabs.com/research/methodology.html): PIT Data Plane, Pure-JAX Model Plane, One-World Simulation Plane, and SHA-256 pre-registration gates.
+- [03 · Pure-JAX XLA Scaled Training Benchmarks](https://rlalphalabs.com/experiments/scaled-training.html): GPU vectorization, `jax.lax.scan` fusion, and `FrameRingBuffer` memory benchmarks.
+- [04 · Empirical Benchmarks Overview](https://rlalphalabs.com/experiments/): Summary of pre-registered out-of-sample trials and null-control comparisons.
+- [05 · 20 Open Research Questions](https://rlalphalabs.com/research/open-problems.html): Unsolved problems in non-stationary Indian market RL, corporate-action adjustments, and tax-aware execution.
+- [06 · Annotated Literature Review](https://rlalphalabs.com/research/literature.html): 38 curated papers across deep RL, transformers, market microstructure, and Indian equity anomalies.
+
+## Field Notes
+- [Indian Equity Trading Costs & FIFO Tax Math](https://rlalphalabs.com/notes/trading-costs/): Breakdown of STT, stamp duty, GST, ₹15.34 CDSL DP charges, and STCG/LTCG drag by account size.
+- [The 8 Backtest Traps We Caught and Eliminated](https://rlalphalabs.com/notes/backtest-traps/): Survivorship bias, same-bar close fills, broadcast timestamp leakage, and corporate-action errors.
+- [Twelve Trading Ideas We Tested and Closed](https://rlalphalabs.com/notes/ideas-we-closed/): Honest post-mortems of ideas that failed out-of-sample or after statutory costs.
+- [How We Run AI Research and Coding Agents](https://rlalphalabs.com/notes/how-we-run-ai-agents/): Multi-model agent workflow, AST lookahead verification, and human promotion gates.
+
+## Organization & Contact
+- [About RL Alpha Labs](https://rlalphalabs.com/about/)
+- [Engineering Roadmap & Traction](https://rlalphalabs.com/traction/)
+- [Collaborate / Join the Lab](https://rlalphalabs.com/join/)
+- [Research Log & Blog](https://rlalphalabs.com/blog/)
+- Contact: `connect@rlalphalabs.com`
