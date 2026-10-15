@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g=' https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>Backtest traps that fooled us · RL Alpha Labs</title>
+  <meta name="description" content="Eight backtest traps that fooled us or nearly did: what happened, and how we check for each one now." />
+  <link rel="canonical" href="https://rlalphalabs.com/notes/backtest-traps/" />
+  <meta property="og:url" content="https://rlalphalabs.com/notes/backtest-traps/" />
+  <meta property="og:site_name" content="RL Alpha Labs" />
+  <meta property="og:title" content="Backtest traps that fooled us · RL Alpha Labs" />
+  <meta property="og:description" content="Eight backtest traps that fooled us or nearly did: what happened, and how we check for each one now." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Backtest traps that fooled us · RL Alpha Labs" />
+  <meta name="twitter:description" content="Eight backtest traps that fooled us or nearly did: what happened, and how we check for each one now." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress"></div>
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../../#simulator">Simulator</a></li>
+      <li><a href="../../#intuition">Quant Quiz</a></li>
+      <li><a href="../../#ledger">Verdicts</a></li>
+      <li><a href="../../#engineering">Engineering</a></li>
+      <li><a href="../../#traps">8 Traps</a></li>
+      <li><a href="../../research/" class="nav-on" aria-current="true">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../../#contact" class="btn-primary">Collaborate →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../#simulator">Simulator</a>
+    <a href="../../#intuition">Quant Quiz</a>
+    <a href="../../#ledger">Verdicts</a>
+    <a href="../../#engineering">Engineering</a>
+    <a href="../../#traps">8 Traps</a>
+    <a href="../../research/" aria-current="true">Research</a>
+    <a href="../../experiments/">Benchmarks</a>
+    <a href="../../traction/">Roadmap</a>
+    <a href="../../join/">Join the lab</a>
+    <a href="../../about/">About</a>
+    <a href="../../#contact">Contact</a>
+  </div>
+</nav>
+
+<main id="main">
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../../">Home</a><span>/</span><a href="../../research/">Notes</a><span>/</span>Backtest traps</div>
+    <div class="sec-label">Note</div>
+    <h1 class="sec-h2">Backtest Traps That Fooled Us,<br /><span class="grad">or Nearly Did</span></h1>
+    <p class="lead">A backtest reports how an idea would have done. Its worst errors do not crash. They return a number that looks reasonable, and usually better than the truth.</p>
+    <p class="dateline mono">Updated October 2026</p>
+  </div>
+</header>
+<div class="page-content">
+  <div class="container">
+    <div class="prose-page">
+
+      <p>Here are eight that caught us, what happened, and how we check for each one now. This is method only; none of it needs our strategies to make sense.</p>
+
+      <h2>Trading at the price you decided on</h2>
+      <p>One comparison said spreading an order through the day cost far more than buying at the close. But the test decided on the closing price and filled at that same close, which no live order can do. Filled a day later, as a real order would be, the difference disappeared.</p>
+      <p class="now"><span class="now-l mono">Now</span> Fills come at least one session after the decision, and every report shows how far the result moves between the two.</p>
+
+      <h2>Testing only the companies that survived</h2>
+      <p>If the stock list holds only companies still trading today, every company that failed is missing from the past. We measured the inflation at roughly 2.4 to 4.2 percentage points a year, larger for longer lists. A later cross-check has not yet reconciled the exact size, so we treat it as an estimate.</p>
+      <p class="now"><span class="now-l mono">Now</span> Lists are built as they stood on each date, and an edge smaller than this bias counts as unproven.</p>
+
+      <h2>Prices of zero at the start of history</h2>
+      <p>To find where a stock’s history begins, a probe asked whether the data source returned any rows for a date. For one stock it returned months of rows with every price at zero, and the history appeared to start there. A zero next to a real price also looks like a crash.</p>
+      <p class="now"><span class="now-l mono">Now</span> A row counts as data only if its prices are valid, and start dates found the old way are suspect until recomputed.</p>
+
+      <h2>Dropping what you cannot match</h2>
+      <p>A pipeline dropped the index members it could not match to an identifier. All 16 dropped names turned out to be companies that had merged, been renamed or wound up: not one survivor. The quick repair then counted some companies twice, giving 59 members for a 50-name index, and the validator passed, because it checked each row on its own.</p>
+      <p class="now"><span class="now-l mono">Now</span> Before accepting a drop, we split what was dropped into survivors and non-survivors, and check counts against a size the table cannot supply itself.</p>
+
+      <h2>A pass mark mistaken for power</h2>
+      <p>A design called two standard errors its smallest detectable effect. That is only the pass mark: a true effect of exactly that size passes about half the time. Tests looked better powered than they were, and “not found” was read as “not there”.</p>
+      <p class="now"><span class="now-l mono">Now</span> Every design states the effect it can detect 80% of the time, apart from its pass mark. A result below that is “not powered”: neither a pass nor a fail.</p>
+
+      <h2>A control that cannot fail</h2>
+      <p>A negative control scrambles the data so that no real effect can survive. Ours returned the real run’s number to the last digit, and the check read “pass”. It happened twice in one day, through two different bugs, and nothing raised an error.</p>
+      <p class="now"><span class="now-l mono">Now</span> Every control’s score is compared with the real run’s, and identical digits stop the run.</p>
+
+      <h2>A broken measurement that looks like progress</h2>
+      <p>A code-quality gate counted errors and only let the count fall. A setting the tool silently ignored made the count depend on the shell, not the code. When the count dropped by 304, the gate recorded an improvement. None of those 304 was a real fix.</p>
+      <p class="now"><span class="now-l mono">Now</span> A falling count is suspect until explained, and a setting is tested where the tool reads it.</p>
+
+      <h2>A language model that already knows the answer</h2>
+      <p>A model trained on text that covers the test years may have seen the outcomes. We tried to measure that with other language models, but they share the same hindsight, and no check run with them can prove it absent.</p>
+      <p class="now"><span class="now-l mono">Now</span> We read such backtests one way only. A fail is a real negative; a pass is at best an upper bound. The clean test is forecasting results that have not happened yet.</p>
+
+      <h2>The common thread</h2>
+      <p>Each trap made a result look better, or a check look passed, without an error message. So we check good news hardest.</p>
+      <p>Have you been fooled by a trap that is not on this list? We would like to hear about it.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="../../?topic=Something%20else#contact">Write to Rahul →</a>
+        <a class="btn-ghost" href="../../notes/how-we-run-ai-agents/">Next: how we run the lab with AI agents →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="../../" class="logo">
+          <div class="logo-mark">αL</div>
+          <div class="logo-name">RL <span>Alpha</span> Labs</div>
+        </a>
+        <p>Quantitative research, survivorship-free NSE simulation, and pure-JAX XLA systems engineering for Indian equity markets.</p>
+      </div>
+      <div class="foot-col">
+        <h2>Interactive</h2>
+        <ul>
+          <li><a href="../../#heroConsole">Benchmark Console</a></li>
+          <li><a href="../../#simulator">Simulator</a></li>
+          <li><a href="../../#intuition">Quant Quiz</a></li>
+          <li><a href="../../#ledger">Verdicts</a></li>
+          <li><a href="../../#engineering">Engineering</a></li>
+          <li><a href="../../#traps">8 Traps</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Research &amp; Notes</h2>
+        <ul>
+          <li><a href="../../research/">Research Hub</a></li>
+          <li><a href="../../research/problem-statement.html">Problem Statement</a></li>
+          <li><a href="../../research/methodology.html">System Methodology</a></li>
+          <li><a href="../../research/open-problems.html">20 Open Problems</a></li>
+          <li><a href="../../notes/trading-costs/">NSE Trading Costs</a></li>
+          <li><a href="../../notes/backtest-traps/">8 Backtest Traps</a></li>
+          <li><a href="../../notes/ideas-we-closed/">12 Closed Ideas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Lab</h2>
+        <ul>
+          <li><a href="../../experiments/">Benchmarks</a></li>
+          <li><a href="../../experiments/scaled-training.html">JAX Scaled Training</a></li>
+          <li><a href="../../notes/how-we-run-ai-agents/">AI Agent Lab Rules</a></li>
+          <li><a href="../../traction/">Roadmap</a></li>
+          <li><a href="../../join/">Join the lab</a></li>
+          <li><a href="../../about/">About</a></li>
+          <li><a href="../../privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · Research-Stage Startup · India</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Past simulation results do not guarantee future live performance. No real capital is currently deployed. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice, portfolio management, or a solicitation to buy or sell securities.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g=' https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>Ideas we closed · RL Alpha Labs</title>
+  <meta name="description" content="Twelve trading ideas we tested on Indian equities and closed, each with the reason it closed." />
+  <link rel="canonical" href="https://rlalphalabs.com/notes/ideas-we-closed/" />
+  <meta property="og:url" content="https://rlalphalabs.com/notes/ideas-we-closed/" />
+  <meta property="og:site_name" content="RL Alpha Labs" />
+  <meta property="og:title" content="Ideas we closed · RL Alpha Labs" />
+  <meta property="og:description" content="Twelve trading ideas we tested on Indian equities and closed, each with the reason it closed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ideas we closed · RL Alpha Labs" />
+  <meta name="twitter:description" content="Twelve trading ideas we tested on Indian equities and closed, each with the reason it closed." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress"></div>
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../../#simulator">Simulator</a></li>
+      <li><a href="../../#intuition">Quant Quiz</a></li>
+      <li><a href="../../#ledger">Verdicts</a></li>
+      <li><a href="../../#engineering">Engineering</a></li>
+      <li><a href="../../#traps">8 Traps</a></li>
+      <li><a href="../../research/" class="nav-on" aria-current="true">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../../#contact" class="btn-primary">Collaborate →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../#simulator">Simulator</a>
+    <a href="../../#intuition">Quant Quiz</a>
+    <a href="../../#ledger">Verdicts</a>
+    <a href="../../#engineering">Engineering</a>
+    <a href="../../#traps">8 Traps</a>
+    <a href="../../research/" aria-current="true">Research</a>
+    <a href="../../experiments/">Benchmarks</a>
+    <a href="../../traction/">Roadmap</a>
+    <a href="../../join/">Join the lab</a>
+    <a href="../../about/">About</a>
+    <a href="../../#contact">Contact</a>
+  </div>
+</nav>
+
+<main id="main">
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../../">Home</a><span>/</span><a href="../../research/">Notes</a><span>/</span>Ideas we closed</div>
+    <div class="sec-label">Note</div>
+    <h1 class="sec-h2">Twelve Ideas We Closed,<br /><span class="grad">and Why</span></h1>
+    <p class="lead">Most trading ideas fail. The useful part is knowing why. These are twelve ideas we tested on Indian equities and closed, one line each.</p>
+    <p class="dateline mono">Updated October 2026</p>
+  </div>
+</header>
+<div class="page-content">
+  <div class="container">
+    <div class="prose-page">
+
+      <p>Each line names the kind of idea and the reason it closed. We leave out parameters, stock lists and timing on purpose; the lesson is in the reason.</p>
+      <p>Each idea was judged against a bar: usually an index fund or a simpler method, after real costs and tax. Some were closed by a full test, frozen before we read its result. Others were closed at an earlier, exploratory look, because the evidence already fell short. Where a test could only have seen a large effect, we say so.</p>
+
+      <h2><span class="chip chip-cost">Costs and taxes</span></h2>
+      <ul>
+        <li><b>A hand-picked basket of large stocks instead of an index fund.</b> Every basket we built trailed the fund after dividend tax, trading costs and capital-gains tax. The gap was structural, not bad luck.</li>
+        <li><b>Intraday chart-pattern setups.</b> The average gain per trade was smaller than the taxes and fees of a single round trip.</li>
+        <li><b>Order-book signals over seconds to minutes.</b> On our first day of live order-book data, even perfect foresight of the largest moves barely covered the cost of trading them.</li>
+        <li><b>Trading other public filing feeds on their own.</b> None cleared our cost bar.</li>
+      </ul>
+
+      <h2><span class="chip chip-edge">No edge, or only luck</span></h2>
+      <ul>
+        <li><b>Reinforcement-learning agents trading on daily prices.</b> They did not beat a placebo agent within our compute budget.</li>
+        <li><b>A bigger machine-learning model to rank stocks.</b> Its estimated gain over holding the same stocks in equal weights was below zero at every model size. The test could only have seen a large gain, so this is a closed estimate, not a proof.</li>
+        <li><b>Buying after a big news-driven jump.</b> There was no follow-through. The only positive results were the best of hundreds of variants, which is what luck looks like.</li>
+        <li><b>Using commodity price shocks to predict company results.</b> The shocks did predict reported results, but buying on them lost money even before costs.</li>
+        <li><b>Writing options on the index for income.</b> No rule we tested beat simply holding the index fund after costs and tax.</li>
+      </ul>
+
+      <h2><span class="chip chip-late">The market got there first</span></h2>
+      <ul>
+        <li><b>Buying stocks announced for addition to a major index.</b> They rose before the announcement, not after it.</li>
+      </ul>
+
+      <h2><span class="chip chip-ai">AI that fell short of the bar</span></h2>
+      <ul>
+        <li><b>An AI model reading company filings to forecast earnings surprises.</b> It was right 74.2% of the time, against 72.8% for the numbers-only forecast: short of the bar.</li>
+        <li><b>An AI model mapping which companies supply which, from annual reports.</b> The pilot missed the accuracy bars we set in advance, so the full build never started.</li>
+      </ul>
+
+      <h2>What they have in common</h2>
+      <p>Costs and taxes closed four of the twelve, and five showed no edge, or only luck. An idea has to pay for its round trip first, and in India that means securities transaction tax, stamp duty, exchange charges and GST as well as the spread.</p>
+      <p>The two AI ideas were judged like the rest: against a simpler method, or a bar fixed before the test. One idea looked good only as the best of hundreds of variants; counting every attempt is what told us it was luck.</p>
+      <p>If you can see a way to reopen one of these, or a better test for it, we would like to hear it.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="../../?topic=A%20test%20you%20would%20challenge#contact">Write to Rahul →</a>
+        <a class="btn-ghost" href="../../notes/backtest-traps/">Next: backtest traps →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="../../" class="logo">
+          <div class="logo-mark">αL</div>
+          <div class="logo-name">RL <span>Alpha</span> Labs</div>
+        </a>
+        <p>Quantitative research, survivorship-free NSE simulation, and pure-JAX XLA systems engineering for Indian equity markets.</p>
+      </div>
+      <div class="foot-col">
+        <h2>Interactive</h2>
+        <ul>
+          <li><a href="../../#heroConsole">Benchmark Console</a></li>
+          <li><a href="../../#simulator">Simulator</a></li>
+          <li><a href="../../#intuition">Quant Quiz</a></li>
+          <li><a href="../../#ledger">Verdicts</a></li>
+          <li><a href="../../#engineering">Engineering</a></li>
+          <li><a href="../../#traps">8 Traps</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Research &amp; Notes</h2>
+        <ul>
+          <li><a href="../../research/">Research Hub</a></li>
+          <li><a href="../../research/problem-statement.html">Problem Statement</a></li>
+          <li><a href="../../research/methodology.html">System Methodology</a></li>
+          <li><a href="../../research/open-problems.html">20 Open Problems</a></li>
+          <li><a href="../../notes/trading-costs/">NSE Trading Costs</a></li>
+          <li><a href="../../notes/backtest-traps/">8 Backtest Traps</a></li>
+          <li><a href="../../notes/ideas-we-closed/">12 Closed Ideas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Lab</h2>
+        <ul>
+          <li><a href="../../experiments/">Benchmarks</a></li>
+          <li><a href="../../experiments/scaled-training.html">JAX Scaled Training</a></li>
+          <li><a href="../../notes/how-we-run-ai-agents/">AI Agent Lab Rules</a></li>
+          <li><a href="../../traction/">Roadmap</a></li>
+          <li><a href="../../join/">Join the lab</a></li>
+          <li><a href="../../about/">About</a></li>
+          <li><a href="../../privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · Research-Stage Startup · India</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Past simulation results do not guarantee future live performance. No real capital is currently deployed. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice, portfolio management, or a solicitation to buy or sell securities.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../../js/main.js"></script>
+</body>
+</html>

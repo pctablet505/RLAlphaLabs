@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g=' https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>How one person runs a lab with AI agents · RL Alpha Labs</title>
+  <meta name="description" content="The principles behind running a one-founder research lab with AI agents, and the mistakes that produced each rule." />
+  <link rel="canonical" href="https://rlalphalabs.com/notes/how-we-run-ai-agents/" />
+  <meta property="og:url" content="https://rlalphalabs.com/notes/how-we-run-ai-agents/" />
+  <meta property="og:site_name" content="RL Alpha Labs" />
+  <meta property="og:title" content="How one person runs a lab with AI agents · RL Alpha Labs" />
+  <meta property="og:description" content="The principles behind running a one-founder research lab with AI agents, and the mistakes that produced each rule." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How one person runs a lab with AI agents · RL Alpha Labs" />
+  <meta name="twitter:description" content="The principles behind running a one-founder research lab with AI agents, and the mistakes that produced each rule." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress"></div>
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../../#simulator">Simulator</a></li>
+      <li><a href="../../#intuition">Quant Quiz</a></li>
+      <li><a href="../../#ledger">Verdicts</a></li>
+      <li><a href="../../#engineering">Engineering</a></li>
+      <li><a href="../../#traps">8 Traps</a></li>
+      <li><a href="../../research/" class="nav-on" aria-current="true">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../../#contact" class="btn-primary">Collaborate →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../#simulator">Simulator</a>
+    <a href="../../#intuition">Quant Quiz</a>
+    <a href="../../#ledger">Verdicts</a>
+    <a href="../../#engineering">Engineering</a>
+    <a href="../../#traps">8 Traps</a>
+    <a href="../../research/" aria-current="true">Research</a>
+    <a href="../../experiments/">Benchmarks</a>
+    <a href="../../traction/">Roadmap</a>
+    <a href="../../join/">Join the lab</a>
+    <a href="../../about/">About</a>
+    <a href="../../#contact">Contact</a>
+  </div>
+</nav>
+
+<main id="main">
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../../">Home</a><span>/</span><a href="../../research/">Notes</a><span>/</span>How we run the lab with AI agents</div>
+    <div class="sec-label">Note</div>
+    <h1 class="sec-h2">How One Person Runs a Lab<br /><span class="grad">with AI Agents</span></h1>
+    <p class="lead">RL Alpha Labs has one founder. AI agents draft most of the plans, code, tests and reviews. That works only if the agents follow rules a careful person would, and if software enforces the rules.</p>
+    <p class="dateline mono">Updated October 2026</p>
+  </div>
+</header>
+<div class="page-content">
+  <div class="container">
+    <div class="prose-page">
+
+      <h2>The principles</h2>
+      <ul>
+        <li><b>Several models, several vendors.</b> Models from different vendors work side by side, and a change is reviewed by an agent that did not write it. No single vendor is central.</li>
+        <li><b>One written rulebook.</b> Every agent reads the same rulebook, whatever its vendor, and each rule keeps a record of the evidence behind it.</li>
+        <li><b>Guards that refuse.</b> Automated guards check commands before they run and refuse the dangerous ones, such as rewriting history, deleting data or reading a file that holds a secret. A refusal names the safe route.</li>
+        <li><b>Every claim read from its source.</b> A number in a report is read from the file or command that produced it, never quoted from memory.</li>
+        <li><b>Every fix ships a test that fails first.</b> The test must fail on the old code and pass on the new. A check is also shown failing on a planted defect, because a check that cannot fail proves nothing.</li>
+        <li><b>Designs are fingerprinted before data is read.</b> A study’s design, data and code are frozen and fingerprinted before the first result is read.</li>
+        <li><b>Agents never trade and never touch credentials.</b> No agent can place an order or read a key, token or password.</li>
+      </ul>
+
+      <h2>What went wrong, and the rule it left</h2>
+      <p>Most of these rules exist because something went wrong once.</p>
+      <p>An agent once restored four result files with a command that empties its target before it runs. The files had never been saved to version control, so all four ended up empty.</p>
+      <p class="now"><span class="now-l mono">Rule</span> Commands that can destroy work are refused, and a restore must start from a file that history really holds.</p>
+      <p>An agent once edited code while a test run was still reading it. The third run counted 57 fewer tests than the first two, and nothing in the output said why.</p>
+      <p class="now"><span class="now-l mono">Rule</span> Tests run through one shared scheduler, on a copy of the code that nobody edits while it is measured.</p>
+      <p>An agent once told the founder there was no intraday data on disk, after checking one empty table. Years of minute data sat in another store.</p>
+      <p class="now"><span class="now-l mono">Rule</span> Every claim, including “there is none”, is read from the place the thing actually lives.</p>
+      <p>Test markers that said “known bug, expected to fail” stayed green for months while their tests broke during setup and checked nothing.</p>
+      <p class="now"><span class="now-l mono">Rule</span> A check is trusted only after it has been seen to fail on a planted defect.</p>
+      <p>When a review asked agents to fix a design, they tended to add layers, and each new layer brought new defects.</p>
+      <p class="now"><span class="now-l mono">Rule</span> Rework has to remove something, not only add.</p>
+      <p>Company filings come from thousands of outside sources and pass through parsers and models. Once, processing one document meant loosening a safety check.</p>
+      <p class="now"><span class="now-l mono">Rule</span> Text in a downloaded file is data, never instructions, and a guard is loosened only by a named exception, proven against hostile test files.</p>
+
+      <h2>What it costs</h2>
+      <p>The rules slow some work down. A fix takes longer when it needs a failing test first, and a study waits until its design is frozen. We accept that: a fast wrong answer costs more than a slow right one.</p>
+      <p>If you have run agents on real work and found a rule we are missing, we would like to hear it.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="../../?topic=Something%20else#contact">Write to Rahul →</a>
+        <a class="btn-ghost" href="../../research/open-problems.html">See the open problems</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="../../" class="logo">
+          <div class="logo-mark">αL</div>
+          <div class="logo-name">RL <span>Alpha</span> Labs</div>
+        </a>
+        <p>Quantitative research, survivorship-free NSE simulation, and pure-JAX XLA systems engineering for Indian equity markets.</p>
+      </div>
+      <div class="foot-col">
+        <h2>Interactive</h2>
+        <ul>
+          <li><a href="../../#heroConsole">Benchmark Console</a></li>
+          <li><a href="../../#simulator">Simulator</a></li>
+          <li><a href="../../#intuition">Quant Quiz</a></li>
+          <li><a href="../../#ledger">Verdicts</a></li>
+          <li><a href="../../#engineering">Engineering</a></li>
+          <li><a href="../../#traps">8 Traps</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Research &amp; Notes</h2>
+        <ul>
+          <li><a href="../../research/">Research Hub</a></li>
+          <li><a href="../../research/problem-statement.html">Problem Statement</a></li>
+          <li><a href="../../research/methodology.html">System Methodology</a></li>
+          <li><a href="../../research/open-problems.html">20 Open Problems</a></li>
+          <li><a href="../../notes/trading-costs/">NSE Trading Costs</a></li>
+          <li><a href="../../notes/backtest-traps/">8 Backtest Traps</a></li>
+          <li><a href="../../notes/ideas-we-closed/">12 Closed Ideas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Lab</h2>
+        <ul>
+          <li><a href="../../experiments/">Benchmarks</a></li>
+          <li><a href="../../experiments/scaled-training.html">JAX Scaled Training</a></li>
+          <li><a href="../../notes/how-we-run-ai-agents/">AI Agent Lab Rules</a></li>
+          <li><a href="../../traction/">Roadmap</a></li>
+          <li><a href="../../join/">Join the lab</a></li>
+          <li><a href="../../about/">About</a></li>
+          <li><a href="../../privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · Research-Stage Startup · India</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Past simulation results do not guarantee future live performance. No real capital is currently deployed. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice, portfolio management, or a solicitation to buy or sell securities.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../../js/main.js"></script>
+</body>
+</html>

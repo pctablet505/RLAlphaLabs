@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g=' https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>What Trading Really Costs on NSE · RL Alpha Labs</title>
+  <meta name="description" content="Complete breakdown of Indian equity trading friction: 52.93 bps statutory CNC round-trip at ₹5k/leg, flat ₹15.34 CDSL DP sell charges, 33.7–55.4 bps NSE spreads, and the 20.8% STCG vs 13.0% LTCG FIFO tax wedge." />
+  <link rel="canonical" href="https://rlalphalabs.com/notes/trading-costs/" />
+  <meta property="og:url" content="https://rlalphalabs.com/notes/trading-costs/" />
+  <meta property="og:site_name" content="RL Alpha Labs" />
+  <meta property="og:title" content="What Trading Really Costs on NSE · RL Alpha Labs" />
+  <meta property="og:description" content="Statutory STT, stamp duty, GST, flat ₹15.34 CDSL DP charges, order-book spreads, and mandatory FIFO STCG/LTCG tax math on Indian equities." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What Trading Really Costs on NSE · RL Alpha Labs" />
+  <meta name="twitter:description" content="Statutory STT, stamp duty, GST, flat ₹15.34 CDSL DP charges, order-book spreads, and mandatory FIFO STCG/LTCG tax math on Indian equities." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress"></div>
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../../#simulator">Simulator</a></li>
+      <li><a href="../../#intuition">Quant Quiz</a></li>
+      <li><a href="../../#ledger">Verdicts</a></li>
+      <li><a href="../../#engineering">Engineering</a></li>
+      <li><a href="../../#traps">8 Traps</a></li>
+      <li><a href="../../research/" class="nav-on" aria-current="true">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../../#contact" class="btn-primary">Collaborate →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../#simulator">Simulator</a>
+    <a href="../../#intuition">Quant Quiz</a>
+    <a href="../../#ledger">Verdicts</a>
+    <a href="../../#engineering">Engineering</a>
+    <a href="../../#traps">8 Traps</a>
+    <a href="../../research/" aria-current="true">Research</a>
+    <a href="../../experiments/">Benchmarks</a>
+    <a href="../../traction/">Roadmap</a>
+    <a href="../../join/">Join the lab</a>
+    <a href="../../about/">About</a>
+    <a href="../../#contact">Contact</a>
+  </div>
+</nav>
+
+<main id="main">
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumbs"><a href="../../">Home</a><span>/</span><a href="../../research/">Research &amp; Notes</a><span>/</span>What Trading Really Costs</div>
+    <div class="sec-label">Field Note · Indian Market Microstructure &amp; Tax Law</div>
+    <h1 class="sec-h2">What Trading Really Costs<br /><span class="grad">on NSE Equities</span></h1>
+    <p class="lead">Zero-brokerage marketing hides the four largest drags on Indian retail equity portfolios: statutory delivery taxes (22.55 bps), the flat ₹15.34 CDSL depository sell fee, order-book spreads (28–55 bps), and mandatory FIFO capital-gains tax realization.</p>
+    <p class="dateline mono">Updated October 2026 · Public Statutory &amp; Microstructure Reference</p>
+  </div>
+</header>
+
+<div class="page-content">
+  <div class="container">
+    <div class="prose-page">
+
+      <p>Most academic papers and retail backtests model transaction costs as a flat 10 to 15 basis points per trade and ignore capital-gains taxes altogether. On the National Stock Exchange of India (NSE), that assumption understates real friction by 3× to 8× for small and mid-sized accounts—turning strategies that look wildly profitable on paper into net money-losers in live demat accounts.</p>
+
+      <h2>1. The Statutory Delivery (CNC) Floor: 22.55 bps Before Spreads</h2>
+      <p>Even on a zero-brokerage discount platform, every cash-and-carry (CNC) equity delivery round-trip pays five mandatory statutory and regulatory levies governed by the Finance Act and exchange circulars:</p>
+      <ul>
+        <li><b>Securities Transaction Tax (STT):</b> <code>0.10%</code> (10.00 bps) on the buy leg + <code>0.10%</code> (10.00 bps) on the sell leg = <b>20.00 bps</b> round-trip. Unlike intraday (MIS) trades where STT is only <code>0.025%</code> on the sell side, delivery trades pay 8× higher STT.</li>
+        <li><b>Indian Stamp Duty:</b> <code>0.015%</code> (<b>1.50 bps</b>) charged on the buy leg.</li>
+        <li><b>NSE Exchange Transaction Charge:</b> <code>~0.00322%</code> (0.322 bps) per leg = <b>0.644 bps</b> round-trip.</li>
+        <li><b>SEBI Turnover Fee &amp; IPFT:</b> <code>~0.0001%</code> per leg = <b>0.02 bps</b> round-trip.</li>
+        <li><b>18% GST:</b> Levied on brokerage, exchange turnover charges, SEBI fees, and depository charges (<b>~0.12 bps</b> proportional component).</li>
+      </ul>
+      <p class="now"><span class="now-l mono">Proportional Floor</span>Before a single paisa of bid-ask spread, market impact, or depository fee is counted, every NSE delivery round-trip starts at a hard statutory floor of <b>22.55 bps</b>.</p>
+
+      <h2>2. The Flat ₹15.34 CDSL DP Charge &amp; The Retail Capital Scale Law</h2>
+      <p>Whenever shares leave your demat account on a delivery sell, the depository participant (CDSL/NSDL + discount broker) debits a flat fee of <b>₹13.00 + 18% GST = ₹15.34 per scrip per day</b>, regardless of whether you sold ₹2,000 or ₹20,00,000 worth of that stock.</p>
+      <p>Because ₹15.34 is a <em>fixed rupee charge</em> rather than a percentage, it creates a severe nonlinear penalty against small accounts and over-diversified baskets:</p>
+      <ul>
+        <li><b>At ₹5,000 per stock position</b> (e.g., a ₹1.5 Lakh account holding 30 stocks): ₹15.34 adds <b>+30.68 bps</b> of drag, pushing statutory round-trip costs from 22.25 bps to <b>52.93 bps</b> before spreads.</li>
+        <li><b>At ₹10,000 per stock position</b> (e.g., a ₹3 Lakh account holding 30 stocks): ₹15.34 adds <b>+15.34 bps</b>, bringing statutory round-trip cost to <b>37.89 bps</b>.</li>
+        <li><b>At ₹50,000 per stock position</b> (e.g., a ₹15 Lakh account holding 30 stocks): ₹15.34 shrinks to <b>+3.07 bps</b>, bringing statutory round-trip cost down to <b>25.62 bps</b>.</li>
+      </ul>
+      <p class="now"><span class="now-l mono">Break-Even Floor</span>Across our capital-scale audits (including whole-share lot rounding and calibrated spreads), active multi-stock delivery portfolios face a structural break-even floor in the <b>high lakhs</b>. Below ₹3 Lakh, fixed per-scrip DP fees and integer-share rounding overwhelm even a +6%/yr gross signal.</p>
+
+      <h2>3. Order-Book Spreads &amp; Whole-Share Lot Rounding</h2>
+      <p>Closing prices in daily OHLCV databases are last-traded prices, not executable quotes. Crossing the live NSE order book incurs an additional effective round-trip spread that scales with market-cap tier:</p>
+      <ul>
+        <li><b>NIFTY 50 / Top-100 Liquid Large-Caps:</b> <code>24–28 bps</code> median round-trip effective spread + minimal market impact at retail ticket sizes.</li>
+        <li><b>Top-300 Mid-Cap Universe:</b> <code>33.7 bps</code> calibrated Corwin-Schultz / order-book round-trip spread.</li>
+        <li><b>Broad NIFTY 500 Tail (Ranks 301–500):</b> <code>46.5–55.4 bps</code> round-trip spread, with frequent 5% circuit-filter locks during earnings and macro shocks.</li>
+      </ul>
+      <p>Additionally, Indian brokers do not support fractional shares. When an equal-weight ₹2 Lakh portfolio tries to allocate ₹6,667 into a stock trading at ₹4,200/share, integer-share rounding forces a 37% weight error on that name.</p>
+
+      <h2>4. The Mandatory FIFO Tax Wedge: 20.8% STCG vs. 13.0% LTCG</h2>
+      <p>Under Section 45(2A) of the Indian Income Tax Act and CBDT Circular 768, investors cannot cherry-pick which tax lots to sell (such as Highest-Cost-First). Every demat account is legally required to match sells against buys in strict <b>First-In, First-Out (FIFO)</b> order.</p>
+      <p>Under the Finance (No. 2) Act 2024 regime (including the 4% Health &amp; Education Cess):</p>
+      <ul>
+        <li><b>Short-Term Capital Gains (STCG, held ≤ 12 months, s.111A):</b> Taxed at <code>20.0% × 1.04 =</code> <b>20.8%</b> at the end of every financial year.</li>
+        <li><b>Long-Term Capital Gains (LTCG, held &gt; 12 months, s.112A):</b> Taxed at <code>12.5% × 1.04 =</code> <b>13.0%</b> above the ₹1.25 Lakh annual exemption.</li>
+        <li><b>The Passive Index Fund Advantage:</b> A low-cost NIFTY 500 Index Fund rebalances internally without triggering investor-level capital gains tax, deferring taxation to a single terminal 13.0% LTCG redemption. Over 20.7 years (2006–2026), quarterly rebalancing of a direct 300-stock basket lost <b>2.14%/yr</b> to cumulative transaction costs and annual FIFO STCG realizations—trailing the index fund in <b>69 of 70 (Capital × Breadth) tiers</b>.</li>
+      </ul>
+      <p class="now"><span class="now-l mono">Portfolio Rule</span>To survive after tax, an active Indian equity system must keep annual turnover low, enforce hysteresis retention bands, and defer non-urgent sales of winning lots that are approaching the 365-day LTCG boundary.</p>
+
+      <h2>Test Your Own Portfolio Numbers</h2>
+      <p>We built an interactive calculator on the home page that runs this exact statutory, spread, and FIFO tax math across account sizes from ₹1 Lakh to ₹2 Crore.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="../../#simulator">Launch Friction Simulator →</a>
+        <a class="btn-ghost" href="../../notes/backtest-traps/">Next: 8 Backtest Traps That Fooled Us →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="../../" class="logo">
+          <div class="logo-mark">αL</div>
+          <div class="logo-name">RL <span>Alpha</span> Labs</div>
+        </a>
+        <p>Quantitative research, survivorship-free NSE simulation, and pure-JAX XLA systems engineering for Indian equity markets.</p>
+      </div>
+      <div class="foot-col">
+        <h2>Interactive</h2>
+        <ul>
+          <li><a href="../../#heroConsole">Benchmark Console</a></li>
+          <li><a href="../../#simulator">Simulator</a></li>
+          <li><a href="../../#intuition">Quant Quiz</a></li>
+          <li><a href="../../#ledger">Verdicts</a></li>
+          <li><a href="../../#engineering">Engineering</a></li>
+          <li><a href="../../#traps">8 Traps</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Research &amp; Notes</h2>
+        <ul>
+          <li><a href="../../research/">Research Hub</a></li>
+          <li><a href="../../research/problem-statement.html">Problem Statement</a></li>
+          <li><a href="../../research/methodology.html">System Methodology</a></li>
+          <li><a href="../../research/open-problems.html">20 Open Problems</a></li>
+          <li><a href="../../notes/trading-costs/">NSE Trading Costs</a></li>
+          <li><a href="../../notes/backtest-traps/">8 Backtest Traps</a></li>
+          <li><a href="../../notes/ideas-we-closed/">12 Closed Ideas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Lab</h2>
+        <ul>
+          <li><a href="../../experiments/">Benchmarks</a></li>
+          <li><a href="../../experiments/scaled-training.html">JAX Scaled Training</a></li>
+          <li><a href="../../notes/how-we-run-ai-agents/">AI Agent Lab Rules</a></li>
+          <li><a href="../../traction/">Roadmap</a></li>
+          <li><a href="../../join/">Join the lab</a></li>
+          <li><a href="../../about/">About</a></li>
+          <li><a href="../../privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · Research-Stage Startup · India</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Past simulation results do not guarantee future live performance. No real capital is currently deployed. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice, portfolio management, or a solicitation to buy or sell securities.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../../js/main.js"></script>
+</body>
+</html>

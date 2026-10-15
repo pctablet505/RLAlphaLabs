@@ -2,31 +2,43 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>RL Alpha Labs — AI Trading Research for Indian Equities</title>
-  <meta name="description" content="RL Alpha Labs is a research-stage startup building AI-driven systematic trading for NSE & BSE. Rigorously validated. No live capital deployed." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g=' https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RL Alpha Labs — Quantitative Research, NSE Simulation &amp; JAX XLA Engineering</title>
+  <meta name="description" content="Research-stage startup stress-testing AI trading ideas against Indian market reality: survivorship-free NSE simulation, exact fees and FIFO tax, pure-JAX engineering. No live capital deployed." />
+  <meta name="keywords" content="quantitative finance India, NSE simulation, survivorship bias NSE, transaction cost modeling India, JAX reinforcement learning trading, post-earnings announcement drift India, RL Alpha Labs" />
+  <meta name="author" content="Rahul" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#02060f" />
   <link rel="canonical" href="https://rlalphalabs.com/" />
-  <meta property="og:url" content="https://rlalphalabs.com/" />
-  <meta property="og:title" content="RL Alpha Labs — AI Trading Research for Indian Equities" />
-  <meta property="og:description" content="Research-stage AI trading for Indian equities. Rigorously validated. Currently in research — no live capital deployed." />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>" />
-  <script>
-    /* No-FOUC theme bootstrap: apply saved/preferred theme before first paint */
-    (function () {
-      try {
-        var t = localStorage.getItem('rlal-theme');
-        if (!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        document.documentElement.dataset.theme = t;
-      } catch (e) { document.documentElement.dataset.theme = 'dark'; }
-    })();
-  </script>
+  <meta property="og:site_name" content="RL Alpha Labs" />
+  <meta property="og:url" content="https://rlalphalabs.com/" />
+  <meta property="og:title" content="RL Alpha Labs — Where Fancy AI Meets Indian Market Reality" />
+  <meta property="og:description" content="8.7M-row survivorship-free NSE simulation, pure-JAX XLA training (500K SPS), and 3,800+ pre-registered trials testing AI/RL models against real Indian retail trading costs and taxes." />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RL Alpha Labs — Where Fancy AI Meets Indian Market Reality" />
+  <meta name="twitter:description" content="Institutional-grade NSE simulation, JAX XLA hardware acceleration, and honest empirical benchmarks across 30+ hypothesis families." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+
+  <!-- Inline SVG favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+
+  <!-- Pre-paint theme init -->
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js" integrity="sha384-dug+JxfBvklEQdJ4AYuBBAIScUz0bVN73xpy273gcAwHjb3qI0fXmuYNaNfdyYJG" crossorigin="anonymous" defer></script>
+
   <link rel="stylesheet" href="css/style.css" />
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Organization","name":"RL Alpha Labs","alternateName":"RLAlphaLabs","url":"https://rlalphalabs.com/","email":"connect@rlalphalabs.com","foundingDate":"2025-05","description":"Research-stage startup building AI-driven systematic trading for Indian equities (NSE and BSE).","address":{"@type":"PostalAddress","addressCountry":"IN"}}
   </script>
@@ -34,516 +46,771 @@
 <body>
 
 <a class="skip-link" href="#hero">Skip to content</a>
-<div id="scrollProgress"></div>
 
-<!-- ════════════════════ TICKER STRIP ════════════════════ -->
-<div id="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-label">SAMPLE UNIVERSE</span>
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
-</div>
+<!-- Scroll progress + section dots -->
+<div id="scrollProgress" aria-hidden="true"></div>
+<div id="sectionDots" aria-hidden="true"></div>
 
-<!-- ════════════════════ NAV ════════════════════ -->
+<!-- ═══════════════ NAVBAR ═══════════════ -->
 <nav id="navbar">
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo">
-      <span class="logo-mark">◈</span>
-      RLAlphaLabs
+  <div class="container nav-inner">
+    <a href="./" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
     </a>
     <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="traction/">Traction</a></li>
+      <li><a href="#simulator">Simulator</a></li>
+      <li><a href="#intuition">Quant Quiz</a></li>
+      <li><a href="#ledger">Verdicts</a></li>
+      <li><a href="#engineering">Engineering</a></li>
+      <li><a href="#traps">8 Traps</a></li>
       <li><a href="research/">Research</a></li>
-      <li><a href="experiments/">Experiments</a></li>
-      <li><a href="blog/">Blog</a></li>
-      <li><a href="join/">Join</a></li>
-      <li><a href="about/">About</a></li>
-      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle theme (T)">
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-    </button>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-cta">
+      <button class="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="#contact" class="btn-primary">Collaborate →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#features">Features</a>
-    <a href="traction/">Traction</a>
+    <a href="#simulator">Simulator</a>
+    <a href="#intuition">Quant Quiz</a>
+    <a href="#ledger">Verdicts</a>
+    <a href="#engineering">Engineering</a>
+    <a href="#traps">8 Traps</a>
     <a href="research/">Research</a>
-    <a href="experiments/">Experiments</a>
-    <a href="blog/">Blog</a>
-    <a href="join/">Join</a>
+    <a href="experiments/">Benchmarks</a>
+    <a href="traction/">Roadmap</a>
+    <a href="join/">Join the lab</a>
     <a href="about/">About</a>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
-<!-- Section dots rail (desktop) -->
-<div id="sectionDots" aria-hidden="true"></div>
-
-<!-- ════════════════════ HERO ════════════════════ -->
-<section id="hero" data-dot="Intro">
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero" data-dot="Overview">
   <canvas id="heroParticles"></canvas>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-pills reveal">
-        <span class="pill pill-stage">● Paper Trading Phase</span>
-        <span class="pill pill-market">NSE · BSE</span>
-      </div>
-      <h1 class="hero-h1 reveal">
-        AI Trading Research<br />
-        for <span class="grad">Indian Markets</span>
-      </h1>
-      <p class="hero-p reveal">
-        A research-stage startup building machine-learning and reinforcement-learning trading systems for NSE & BSE.
-        Rigorously validated — not just backtested.
-        Currently in research. Not claiming live alpha yet.
-      </p>
-      <div class="hero-stats reveal">
-        <div class="hstat">
-          <span class="hstat-val mono" data-target="700" data-dec="0" data-sfx="+">—</span>
-          <span class="hstat-lbl">NSE Stocks Covered</span>
-        </div>
-        <div class="hstat-sep"></div>
-        <div class="hstat">
-          <span class="hstat-val mono" data-target="8" data-dec="0">—</span>
-          <span class="hstat-lbl">Time Granularities</span>
-        </div>
-        <div class="hstat-sep"></div>
-        <div class="hstat">
-          <span class="hstat-val mono" data-target="5000" data-dec="0" data-sfx="+">—</span>
-          <span class="hstat-lbl">Data Files</span>
-        </div>
-        <div class="hstat-sep"></div>
-        <div class="hstat">
-          <span class="hstat-val mono" data-target="6" data-dec="0">—</span>
-          <span class="hstat-lbl">Market Indices</span>
-        </div>
-      </div>
-      <div class="hero-ctas reveal">
-        <a href="#contact" class="btn-primary">Request Access</a>
-        <a href="research/" class="btn-ghost">Explore Research →</a>
-      </div>
-    </div>
-    <div class="hero-right reveal">
-      <div class="chart-shell">
-        <div class="chart-shell-bar">
-          <div class="shell-dots"><span></span><span></span><span></span></div>
-          <span class="shell-title">Illustrative Equity Curve — Shape Only</span>
-        </div>
-        <canvas id="heroChart"></canvas>
-        <div class="chart-note">
-          Illustrative curve shape for visual context — not a return figure, not a specific episode, not a performance claim
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-cue">↓</div>
-</section>
-
-<!-- ════════════════════ PROBLEM ════════════════════ -->
-<section id="problem" data-dot="Problem">
   <div class="container">
-    <div class="sec-label reveal">The Problem</div>
-    <h2 class="sec-h2 reveal">Algo Trading is Hard.<br /><span class="grad">Most Fail in Production.</span></h2>
-    <p class="sec-p reveal">Building a strategy that looks great in backtests is easy. Making it survive live markets is not.</p>
-    <div class="prob-grid">
-      <div class="prob-card reveal">
-        <div class="prob-num">01</div>
-        <h3>Curve Fitting</h3>
-        <p>A model optimized on historical data captures noise, not signal. Without walk-forward validation, backtest performance is fiction.</p>
-      </div>
-      <div class="prob-card reveal">
-        <div class="prob-num">02</div>
-        <h3>Unrealistic Simulation</h3>
-        <p>Ignoring NSE transaction taxes (STT, stamp duty, exchange fees), slippage, and minimum lot sizes inflates paper returns by 30–50%.</p>
-      </div>
-      <div class="prob-card reveal">
-        <div class="prob-num">03</div>
-        <h3>Slow Iteration</h3>
-        <p>Training RL agents for days per experiment destroys research velocity. You can't build intuition about what works without rapid feedback.</p>
-      </div>
-      <div class="prob-card reveal">
-        <div class="prob-num">04</div>
-        <h3>No Risk Model</h3>
-        <p>Agents that maximize raw returns without drawdown constraints become reckless. Risk must be part of the objective, not an afterthought.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════ FEATURES ════════════════════ -->
-<section id="features" data-dot="Features">
-  <div class="container">
-    <div class="sec-label reveal">What We Built</div>
-    <h2 class="sec-h2 reveal">Six Core Capabilities<br /><span class="grad">That Address Each Failure Mode</span></h2>
-    <div class="feat-grid">
-
-      <div class="feat-card reveal" data-color="cyan">
-        <div class="feat-icon cyan-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-pills reveal">
+          <div class="pill pill-live"><div class="live-dot"></div>Point-in-Time NSE Research · 2000–2026</div>
         </div>
-        <h3>RL-Powered Agents</h3>
-        <p>Deep reinforcement learning agents trained on real NSE data with realistic transaction costs and risk constraints.</p>
-        <div class="feat-meta">
-          <span class="mono-tag">Actor-Critic · JAX · PyTorch</span>
-          <span class="mono-tag">Multi-stock portfolio</span>
+
+        <h1 class="hero-h1 reveal">
+          Where Fancy AI Meets<br />
+          <span class="grad">Indian Market Reality.</span>
+        </h1>
+
+        <p class="hero-p reveal">
+          Most trading AI backtests look miraculous until real NSE delivery costs, flat
+          <strong>₹15.34 depository charges</strong>, <strong>FIFO taxes</strong>, and <strong>delisted stocks</strong>
+          are accounted for. We built a 26-year point-in-time simulator and pure-JAX engine to test 30+ hypothesis families—and show what actually survives.
+        </p>
+
+        <div class="hero-btns reveal">
+          <a href="#simulator" class="btn-hero-main">Simulate Your Hurdle Rate ↓</a>
+          <a href="#intuition" class="btn-ghost">Take the 6-Study Quiz ↓</a>
+        </div>
+
+        <div class="hero-stats hero-stats-clean reveal">
+          <div class="hstat-clean">
+            <div class="hstat-val mono"><span data-target="8.77" data-dec="2" data-sfx="M">8.77M</span></div>
+            <div class="hstat-label">PIT Security-Session Rows</div>
+          </div>
+          <div class="hstat-clean">
+            <div class="hstat-val mono"><span data-target="500" data-sfx="K/s">500K/s</span></div>
+            <div class="hstat-label">Pure-JAX XLA Steps/Sec</div>
+          </div>
+          <div class="hstat-clean">
+            <div class="hstat-val mono"><span data-target="3865">3,865</span></div>
+            <div class="hstat-label">Pre-Registered Trials</div>
+          </div>
         </div>
       </div>
 
-      <div class="feat-card reveal" data-color="blue">
-        <div class="feat-icon blue-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <h3>Walk-Forward Validation</h3>
-        <p>Multi-window rolling validation. The agent must generalize across time periods — not just memorize one regime.</p>
-        <div class="feat-meta">
-          <span class="mono-tag">Rolling windows</span>
-          <span class="mono-tag">Cross-regime consistency</span>
-        </div>
-      </div>
+      <!-- Right: Clean, Breathable 3-Tab Benchmark Card -->
+      <div class="hero-right reveal">
+        <div class="chart-shell" id="heroConsole">
+          <div class="console-top">
+            <span class="console-heading">NSE Empirical Verdicts</span>
+            <div class="console-tabs" role="tablist" aria-label="Benchmark views">
+              <button class="ctab active" id="tabBtnBench" role="tab" aria-selected="true" aria-controls="paneBench" data-pane="paneBench">Net Alpha</button>
+              <button class="ctab" id="tabBtnCapital" role="tab" aria-selected="false" aria-controls="paneCapital" data-pane="paneCapital">Capital Scale</button>
+              <button class="ctab" id="tabBtnTelemetry" role="tab" aria-selected="false" aria-controls="paneTelemetry" data-pane="paneTelemetry">JAX Stack</button>
+            </div>
+          </div>
 
-      <div class="feat-card reveal" data-color="green">
-        <div class="feat-icon green-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <h3>GPU-Accelerated Training</h3>
-        <p>XLA-compiled training loops for rapid iteration. Experiments complete in minutes, not days.</p>
-        <div class="feat-meta">
-          <span class="mono-tag mono-real">&gt;9K steps/sec</span>
-          <span class="mono-tag mono-real">Consumer GPU</span>
-        </div>
-      </div>
+          <!-- Pane 1: Empirical Benchmark Comparison -->
+          <div class="console-pane active" id="paneBench" role="tabpanel" aria-labelledby="tabBtnBench">
+            <p class="console-sub">
+              Out-of-sample verdicts, net of statutory fees and ₹15.34 DP charges <span class="console-sub-hint">(select a study to inspect)</span>:
+            </p>
+            <div class="bench-list" role="listbox" aria-label="Empirical benchmark studies">
+              <div class="bench-row active" role="option" tabindex="0" aria-selected="true" data-study="pead">
+                <div class="bench-head">
+                  <span class="bench-name">Post-Filing Earnings Drift <small>(17 yrs)</small></span>
+                  <span class="bench-val pass">+5–7%/yr · Survives</span>
+                </div>
+                <div class="bench-track"><div class="bench-fill pass" style="width: 88%"></div></div>
+              </div>
 
-      <div class="feat-card reveal" data-color="amber">
-        <div class="feat-icon amber-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <h3>NSE-Realistic Simulation</h3>
-        <p>Full Indian brokerage cost model: STT, exchange fees, SEBI charges, GST, stamp duty. Slippage and market impact included.</p>
-        <div class="feat-meta">
-          <span class="mono-tag">Full NSE fee structure</span>
-          <span class="mono-tag">Broker API integration</span>
-        </div>
-      </div>
+              <div class="bench-row" role="option" tabindex="0" aria-selected="false" data-study="hysteresis">
+                <div class="bench-head">
+                  <span class="bench-name">Tax-Gated Hysteresis Band <small>(20.7 yrs)</small></span>
+                  <span class="bench-val pass">+0.45%/yr · -58% Churn</span>
+                </div>
+                <div class="bench-track"><div class="bench-fill pass" style="width: 58%"></div></div>
+              </div>
 
-      <div class="feat-card reveal" data-color="cyan">
-        <div class="feat-icon cyan-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-        </div>
-        <h3>Multi-Granularity Data</h3>
-        <p>Extensive coverage across timeframes and indices. From minute bars to daily, spanning large-cap to small-cap universes.</p>
-        <div class="feat-meta">
-          <span class="mono-tag mono-real">Multi-timeframe</span>
-          <span class="mono-tag mono-real">NIFTY 50 to Smallcap</span>
-        </div>
-      </div>
+              <div class="bench-row" role="option" tabindex="0" aria-selected="false" data-study="llm">
+                <div class="bench-head">
+                  <span class="bench-name">LLM Filing Reader <small>(1,563 filings)</small></span>
+                  <span class="bench-val cost">+1.4 pp · Below Cost Bar</span>
+                </div>
+                <div class="bench-track"><div class="bench-fill cost" style="width: 28%"></div></div>
+              </div>
 
-      <div class="feat-card reveal" data-color="blue">
-        <div class="feat-icon blue-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Risk-Aware Reward Design</h3>
-        <p>Multi-objective reward function combining returns, drawdown penalties, concentration limits, and turnover costs. Agent learns risk discipline, not just return maximization.</p>
-        <div class="feat-meta">
-          <span class="mono-tag">Multi-component</span>
-          <span class="mono-tag">Risk-adjusted</span>
-        </div>
-      </div>
+              <div class="bench-row" role="option" tabindex="0" aria-selected="false" data-study="rl">
+                <div class="bench-head">
+                  <span class="bench-name">High-Turnover Continuous RL <small>(144 cells)</small></span>
+                  <span class="bench-val fail">-1.96 IR · Churn Wall</span>
+                </div>
+                <div class="bench-track"><div class="bench-fill fail" style="width: 12%"></div></div>
+              </div>
+            </div>
 
-    </div>
-  </div>
-</section>
+            <div class="bench-evidence" id="benchEvidence" aria-live="polite">
+              <div class="be-main">
+                <span class="be-tag mono" id="beTag">POST-FILING DRIFT · t &gt; 2.5</span>
+                <p class="be-desc" id="beDesc">Entered only after the filing was public. Stayed positive under measured spreads and doubled costs, above a high-lakh capital floor.</p>
+              </div>
+              <a class="be-link mono" id="beLink" href="#intuition" data-quiz-step="4">Test in Quiz ↓</a>
+            </div>
+          </div>
 
-<!-- ════════════════════ PORTFOLIO SAMPLE ════════════════════ -->
-<section id="portfolio-sample">
-  <div class="container">
-    <div class="psample-wrap reveal">
-      <div class="psample-left">
-        <div class="sec-label">Live Data</div>
-        <h3>Trained on Real NIFTY Constituents</h3>
-        <p>Not synthetic data. Historical data fetched directly via broker API, stored in columnar format with quality validation.</p>
-        <div class="psample-stats">
-          <div class="pstat"><span class="mono" id="stockCount">700+</span><span>Stocks Tracked</span></div>
-          <div class="pstat"><span class="mono">5000+</span><span>Data Files</span></div>
-          <div class="pstat"><span class="mono">8</span><span>Granularities</span></div>
-          <div class="pstat"><span class="mono">6</span><span>Indices Covered</span></div>
+          <!-- Pane 2: Retail Capital Scale Law Chart -->
+          <div class="console-pane" id="paneCapital" role="tabpanel" aria-labelledby="tabBtnCapital">
+            <p class="console-sub">
+              Illustration: the simulator's 200-stock quarterly basket with an assumed 5%/yr gross edge, after public NSE fees, ₹15.34 DP and spreads:
+            </p>
+            <div class="chart-body" style="padding: 4px 0 8px;">
+              <canvas id="heroChart" height="185" role="img" aria-label="Illustrative chart: net annual return by account size from ₹1 lakh to ₹2 crore for a hypothetical strategy, computed from public NSE fees, DP charges and spreads. Small accounts lose money; returns turn positive as account size grows."></canvas>
+            </div>
+            <div class="shell-kpis">
+              <div class="skpi">
+                <div class="skpi-val mono" style="color:var(--red)">-5.6%/yr</div>
+                <div class="skpi-lbl">@ ₹1 Lakh</div>
+              </div>
+              <div class="skpi">
+                <div class="skpi-val mono" style="color:var(--amber)">≈ ₹3L</div>
+                <div class="skpi-lbl">Break-even</div>
+              </div>
+              <div class="skpi">
+                <div class="skpi-val mono" style="color:var(--green)">+3.2%/yr</div>
+                <div class="skpi-lbl">@ ₹2 Crore</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pane 3: Systems & JAX Telemetry -->
+          <div class="console-pane" id="paneTelemetry" role="tabpanel" aria-labelledby="tabBtnTelemetry">
+            <p class="console-sub">
+              Every study runs on our deterministic point-in-time data plane and pure-JAX XLA stack:
+            </p>
+            <div class="tele-grid">
+              <div class="tele-card">
+                <div class="tele-k">1. PIT Data Plane</div>
+                <div class="tele-v">8.77M Rows</div>
+                <div class="tele-d">6,632+ archives (2000–2026), 1,142 delisted symbols (~30%), 24.2K corporate actions.</div>
+              </div>
+              <div class="tele-card">
+                <div class="tele-k">2. One-World Friction</div>
+                <div class="tele-v">1e-9 Pinned</div>
+                <div class="tele-d">Exact STT/Stamp/GST/₹15.34 DP waterfall and mandatory FIFO s.111A/s.112A tax lots.</div>
+              </div>
+              <div class="tele-card">
+                <div class="tele-k">3. Pure JAX + XLA</div>
+                <div class="tele-v">51× HBM Cut</div>
+                <div class="tele-d">8 RL algorithms, Patch-GTrXL sector transformer, 0.31 GB device FrameRingBuffer.</div>
+              </div>
+              <div class="tele-card">
+                <div class="tele-k">4. Anti-Overfit Gates</div>
+                <div class="tele-v">8× Lower Var</div>
+                <div class="tele-d">Paired active rescoring, SHA-256 frozen specs, and 3,865 Holm-Bonferroni trials.</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="psample-right">
-        <div class="stock-grid" id="stockGrid"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════ PIPELINE ════════════════════ -->
-<section id="pipeline" data-dot="Pipeline">
+<!-- ═══════════════ INTERACTIVE NSE FRICTION & TAX HURDLE SIMULATOR ═══════════════ -->
+<section id="simulator" data-dot="Friction Simulator">
   <div class="container">
-    <div class="sec-label reveal">How It Works</div>
-    <h2 class="sec-h2 reveal">Six-Stage Pipeline<br /><span class="grad">Every Stage Gated</span></h2>
-    <p class="sec-p reveal">An agent only advances when it clears measurable criteria. No exceptions. This is what separates research-grade from production-grade.</p>
-    <div class="pipeline">
-
-      <div class="pipe-step reveal done">
-        <div class="pipe-left">
-          <div class="pipe-status done">✓</div>
-          <div class="pipe-line"></div>
-        </div>
-        <div class="pipe-body">
-          <div class="pipe-meta"><span class="pipe-id">Stage 01</span><span class="pipe-state done-tag">Complete</span></div>
-          <h3>Data Ingestion</h3>
-          <p>Extensive NSE/BSE coverage across multiple granularities via broker API. Checkpointed parallel downloads, quality validation, multi-source fallback.</p>
-        </div>
-      </div>
-
-      <div class="pipe-step reveal done">
-        <div class="pipe-left">
-          <div class="pipe-status done">✓</div>
-          <div class="pipe-line"></div>
-        </div>
-        <div class="pipe-body">
-          <div class="pipe-meta"><span class="pipe-id">Stage 02</span><span class="pipe-state done-tag">Complete</span></div>
-          <h3>Feature Engineering</h3>
-          <p>Technical indicators and auxiliary signal models for regime detection, volatility forecasting, and trend classification.</p>
-        </div>
-      </div>
-
-      <div class="pipe-step reveal done">
-        <div class="pipe-left">
-          <div class="pipe-status done">✓</div>
-          <div class="pipe-line"></div>
-        </div>
-        <div class="pipe-body">
-          <div class="pipe-meta"><span class="pipe-id">Stage 03</span><span class="pipe-state done-tag">Complete</span></div>
-          <h3>RL Agent Training</h3>
-          <p>Agents trained with NSE-realistic frictions and strict promotion gates. Only agents that clear all criteria advance to the next stage.</p>
-        </div>
-      </div>
-
-      <div class="pipe-step reveal active">
-        <div class="pipe-left">
-          <div class="pipe-status active">●</div>
-          <div class="pipe-line"></div>
-        </div>
-        <div class="pipe-body">
-          <div class="pipe-meta"><span class="pipe-id">Stage 04</span><span class="pipe-state active-tag">In Progress</span></div>
-          <h3>Walk-Forward Validation</h3>
-          <p>Multi-window rolling test proving the agent generalizes — not just memorizes one period. Adversarial stress tests under extreme market conditions.</p>
-        </div>
-      </div>
-
-      <div class="pipe-step reveal active">
-        <div class="pipe-left">
-          <div class="pipe-status active">●</div>
-          <div class="pipe-line"></div>
-        </div>
-        <div class="pipe-body">
-          <div class="pipe-meta"><span class="pipe-id">Stage 05</span><span class="pipe-state active-tag">In Progress</span></div>
-          <h3>Paper Trading</h3>
-          <p>30+ day live simulation against real market data. Realistic order fills, portfolio tracking, real-time P&amp;L. An agent that cannot pass paper trading does not go live.</p>
-        </div>
-      </div>
-
-      <div class="pipe-step reveal planned">
-        <div class="pipe-left">
-          <div class="pipe-status planned">○</div>
-        </div>
-        <div class="pipe-body">
-          <div class="pipe-meta"><span class="pipe-id">Stage 06</span><span class="pipe-state planned-tag">Planned</span></div>
-          <h3>Live Deployment</h3>
-          <p>Low-latency inference via broker API. Live risk controls: position limits, drawdown circuit breakers, concentration guards. Real capital only after validation and paper trading clear.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════ PERFORMANCE ════════════════════ -->
-<section id="performance" data-dot="Results">
-  <div class="container">
-    <div class="sec-label reveal">Performance</div>
-    <h2 class="sec-h2 reveal">Real Experiment Results.<br /><span class="grad">Not Illustrations.</span></h2>
-    <p class="sec-p reveal">
-      These numbers come directly from experiment records.
-      Test metrics are on held-out data the agent never saw during training.
-      <span class="fine">Past simulation results do not guarantee future live performance.</span>
-    </p>
-
-    <div class="metric-row">
-      <div class="mcard reveal">
-        <div class="mcard-label">Test Sharpe</div>
-        <div class="mcard-val cyan mono" data-target="0.49" data-dec="2">—</div>
-        <div class="mcard-sub">Risk-adjusted return on held-out test data.</div>
-      </div>
-      <div class="mcard reveal">
-        <div class="mcard-label">Test Win Rate</div>
-        <div class="mcard-val green mono" data-target="65" data-dec="0" data-sfx="%">—</div>
-        <div class="mcard-sub">% of test episodes with positive return.</div>
-      </div>
-      <div class="mcard reveal">
-        <div class="mcard-label">Val Sharpe</div>
-        <div class="mcard-val blue mono" data-target="1.30" data-dec="2">—</div>
-        <div class="mcard-sub">Validation set used for checkpoint selection.</div>
-      </div>
-      <div class="mcard reveal">
-        <div class="mcard-label">Training Speed</div>
-        <div class="mcard-val amber mono" data-target="9700" data-dec="0" data-sfx="+ SPS">—</div>
-        <div class="mcard-sub">Steps per second on GPU with JAX XLA.</div>
-      </div>
-    </div>
-
-    <div class="perf-chart-wrap reveal">
-      <div class="perf-chart-hdr">
-        <div>
-          <h3>Illustrative Equity Curve — Representative Test Episode</h3>
-          <p>Generated using real test statistics from held-out evaluation.</p>
-        </div>
-        <div class="chart-legend">
-          <span class="leg cyan-leg">● RL Portfolio</span>
-          <span class="leg muted-leg">⋯ NIFTY 50 (est.)</span>
-        </div>
-      </div>
-      <canvas id="perfChart" height="110"></canvas>
-      <p class="chart-disc">
-        Curve parameterised from real test statistics, not cherry-picked. Benchmark uses estimated NIFTY 50 historical parameters.
-        This is one representative episode from multi-episode evaluation — not the best one.
+    <div class="sec-head reveal">
+      <div class="eyebrow">Step 1 · Interactive NSE Cost &amp; Tax Calculator</div>
+      <h2 class="sec-h2">See Your True Retail Hurdle Rate</h2>
+      <p class="sec-p">
+        Pick a portfolio preset below (or drag any slider) to see how much gross return you need just to tie a passive
+        <strong>NIFTY 500 Index Fund (~13.45%/yr after tax)</strong> once NSE delivery fees, the flat <strong>₹15.34 DP sell charge</strong>,
+        and <strong>FIFO capital-gains taxes</strong> are debited.
       </p>
     </div>
+
+    <div class="sim-preset-bar reveal" role="toolbar" aria-label="One-click portfolio scenario presets">
+      <div class="sim-preset-head">
+        <span class="sim-preset-lbl mono">Scenario Presets</span>
+        <span class="sim-preset-status mono" id="simPresetStatus">Preset: Mid-Sized Quarterly (₹10L)</span>
+      </div>
+      <div class="sim-preset-btns">
+        <button type="button" class="sim-preset-btn" data-preset="ai-churn" aria-pressed="false"><span class="preset-num" aria-hidden="true">01</span> Weekly AI (₹2L · 52×)</button>
+        <button type="button" class="sim-preset-btn" data-preset="retail-swing" aria-pressed="false"><span class="preset-num" aria-hidden="true">02</span> Monthly Swing (₹5L · 12×)</button>
+        <button type="button" class="sim-preset-btn active" data-preset="default-qtr" aria-pressed="true"><span class="preset-num" aria-hidden="true">03</span> Mid-Sized Qtr (₹10L · 4×)</button>
+        <button type="button" class="sim-preset-btn" data-preset="direct-basket" aria-pressed="false"><span class="preset-num" aria-hidden="true">04</span> 200-Stock Basket (₹10L)</button>
+        <button type="button" class="sim-preset-btn" data-preset="tax-gated" aria-pressed="false"><span class="preset-num" aria-hidden="true">05</span> Tax-Gated Drift (₹20L)</button>
+      </div>
+    </div>
+
+    <div class="sim-shell reveal">
+      <!-- Left: Controls -->
+      <div class="sim-controls">
+        <div class="sim-group">
+          <div class="sim-label-row">
+            <label class="sim-label" for="simCapSlider">1. Account Capital (NAV)</label>
+            <span class="sim-val-pill" id="simCapVal">₹10 Lakh</span>
+          </div>
+          <input type="range" id="simCapSlider" class="sim-slider" min="0" max="7" step="1" value="3" />
+          <div class="sim-ticks" data-slider="simCapSlider">
+            <span data-idx="0">₹1L</span><span data-idx="1">₹2L</span><span data-idx="2">₹5L</span><span data-idx="3" class="is-on">₹10L</span><span data-idx="4">₹20L</span><span data-idx="5">₹50L</span><span data-idx="6">₹1Cr</span><span data-idx="7">₹2Cr</span>
+          </div>
+        </div>
+
+        <div class="sim-group">
+          <div class="sim-label-row">
+            <label class="sim-label" for="simFreqSlider">2. Rebalance Cadence</label>
+            <span class="sim-val-pill" id="simFreqVal">Quarterly (4×/yr)</span>
+          </div>
+          <input type="range" id="simFreqSlider" class="sim-slider" min="0" max="3" step="1" value="2" />
+          <div class="sim-ticks" data-slider="simFreqSlider">
+            <span data-idx="0">Weekly (52×)</span><span data-idx="1">Monthly (12×)</span><span data-idx="2" class="is-on">Quarterly (4×)</span><span data-idx="3">Annual (1×)</span>
+          </div>
+        </div>
+
+        <div class="sim-group">
+          <div class="sim-label-row">
+            <label class="sim-label" for="simKSlider">3. Portfolio Breadth (K Holdings)</label>
+            <span class="sim-val-pill" id="simKVal">30 Stocks</span>
+          </div>
+          <input type="range" id="simKSlider" class="sim-slider" min="0" max="5" step="1" value="2" />
+          <div class="sim-ticks" data-slider="simKSlider">
+            <span data-idx="0">10</span><span data-idx="1">20</span><span data-idx="2" class="is-on">30</span><span data-idx="3">50</span><span data-idx="4">100</span><span data-idx="5">200</span>
+          </div>
+        </div>
+
+        <div class="sim-group">
+          <div class="sim-label-row">
+            <span class="sim-label" id="simModeLbl">4. Portfolio Construction Discipline</span>
+          </div>
+          <div class="sim-mode-toggle" role="group" aria-labelledby="simModeLbl">
+            <button type="button" class="sim-mode-btn active" data-mode="naive" aria-pressed="true">Naive Full Rebalance</button>
+            <button type="button" class="sim-mode-btn" data-mode="gated" aria-pressed="false">Hysteresis + LTCG Tax Gate</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Calm Primary Readout + Progressive Disclosure Details -->
+      <div class="sim-readout">
+        <!-- Primary Hero Takeaway -->
+        <div class="sim-hero-card">
+          <div class="sim-hero-top">
+            <div class="sim-hero-left">
+              <div class="sim-kpi-label">Gross Hurdle to Tie Index</div>
+              <div class="sim-hero-big mono" id="kpiGrossReq">17.9%/yr</div>
+              <div class="sim-kpi-sub" id="kpiGrossSub">Required gross to tie 13.45%/yr net index fund</div>
+            </div>
+            <div class="sim-hero-right">
+              <span class="sim-verdict-pill warn" id="simVerdictPill">HIGH FRICTION HURDLE</span>
+              <div class="sim-drag-badge mono">
+                <span id="kpiDragPct">-4.45%/yr</span> lost to fees &amp; tax
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-stack-bar">
+            <div class="sim-seg base" id="segBase" style="width: 75%"></div>
+            <div class="sim-seg stat" id="segStat" style="width: 6%"></div>
+            <div class="sim-seg sprd" id="segSprd" style="width: 6%"></div>
+            <div class="sim-seg tax"  id="segTax"  style="width: 13%"></div>
+          </div>
+          <div class="sim-legend">
+            <span><i class="sim-dot" style="background:var(--blue)"></i>Passive Index <b class="mono">13.45%</b></span>
+            <span><i class="sim-dot" style="background:var(--amber)"></i>Statutory + DP <b class="mono" id="legStatVal">0.71%</b></span>
+            <span><i class="sim-dot" style="background:var(--purple)"></i>Bid-Ask Spread <b class="mono" id="legSprdVal">0.73%</b></span>
+            <span><i class="sim-dot" style="background:var(--red)"></i>STCG/LTCG Tax <b class="mono" id="legTaxVal">3.02%</b></span>
+          </div>
+        </div>
+
+        <div class="sim-insight" id="simInsightText">
+          Pick a preset or adjust the sliders to see why weekly/monthly AI trading and over-diversified small accounts hit an insurmountable mathematical cost wall on NSE.
+        </div>
+        <p class="visually-hidden" id="simLive" aria-live="polite"></p>
+
+        <!-- Secondary Granular Math inside Progressive Disclosure -->
+        <details class="sim-details">
+          <summary class="sim-details-summary mono">
+            <span>Inspect Per-Trade Fee &amp; Tax Breakdown</span>
+            <span class="sim-details-meta" id="simDetailsMeta">₹33,333/stock · 55.2 bps RT</span>
+          </summary>
+          <div class="sim-kpi-grid">
+            <div class="sim-kpi">
+              <div class="sim-kpi-label">Position Ticket Size</div>
+              <div class="sim-kpi-val mono" id="kpiTicket">₹33,333</div>
+              <div class="sim-kpi-sub" id="kpiTicketSub">₹15.34 DP fee = +4.6 bps</div>
+            </div>
+            <div class="sim-kpi">
+              <div class="sim-kpi-label">All-In Round-Trip Cost</div>
+              <div class="sim-kpi-val mono" id="kpiRtBps" style="color:var(--amber)">55.2 bps</div>
+              <div class="sim-kpi-sub" id="kpiRtSub">27.2 bps statutory + 28.0 bps spread</div>
+            </div>
+            <div class="sim-kpi" style="grid-column: 1 / -1;">
+              <div class="sim-kpi-label">Annual Turnover &amp; Tax Realization Drag</div>
+              <div class="sim-kpi-sub" id="kpiDragSub" style="font-size:13px;color:var(--t1);margin-top:2px;">2.6×/yr turnover + 3.02% tax wedge</div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <p class="next-cue reveal"><a href="#intuition">Next: predict 6 real studies ↓</a></p>
   </div>
 </section>
 
-<!-- ════════════════════ STAGE ════════════════════ -->
-<section id="stage" data-dot="Status">
+<!-- ═══════════════ TEST YOUR QUANT INTUITION (1-AT-A-TIME STEPPER QUIZ) ═══════════════ -->
+<section id="intuition" data-dot="Quant Quiz">
   <div class="container">
-    <div class="sec-label reveal">Honest Status</div>
-    <h2 class="sec-h2 reveal">Where We Actually Are</h2>
-    <p class="sec-p reveal">
-      Transparency is a feature. Here is the current development state, without spin.
-    </p>
-    <div class="stage-grid">
-      <div class="stage-card done-card reveal">
-        <div class="stage-icon done-icon">✓</div>
-        <h3>What's Done</h3>
-        <ul>
-          <li>Full data pipeline for Indian equities</li>
-          <li>Dual RL training backends for research flexibility</li>
-          <li>Validated training pipeline with reproducible results</li>
-          <li>NSE-realistic transaction cost model</li>
-          <li>GPU-accelerated training infrastructure</li>
-          <li>Research dashboard for monitoring and analysis</li>
-          <li>CLI tooling for data, training, and backtesting</li>
-          <li>Initial backtesting suite across multiple strategies</li>
-        </ul>
+    <div class="sec-head reveal">
+      <div class="eyebrow">Step 2 · Interactive 6-Study Benchmark Quiz</div>
+      <h2 class="sec-h2">Test Your Quant Intuition (One Study at a Time)</h2>
+      <p class="sec-p">
+        Popular financial media and AI papers make bold claims. We tested them on survivorship-free Indian market history
+        with full statutory costs. <strong>Make your prediction on Study 1 below, then step through at your own pace.</strong>
+      </p>
+    </div>
+
+    <div class="quiz-toolbar reveal">
+      <div class="quiz-stepper" role="group" aria-label="Study navigation">
+        <button type="button" class="qnav-btn mono" id="quizPrevBtn" aria-label="Previous study">← <span class="qnav-txt">Prev</span></button>
+        <div class="quiz-dots" id="quizStepDots">
+          <button type="button" class="qdot active" data-step="0" aria-label="Study 1" aria-current="step">01</button>
+          <button type="button" class="qdot" data-step="1" aria-label="Study 2">02</button>
+          <button type="button" class="qdot" data-step="2" aria-label="Study 3">03</button>
+          <button type="button" class="qdot" data-step="3" aria-label="Study 4">04</button>
+          <button type="button" class="qdot" data-step="4" aria-label="Study 5">05</button>
+          <button type="button" class="qdot" data-step="5" aria-label="Study 6">06</button>
+        </div>
+        <button type="button" class="qnav-btn mono" id="quizNextBtn" aria-label="Next study"><span class="qnav-txt">Next</span> →</button>
       </div>
-      <div class="stage-card prog-card reveal">
-        <div class="stage-icon prog-icon">●</div>
-        <h3>In Progress</h3>
-        <ul>
-          <li>Walk-forward validation across multiple windows</li>
-          <li>Adversarial stress testing framework</li>
-          <li>Paper trading (live simulation, no real capital)</li>
-          <li>Unified architecture across training backends</li>
-          <li>Curriculum learning for exploration</li>
-          <li>Expanded universe coverage</li>
-        </ul>
+      <span class="quiz-score mono" id="quizScore">Study 1 of 6 · 0 / 6 Answered</span>
+    </div>
+
+    <div class="guess-grid single-mode" id="guessGrid">
+      <!-- Card 1 -->
+      <article class="guess-card active-step reveal" data-step="0" data-answer="tie">
+        <div class="guess-card-top">
+          <span class="guess-tag">Study 01 of 06 · AI Text vs. Accounting Numbers</span>
+          <span class="guess-step-pill mono">Question 1 / 6</span>
+        </div>
+        <h3>Does an AI model reading 1,563 corporate filings predict next-quarter earnings direction better than a numbers-only baseline?</h3>
+        <div class="guess-opts" role="group" aria-label="Your prediction">
+          <button type="button" class="gopt" data-choice="works">AI Clearly Wins</button>
+          <button type="button" class="gopt" data-choice="tie">Almost a Tie (Below Cost Bar)</button>
+          <button type="button" class="gopt" data-choice="fails">AI Performs Worse</button>
+        </div>
+        <div class="guess-prompt-hint">↑ Pick one option to reveal the empirical NSE result</div>
+        <div class="guess-ans">
+          <p class="guess-mark"></p>
+          <p class="verdict">Almost a tie: 74.2% vs. 72.8% (+1.4 pp)</p>
+          <p>Across 1,563 exchange filings (with company names, dates, and stock prices masked to prevent LLM memorization), reading prose added just <strong>+1.4 percentage points</strong> over past quarterly numbers alone—far below our 5.0 pp pre-registered hurdle needed to survive 53+ bps round-trip trading costs.</p>
+          <div class="guess-next-row">
+            <button type="button" class="btn-primary guess-next-btn" data-next-step="1">Next: Study 02 (Insider Buying) →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="guess-card reveal" data-step="1" data-answer="fails">
+        <div class="guess-card-top">
+          <span class="guess-tag">Study 02 of 06 · Insider Activity (66 Months)</span>
+          <span class="guess-step-pill mono">Question 2 / 6</span>
+        </div>
+        <h3>Does buying NSE stocks after open-market promoter purchases (held 60 sessions) beat a matched industry &amp; liquidity benchmark?</h3>
+        <div class="guess-opts" role="group" aria-label="Your prediction">
+          <button type="button" class="gopt" data-choice="works">Works (Beats Benchmark)</button>
+          <button type="button" class="gopt" data-choice="tie">Breaks Even</button>
+          <button type="button" class="gopt" data-choice="fails">Fails (Trails Benchmark)</button>
+        </div>
+        <div class="guess-prompt-hint">↑ Pick one option to reveal the empirical NSE result</div>
+        <div class="guess-ans">
+          <p class="guess-mark"></p>
+          <p class="verdict fail">Fails: -2.21%/yr net (t = -0.61)</p>
+          <p>Over 66 months (2020–2026), entering after public disclosure of open-market promoter buys trailed matched controls by <strong>-2.21%/yr net</strong> (-3.43%/yr at ₹5k ticket costs). The 95% upper confidence bound (+3.84%/yr) formally refuted published literature claims of +16%/yr.</p>
+          <div class="guess-next-row">
+            <button type="button" class="btn-primary guess-next-btn" data-next-step="2">Next: Study 03 (≥5% Daily Jumps) →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="guess-card reveal" data-step="2" data-answer="fails">
+        <div class="guess-card-top">
+          <span class="guess-tag">Study 03 of 06 · 25,166 Large Daily Moves</span>
+          <span class="guess-step-pill mono">Question 3 / 6</span>
+        </div>
+        <h3>When a top-300 NSE stock jumps ≥5% in a single day, is there usually an exchange news filing—and does buying the spike continue?</h3>
+        <div class="guess-opts" role="group" aria-label="Your prediction">
+          <button type="button" class="gopt" data-choice="works">Yes — News Drives &amp; Continues</button>
+          <button type="button" class="gopt" data-choice="tie">50/50 Split</button>
+          <button type="button" class="gopt" data-choice="fails">No — 72% Have No Filing &amp; Spikes Mean-Revert</button>
+        </div>
+        <div class="guess-prompt-hint">↑ Pick one option to reveal the empirical NSE result</div>
+        <div class="guess-ans">
+          <p class="guess-mark"></p>
+          <p class="verdict fail">72.4% of ≥5% moves have zero filing; intraday spikes reverse -57.2 bps</p>
+          <p>Across 25,166 ≥5% stock-days, <strong>72.4% had no exchange filing at all</strong> (and only 20.4% had an informative filing). Chasing 3–5% intraday filing spikes at a realistic 5-minute retail execution delay lost <strong>-57.2 bps by the close</strong>. Across 893 tested daily/intraday event cells, 892 were underpowered after 86.7 bps all-in costs.</p>
+          <div class="guess-next-row">
+            <button type="button" class="btn-primary guess-next-btn" data-next-step="3">Next: Study 04 (Continuous RL) →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="guess-card reveal" data-step="3" data-answer="fails">
+        <div class="guess-card-top">
+          <span class="guess-tag">Study 04 of 06 · Continuous RL Positive Control (144 Cells)</span>
+          <span class="guess-step-pill mono">Question 4 / 6</span>
+        </div>
+        <h3>If a continuous-action RL agent is fed a calibrated next-bar signal on daily NSE bars, does it convert that signal into net after-cost profit?</h3>
+        <div class="guess-opts" role="group" aria-label="Your prediction">
+          <button type="button" class="gopt" data-choice="works">Works (High Net Sharpe)</button>
+          <button type="button" class="gopt" data-choice="tie">Breaks Even After Fees</button>
+          <button type="button" class="gopt" data-choice="fails">Fails (Turnover Eats the Edge)</button>
+        </div>
+        <div class="guess-prompt-hint">↑ Pick one option to reveal the empirical NSE result</div>
+        <div class="guess-ans">
+          <p class="guess-mark"></p>
+          <p class="verdict fail">Fails: -1.96 OOS IR (~710 trades/episode)</p>
+          <p>Across 144 pre-registered cells (12 seeds × 6 walk-forward folds), standard continuous-action RL policies churned ~710 trades per evaluation window—converting signal into statutory fee drag (-1.96 IR vs -2.04 sham; paired difference +0.076 IR, t = 2.31 &lt; 2.57 critical). Without hard turnover hysteresis, high-frequency rebalancing drowns in NSE delivery friction.</p>
+          <div class="guess-next-row">
+            <button type="button" class="btn-primary guess-next-btn" data-next-step="4">Next: Study 05 (Post-Filing Drift) →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="guess-card reveal" data-step="4" data-answer="works">
+        <div class="guess-card-top">
+          <span class="guess-tag">Study 05 of 06 · Low-Turnover Fundamental Drift (208 Months)</span>
+          <span class="guess-step-pill mono">Question 5 / 6</span>
+        </div>
+        <h3>Does a low-turnover earnings-surprise strategy, entered only after the filing is public, survive 2× costs and live spreads?</h3>
+        <div class="guess-opts" role="group" aria-label="Your prediction">
+          <button type="button" class="gopt" data-choice="works">Works (Survives All Stress Gates)</button>
+          <button type="button" class="gopt" data-choice="tie">Zero Edge After Spreads</button>
+          <button type="button" class="gopt" data-choice="fails">Fails Out-of-Sample</button>
+        </div>
+        <div class="guess-prompt-hint">↑ Pick one option to reveal the empirical NSE result</div>
+        <div class="guess-ans">
+          <p class="guess-mark"></p>
+          <p class="verdict pass">Works: +5–7%/yr net (t &gt; 2.5), still positive after live spreads</p>
+          <p>Over 208 months (2009–2026), entered only after the filing was public, it beat matched controls by <strong>+5–7%/yr net</strong> (significant after Holm multiple-testing correction) and stayed positive under both <strong>measured live spreads</strong> and an adversarial <strong>2× doubled-cost audit</strong>—but only for accounts above a high-lakh capital floor.</p>
+          <div class="guess-next-row">
+            <button type="button" class="btn-primary guess-next-btn" data-next-step="5">Next: Study 06 (300-Stock Basket vs Index) →</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="guess-card reveal" data-step="5" data-answer="fails">
+        <div class="guess-card-top">
+          <span class="guess-tag">Study 06 of 06 · Direct 300-Stock Basket vs. Index Fund (20.7 Years)</span>
+          <span class="guess-step-pill mono">Question 6 / 6</span>
+        </div>
+        <h3>Does managing your own equal-weight 300-stock NSE equity basket beat buying a single low-cost NIFTY 500 Index Fund after costs and FIFO taxes?</h3>
+        <div class="guess-opts" role="group" aria-label="Your prediction">
+          <button type="button" class="gopt" data-choice="works">Direct Stock Basket Wins</button>
+          <button type="button" class="gopt" data-choice="tie">Identical After Tax</button>
+          <button type="button" class="gopt" data-choice="fails">Index Fund Wins in 69 of 70 Tiers</button>
+        </div>
+        <div class="guess-prompt-hint">↑ Pick one option to reveal the empirical NSE result</div>
+        <div class="guess-ans">
+          <p class="guess-mark"></p>
+          <p class="verdict fail">Index Fund wins in 69 of 70 (Capital × Breadth) tiers</p>
+          <p>Over 20.73 years (2006–2026), a self-held 300-stock basket suffered <strong>2.14%/yr of cumulative rebalancing costs and annual FIFO capital-gains tax realizations</strong> (10.48%–10.93%/yr net), trailing a passive NIFTY 500 Index Fund (<strong>11.67%/yr net</strong> after 0.42% tracking drag and a single terminal LTCG tax redemption) across nearly every capital tier from ₹2 Lakh to ₹2 Crore.</p>
+          <div class="guess-next-row">
+            <button type="button" class="btn-ghost guess-next-btn" data-next-step="0">↺ Back to Study 01</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="quiz-done" id="quizDone" hidden>
+      <p class="quiz-done-score mono" id="quizDoneScore">Quiz complete</p>
+      <a href="#ledger" class="btn-primary">See what survived ↓</a>
+    </div>
+
+    <div class="quiz-skip" id="quizSkip">
+      <span class="quiz-skip-lbl">Prefer to skim?</span>
+      <button type="button" class="quiz-mode-btn" id="revealAllBtn">Reveal all 6 verdicts</button>
+      <button type="button" class="quiz-mode-btn" id="quizViewModeBtn">View all 6 as a grid</button>
+    </div>
+    <p class="visually-hidden" id="quizLive" aria-live="polite"></p>
+  </div>
+</section>
+
+<!-- ═══════════════ EMPIRICAL VERDICT LEDGER (30+ TESTED HYPOTHESES) ═══════════════ -->
+<section id="ledger" data-dot="30+ Verdicts">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Step 3 · The Empirical Ledger · 3,865 Trials · 30+ Hypothesis Families</div>
+      <h2 class="sec-h2">What Survived vs. What We Closed (And Why)</h2>
+      <p class="sec-p">
+        In quantitative research, knowing what <em>does not</em> work after costs is just as valuable as knowing what does.
+        Start with the <strong>3 surviving architectures</strong> below, then pick a category to inspect what failed and why.
+      </p>
+      <p class="ledger-policy">We publish what we tested, how we tested it, and whether it survived — not how to trade the survivors.</p>
+    </div>
+
+    <div class="tally reveal" role="group" aria-label="Breakdown of research verdicts across 34 hypothesis families: 3 survived all gates, 11 closed due to trading costs and tax friction, 14 closed due to zero out-of-sample edge, 6 closed due to data or timestamp artifacts">
+      <div class="tally-bar" aria-hidden="true">
+        <span class="tally-seg tally-pass" data-filter="pass" style="--share:10%" title="Filter by Survived Gates (3)">3</span>
+        <span class="tally-seg tally-cost" data-filter="cost" style="--share:32%" title="Filter by Cost &amp; Tax Wall (11)">11</span>
+        <span class="tally-seg tally-edge" data-filter="edge" style="--share:41%" title="Filter by Zero OOS Edge (14)">14</span>
+        <span class="tally-seg tally-late" data-filter="late" style="--share:17%" title="Filter by Timing Artifact (6)">6</span>
       </div>
-      <div class="stage-card plan-card reveal">
-        <div class="stage-icon plan-icon">○</div>
-        <h3>Planned</h3>
-        <ul>
-          <li>Live deployment via broker API (post paper trading gate)</li>
-          <li>Automated hyperparameter search with risk adaptation</li>
-          <li>Multi-agent portfolio coordination</li>
-          <li>Institutional API / white-label deployment</li>
-          <li>Regulatory compliance pathway</li>
-        </ul>
+      <div class="tally-keys">
+        <span class="tally-key" data-filter="pass"><i style="background:var(--green)"></i><span><b>3 Survived All Gates</b> — Low-turnover post-filing drift &amp; tax-gated hysteresis</span></span>
+        <span class="tally-key" data-filter="cost"><i style="background:var(--amber)"></i><span><b>11 Cost &amp; Tax Wall</b> — Gross signal existed, net return negative after NSE fees/FIFO tax</span></span>
+        <span class="tally-key" data-filter="edge"><i style="background:var(--red)"></i><span><b>14 Zero OOS Edge</b> — Indistinguishable from turnover-matched null controls</span></span>
+        <span class="tally-key" data-filter="late"><i style="background:var(--blue)"></i><span><b>6 Timing / Universe Artifact</b> — Edge vanished once survivorship or broadcast timestamps were fixed</span></span>
       </div>
+    </div>
+
+    <div class="ledger-toolbar reveal" role="toolbar" aria-label="Filter empirical verdicts by outcome" aria-controls="verdictBoard">
+      <div class="ledger-filters">
+        <button type="button" class="lfilt active" data-filter="pass" aria-pressed="true">✓ Survived Gates (3)</button>
+        <button type="button" class="lfilt" data-filter="cost" aria-pressed="false">⚠ Cost &amp; Tax Wall (3)</button>
+        <button type="button" class="lfilt" data-filter="edge" aria-pressed="false">✗ Zero OOS Edge (2)</button>
+        <button type="button" class="lfilt" data-filter="late" aria-pressed="false">⏱ Timing Artifact (1)</button>
+        <button type="button" class="lfilt" data-filter="all" aria-pressed="false">Show All (9)</button>
+      </div>
+      <span class="ledger-count mono" id="ledgerCount" aria-live="polite">Showing 3 of 9 representative studies (Survived Gates)</span>
+    </div>
+
+    <div class="vboard" id="verdictBoard">
+      <article class="vcard v-pass reveal" data-cat="pass">
+        <span class="vreason">SURVIVED · t &gt; 2.5 (2009–2026)</span>
+        <h3>Post-Filing Earnings Surprise Sleeve</h3>
+        <p>Beat matched controls by +5–7%/yr net of statutory fees and DP charges, and stayed positive under measured spreads and 2× costs.</p>
+        <p class="vredact mono">Entry <span class="redact-bar" aria-hidden="true">▇▇▇</span><span class="visually-hidden">redacted</span> · Selection <span class="redact-bar" aria-hidden="true">▇▇▇</span><span class="visually-hidden">redacted</span> · <span class="nowrap">Holding <span class="redact-bar" aria-hidden="true">▇▇▇</span><span class="visually-hidden">redacted</span> — withheld</span></p>
+        <a href="#intuition" class="vcard-link mono" data-quiz-step="4">Inspect Study 05 in Quiz ↑</a>
+      </article>
+
+      <article class="vcard v-pass reveal" data-cat="pass">
+        <span class="vreason">SURVIVED · -58% Turnover</span>
+        <h3>Hysteresis Band + LTCG Tax-Gate Architecture</h3>
+        <p>Combining a multi-threshold retention buffer, no-trade rebalance bands, cash buffer, and idle-cash sweep cut trade count by 58% and recovered +39 to +45 bps/yr of after-tax compounding.</p>
+        <p class="vredact mono">Band widths <span class="redact-bar" aria-hidden="true">▇▇▇</span><span class="visually-hidden">redacted</span> · <span class="nowrap">Thresholds <span class="redact-bar" aria-hidden="true">▇▇▇</span><span class="visually-hidden">redacted</span> — withheld</span></p>
+        <a href="#simulator" class="vcard-link mono" data-sim-preset="tax-gated">Simulate Tax-Gated Mode ↑</a>
+      </article>
+
+      <article class="vcard v-pass reveal" data-cat="pass">
+        <span class="vreason">SURVIVED · +1.52%/yr vs Matched Null</span>
+        <h3>Turnover-Matched Low-Volatility Tilt</h3>
+        <p>Cleared a 20-seed persistence- and turnover-matched random control by +1.52%/yr on the survivorship-free PIT panel when rebalanced conservatively.</p>
+        <p class="vredact mono">Universe <span class="redact-bar" aria-hidden="true">▇▇▇</span><span class="visually-hidden">redacted</span> · <span class="nowrap">Rebalance rule <span class="redact-bar" aria-hidden="true">▇▇▇</span><span class="visually-hidden">redacted</span> — withheld</span></p>
+        <a href="research/methodology.html" class="vcard-link mono">Read Control Methodology →</a>
+      </article>
+
+      <article class="vcard v-cost is-hidden reveal" data-cat="cost">
+        <span class="vreason">CLOSED · Cost &amp; Churn Wall</span>
+        <h3>High-Turnover Daily &amp; Sub-Daily RL</h3>
+        <p>At 1-day and 5-day horizons across 180 (IC × horizon × breadth) cells, 45–53 bps round-trip delivery friction repeated 50–252×/yr destroyed 22%–110%/yr of capital.</p>
+        <a href="#simulator" class="vcard-link mono" data-sim-preset="ai-churn">Simulate Weekly AI Churn ↑</a>
+      </article>
+
+      <article class="vcard v-cost is-hidden reveal" data-cat="cost">
+        <span class="vreason">CLOSED · Below 53 bps Hurdle</span>
+        <h3>LLM Corporate Filing Direction Reader</h3>
+        <p>Reading 1,563 masked corporate filings beat a structured numbers-only baseline by just +1.4 pp (74.2% vs 72.8%)—too narrow to cover NSE round-trip transaction costs.</p>
+        <a href="notes/ideas-we-closed/" class="vcard-link mono">Read Closed Ideas Note →</a>
+      </article>
+
+      <article class="vcard v-cost is-hidden reveal" data-cat="cost">
+        <span class="vreason">CLOSED · 2.14%/yr Cost + Tax Drag</span>
+        <h3>Self-Held 300-Stock Equal-Weight Basket</h3>
+        <p>Trailed a low-cost NIFTY 500 Index Fund in 69 of 70 (capital × breadth) tiers over 20.7 years due to quarterly rebalance costs and annual FIFO tax realizations.</p>
+        <a href="notes/trading-costs/" class="vcard-link mono">Read NSE Cost &amp; Tax Note →</a>
+      </article>
+
+      <article class="vcard v-edge is-hidden reveal" data-cat="edge">
+        <span class="vreason">CLOSED · -2.21%/yr Net (t = -0.61)</span>
+        <h3>Open-Market Promoter Buying Copy-Trade</h3>
+        <p>Over 66 months of point-in-time disclosures, buying alongside promoter open-market purchases trailed matched industry/size/liquidity controls.</p>
+        <a href="notes/ideas-we-closed/" class="vcard-link mono">Read Post-Mortem Note →</a>
+      </article>
+
+      <article class="vcard v-edge is-hidden reveal" data-cat="edge">
+        <span class="vreason">CLOSED · -1.21%/yr Net (408 Fits)</span>
+        <h3>Deep Neural Capacity Scaling on Daily Bars</h3>
+        <p>Across 17 walk-forward folds (2010–2026), scaling neural network capacity beat shuffled-label controls (+2.58%/yr) but trailed equal-weight (-1.21%/yr) after friction.</p>
+        <a href="experiments/" class="vcard-link mono">View Benchmark Ledger →</a>
+      </article>
+
+      <article class="vcard v-late is-hidden reveal" data-cat="late">
+        <span class="vreason">CLOSED · Universe Expansion Artifact</span>
+        <h3>Amihud Illiquidity Premium on NSE</h3>
+        <p>Deconfounding proved 110% of the apparent +3.86%/yr illiquidity premium came from expanding the universe from 100 to 200 stocks; within a fixed universe, illiquid names lost -2.50%/yr.</p>
+        <a href="notes/backtest-traps/" class="vcard-link mono">Read Backtest Traps Note →</a>
+      </article>
     </div>
     <div class="stage-note reveal">
       <span class="stage-note-icon">ℹ</span>
       <p>We are a research-stage startup. No real capital is deployed. As of October 2026, no method — reinforcement learning included — has cleared our own evidence bar for live trading, and we say so. We are seeking collaborators and investors who understand the difference between a validated research prototype and a live product — and who see the value in what's been built so far.</p>
     </div>
+    <p class="ledger-cta reveal"><a href="#contact" class="btn-ghost">Collaborators can request full study details under NDA →</a></p>
   </div>
 </section>
 
-<!-- ════════════════════ ENGINEERING RIGOR ════════════════════ -->
-<section id="engineering" data-dot="Rigor">
+<!-- ═══════════════ HEAVY SYSTEMS, SIMULATION & JAX XLA ENGINEERING ═══════════════ -->
+<section id="engineering" data-dot="Systems & JAX">
   <div class="container">
-    <div class="sec-label reveal">Engineering Rigor</div>
-    <h2 class="sec-h2 reveal">Built Like Infrastructure,<br /><span class="grad">Not Like a Demo.</span></h2>
-    <p class="sec-p reveal">
-      A trading system that cannot trust its own data and code cannot be trusted with capital.
-      The unglamorous engineering underneath the research:
-    </p>
+    <div class="sec-head sec-head-row reveal">
+      <div>
+        <div class="eyebrow">Institutional Infrastructure · Built From Scratch</div>
+        <h2 class="sec-h2">Why Our Verdicts Hold Up: The Engineering Moat</h2>
+        <p class="sec-p">
+          You cannot measure a 3%–6%/yr market edge inside a simulator that leaks 5%/yr of survivorship bias or ignores
+          statutory tax lots. Scan the 6 pillars below, or expand any card for its full technical specification.
+        </p>
+      </div>
+      <button type="button" class="btn-ghost sec-expand-btn mono" id="expandEngBtn" aria-expanded="false">Expand All 6 Specs</button>
+    </div>
+
     <div class="feat-grid">
-
-      <div class="feat-card reveal" data-color="green">
-        <div class="feat-icon green-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <div class="fcard reveal">
+        <div class="fcard-icon icon-cyan">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
         </div>
-        <h3>Tested Before Every Merge</h3>
-        <p>A regression suite of tens of thousands of automated tests gates every change. Behavior-sensitive paths — order execution, cost models, feature matrices — are pinned by parity tests so silent drift cannot ship.</p>
-        <div class="feat-meta">
-          <span class="mono-tag mono-real">37,000+ tests</span>
-          <span class="mono-tag">Zero-regression merges</span>
+        <div class="fcard-title">8.77M-Row Point-in-Time (PIT) Panel</div>
+        <div class="fcard-desc">
+          Reconstructed 26 years of NSE history (2000–2026) including <strong>1,142 delisted companies (~30%)</strong> that standard broker APIs silently drop.
         </div>
+        <details class="fcard-details">
+          <summary class="mono">Technical Specification</summary>
+          <p>Standard broker feeds omit 72% of active 2018 symbols, inflating naive backtests by +2.31% to +6.00%/yr. We rebuilt the entire panel from <strong>6,632+ raw exchange archives</strong> across <strong>4,277 continuous security chains</strong>, <strong>4,561 ISIN mappings</strong>, and <strong>24,203 corporate actions</strong>.</p>
+        </details>
+        <div class="fcard-foot">6,632+ ARCHIVES · 1,142 DELISTED SYMBOLS</div>
       </div>
 
-      <div class="feat-card reveal" data-color="blue">
-        <div class="feat-icon blue-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div class="fcard reveal">
+        <div class="fcard-icon icon-blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 6h6l-3-6z"/><path d="M19 7l-3 6h6l-3-6z"/><path d="M8 21h8"/></svg>
         </div>
-        <h3>Adversarially Reviewed</h3>
-        <p>The stack has been exercised by an internal red team: order tampering, data corruption, API impersonation, unsafe agent actions. Findings were fixed and locked behind permanent regression tests.</p>
-        <div class="feat-meta">
-          <span class="mono-tag">Red-team tested</span>
-          <span class="mono-tag">Hardened order path</span>
+        <div class="fcard-title">"One-World" Statutory &amp; FIFO Tax Engine</div>
+        <div class="fcard-desc">
+          Identical rupee-exact fee and FIFO demat tax-lot accounting shared across backtest, paper, and live execution—pinned to <code>1e-9</code> precision.
         </div>
+        <details class="fcard-details">
+          <summary class="mono">Technical Specification</summary>
+          <p>Verified by 23 golden test suites: dated Finance Act STT schedules, stamp duty, 18% GST, flat ₹15.34 CDSL DP charges, and bitemporal <strong>Indian FIFO demat tax lots</strong> (20.8% STCG vs 13.0% LTCG with 1 Feb 2018 grandfathering).</p>
+        </details>
+        <div class="fcard-foot">23 GOLDEN PIN SUITES · FIFO s.45(2A)</div>
       </div>
 
-      <div class="feat-card reveal" data-color="cyan">
-        <div class="feat-icon cyan-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      <div class="fcard reveal">
+        <div class="fcard-icon icon-green">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
-        <h3>Certified Data Only</h3>
-        <p>Training runs are gated on signed, certified dataset builds. The store is continuously profiled for anomalies — timezone-shifted bars, phantom rows, split discontinuities — and quarantined data never reaches an agent silently.</p>
-        <div class="feat-meta">
-          <span class="mono-tag mono-real">Signed dataset builds</span>
-          <span class="mono-tag">Automated store audit</span>
+        <div class="fcard-title">Pure-JAX + Optax XLA Vectorized Training</div>
+        <div class="fcard-desc">
+          8 RL algorithms compiled via <code>jax.jit</code>, <code>jax.vmap</code>, and fused <code>jax.lax.scan</code> kernels for <strong>500,000 env-steps/sec</strong> stepping.
         </div>
+        <details class="fcard-details">
+          <summary class="mono">Technical Specification</summary>
+          <p>Zero PyTorch overhead across SAC, Temporal SAC, TQC, TD3, PPO, A2C, DQN, QR-DQN, and IQN—delivering <strong>~38,300 env-steps/sec</strong> full 128-env GPU training throughput (4.49× scan speedup with zero recompiles).</p>
+        </details>
+        <div class="fcard-foot">500K ENV-STEPS/SEC · ZERO RECOMPILES</div>
       </div>
 
-      <div class="feat-card reveal" data-color="amber">
-        <div class="feat-icon amber-bg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div class="fcard reveal">
+        <div class="fcard-icon icon-amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
         </div>
-        <h3>Fails Loud, Never Silent</h3>
-        <p>When data quality checks fail, the pipeline stops and names the blockers — it does not fabricate values, silently patch gaps, or train on suspect data. A loud stop is a feature, not an inconvenience.</p>
-        <div class="feat-meta">
-          <span class="mono-tag">Blocking quality gates</span>
-          <span class="mono-tag">No silent patching</span>
+        <div class="fcard-title">Patch-GTrXL, Ragged-Dot MoE &amp; 51× HBM Cut</div>
+        <div class="fcard-desc">
+          15-sector NSE graph attention transformer + custom <code>FrameRingBuffer</code> that compresses GPU replay memory by <strong>51× (314 GB → 0.31 GB)</strong>.
         </div>
+        <details class="fcard-details">
+          <summary class="mono">Technical Specification</summary>
+          <p>Combines cross-asset temporal attention with <code>jax.lax.ragged_dot</code> Top-K Mixture-of-Experts (up to 48.6M parameters) while reconstructing 32-frame temporal stacks on-the-fly in device HBM.</p>
+        </details>
+        <div class="fcard-foot">48.6M PARAMS · 51× REPLAY COMPRESSION</div>
       </div>
 
+      <div class="fcard reveal">
+        <div class="fcard-icon icon-purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v5.2a2 2 0 0 1-.5 1.3L4.7 15.6A2.5 2.5 0 0 0 6.6 20h10.8a2.5 2.5 0 0 0 1.9-4.4l-4.8-6.1a2 2 0 0 1-.5-1.3V3"/><path d="M7.5 14h9"/></svg>
+        </div>
+        <div class="fcard-title">SHA-256 Pre-Registration &amp; 8× Variance Cut</div>
+        <div class="fcard-desc">
+          Every confirmatory study is frozen via SHA-256 before evaluation and scored against paired identical-window controls across <strong>3,865 logged trials</strong>.
+        </div>
+        <details class="fcard-details">
+          <summary class="mono">Technical Specification</summary>
+          <p>Enforces an 80%-power Minimum Detectable Effect (<code>MDE80</code>) gate before outcomes are read, achieving an <strong>8× cross-fold variance reduction</strong> under Holm-Bonferroni familywise error rate control.</p>
+        </details>
+        <div class="fcard-foot">SHA-256 FROZEN SPECS · 3,865 LOGGED TRIALS</div>
+      </div>
+
+      <div class="fcard reveal">
+        <div class="fcard-icon icon-teal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="fcard-title">6-Layer Pre-Trade Gate &amp; AST Verification</div>
+        <div class="fcard-desc">
+          Protected by <strong>37,000+ automated tests</strong>, <strong>44 AST lookahead gates</strong>, and a <code>&lt; 5ms</code> pre-trade risk kill switch.
+        </div>
+        <details class="fcard-details">
+          <summary class="mono">Technical Specification</summary>
+          <p>Static AST checks block future-timestamp access at commit time, while the 6-layer execution gate enforces circuit &amp; fat-finger price collars and SEBI retail-algo rate limits (<code>≤ 10 orders/sec</code>).</p>
+        </details>
+        <div class="fcard-foot">37,000+ TESTS · 44 AST GATES · &lt;5ms KILL SWITCH</div>
+      </div>
     </div>
   </div>
 </section>
 
+
 <!-- ════════════════════ AI-NATIVE ENGINEERING ════════════════════ -->
-<section id="ai-native" data-dot="AI">
+<section id="ai-native" data-dot="AI Workflow">
   <div class="container">
-    <div class="sec-label reveal">AI-Native Engineering</div>
-    <h2 class="sec-h2 reveal">Researched and Built<br /><span class="grad">With AI Agents.</span></h2>
-    <p class="sec-p reveal">
-      One founder cannot hand-write and hand-check a trading platform of this size.
-      We work with AI research and coding agents — several models, not one vendor — under written rules,
-      with a human decision at every gate.
-    </p>
+    <div class="sec-head reveal">
+      <div class="eyebrow">AI-Native Engineering</div>
+      <h2 class="sec-h2">Researched and Built With AI Agents.</h2>
+      <p class="sec-p">
+        One founder cannot hand-write and hand-check a trading platform of this size.
+        We work with AI research and coding agents — several models, not one vendor — under written rules,
+        with a human decision at every gate.
+      </p>
+    </div>
     <div class="feat-grid">
 
       <div class="feat-card reveal" data-color="cyan">
@@ -599,254 +866,405 @@
       <span class="stage-note-icon">ℹ</span>
       <p>No AI model places trades. All strategies run in simulation and paper trading, with no live capital. In progress: extracting structured data from company filings and exchange announcements with document models. Model and product names belong to their owners; RL Alpha Labs is an independent user of these tools, not a partner or affiliate of any of them.</p>
     </div>
+    <p class="next-cue reveal"><a href="notes/how-we-run-ai-agents/">Read our AI agent lab rules →</a></p>
   </div>
 </section>
 
-<!-- ════════════════════ RESEARCH LOG ════════════════════ -->
-<section id="research" data-dot="Research">
+<!-- ═══════════════ THE 8 BACKTEST TRAPS (INTERACTIVE ACCORDION) ═══════════════ -->
+<section id="traps" data-dot="8 Backtest Traps">
   <div class="container">
-    <div class="sec-label reveal">Research Log</div>
-    <h2 class="sec-h2 reveal">Experiment History<br /><span class="grad">Every Run Logged</span></h2>
-    <p class="sec-p reveal">
-      Real experiment IDs, real timestamps, real metrics from disk.
-      Every run is reproducible from its checkpoint.
-    </p>
-    <div class="exp-note reveal">
-      <p>Selected metrics from representative training runs. All results on held-out test data the agent never saw during training.</p>
-    </div>
-    <div class="progression reveal">
-      <h3>Next Experiments</h3>
-      <div class="prog-items">
-        <div class="prog-item">
-          <span class="prog-label">Active</span>
-          <span class="prog-plan">Walk-forward validation · Adversarial stress testing · Curriculum learning</span>
-        </div>
-        <div class="prog-item">
-          <span class="prog-label">Planned</span>
-          <span class="prog-plan">Multi-seed statistical validation · Minute-bar pilots · NIFTY 100 expansion</span>
-        </div>
+    <div class="sec-head sec-head-row reveal">
+      <div>
+        <div class="eyebrow">Forensic Validation · Why Most Retail Backtests Lie</div>
+        <h2 class="sec-h2">The 8 Backtest Traps We Caught and Eliminated</h2>
+        <p class="sec-p">
+          Each trap below inflated simulated Indian equity returns by <strong>+0.3%/yr to +29.6%/yr</strong> before our invariant
+          audits caught and sealed it. Click any row to inspect the failure mode and our engine rule.
+        </p>
       </div>
+      <button type="button" class="btn-ghost sec-expand-btn mono" id="expandTrapsBtn" aria-expanded="false">Expand All 8 Traps</button>
     </div>
-    <div style="margin-top:32px">
-      <a href="experiments/" class="btn-ghost">Read Full Experiment Write-ups →</a>
+
+    <div class="trap-accordion reveal" id="trapAccordion">
+      <details class="trap-item" open>
+        <summary class="trap-summary">
+          <span class="trap-num mono">01</span>
+          <span class="trap-title">Broker Store Survivorship Bias</span>
+          <span class="trap-Impact mono">+2.3% to +6.0%/yr phantom alpha</span>
+        </summary>
+        <div class="trap-body">
+          <p>Standard broker APIs drop delisted tokens. Selecting a universe from today's active list silently erases 1,142 dead NSE companies (like Satyam, DHFL, or Future Retail) and inflates annual returns by up to 6 percentage points.</p>
+          <p class="now"><span class="now-l">Engine Rule</span>Every historical rebalance queries our 6,632-archive point-in-time panel strictly as-of session <code>t</code>, pricing terminal delistings explicitly.</p>
+        </div>
+      </details>
+
+      <details class="trap-item">
+        <summary class="trap-summary">
+          <span class="trap-num mono">02</span>
+          <span class="trap-title">Same-Bar Close Decision &amp; Fill</span>
+          <span class="trap-Impact mono">+8.0% to +29.6%/yr phantom alpha</span>
+        </summary>
+        <div class="trap-body">
+          <p>Computing a signal from day <code>t</code>'s closing price and filling the trade at that exact same close captures a phantom microstructure bounce that no live order can ever achieve.</p>
+          <p class="now"><span class="now-l">Engine Rule</span>Mandatory 1-session execution lag: signals computed after close <code>t</code> execute at session <code>t+1</code> with upper/lower circuit-band lock checks.</p>
+        </div>
+      </details>
+
+      <details class="trap-item">
+        <summary class="trap-summary">
+          <span class="trap-num mono">03</span>
+          <span class="trap-title">Quarter-End vs. Broadcast Timestamp Leakage</span>
+          <span class="trap-Impact mono">+0.75%/yr phantom alpha</span>
+        </summary>
+        <div class="trap-body">
+          <p>Assuming Q4 financials are known on March 31 (or on the statutory deadline) leaks future earnings weeks before the company actually broadcasts its XBRL filing to the exchange.</p>
+          <p class="now"><span class="now-l">Engine Rule</span>Every fundamental record is gated by <code>knowable_at = max(received_ts, broadcast_ts)</code> mapped to the next NSE trading session after 15:30 IST.</p>
+        </div>
+      </details>
+
+      <details class="trap-item">
+        <summary class="trap-summary">
+          <span class="trap-num mono">04</span>
+          <span class="trap-title">Ignoring the Flat ₹15.34 CDSL DP Charge</span>
+          <span class="trap-Impact mono">+30.7 bps/sell @ ₹5k ticket</span>
+        </summary>
+        <div class="trap-body">
+          <p>Modelling delivery costs as a flat percentage (e.g., 10–20 bps) hides the ₹15.34 per-scrip depository sell fee—which adds +30.7 bps on a ₹5,000 position and destroys small-capital multi-stock portfolios.</p>
+          <p class="now"><span class="now-l">Engine Rule</span>Full per-fill statutory waterfall with exact ₹15.34 DP debit on delivery sells and NSE dated tick-size floors.</p>
+        </div>
+      </details>
+
+      <details class="trap-item">
+        <summary class="trap-summary">
+          <span class="trap-num mono">05</span>
+          <span class="trap-title">Illegal Tax-Lot Selection &amp; Pre-Tax Comparisons</span>
+          <span class="trap-Impact mono">+0.30% to +3.0%/yr tax omission</span>
+        </summary>
+        <div class="trap-body">
+          <p>Comparing a high-turnover strategy pre-tax against an index, or using Highest-Cost-First (HCF) lot accounting, hides the 20.8% STCG tax paid every rebalance. Indian law (s.45(2A)) mandates FIFO per demat account.</p>
+          <p class="now"><span class="now-l">Engine Rule</span>Bitemporal FIFO demat tax-lot accounting with historical Finance Act rates, 8-year loss carry-forward, and terminal liquidation tax.</p>
+        </div>
+      </details>
+
+      <details class="trap-item">
+        <summary class="trap-summary">
+          <span class="trap-num mono">06</span>
+          <span class="trap-title">High-Churn Random Baselines</span>
+          <span class="trap-Impact mono">+1.0% to +1.4%/yr false flattery</span>
+        </summary>
+        <div class="trap-body">
+          <p>Comparing a low-turnover factor portfolio against a naive random-stock baseline that replaces 100% of its holdings every quarter makes the candidate look good solely because the random baseline burned 1.4%/yr in extra fees.</p>
+          <p class="now"><span class="now-l">Engine Rule</span>All null controls are persistence-, turnover-, and liquidity-tercile matched to the candidate strategy.</p>
+        </div>
+      </details>
+
+      <details class="trap-item">
+        <summary class="trap-summary">
+          <span class="trap-num mono">07</span>
+          <span class="trap-title">Overlapping-Window Sign-Share Illusions</span>
+          <span class="trap-Impact mono">50.15% false-positive rate</span>
+        </summary>
+        <div class="trap-body">
+          <p>Counting how many rolling 3-year or 5-year windows are positive ("beat the market in 73% of rolling windows") treats 95%-shared data as independent—producing a 50.15% false-positive rate under zero true skill.</p>
+          <p class="now"><span class="now-l">Engine Rule</span>Disjoint fold evaluation, Newey-West HAC standard errors, and noncentral-t 80%-power MDE gates.</p>
+        </div>
+      </details>
+
+      <details class="trap-item">
+        <summary class="trap-summary">
+          <span class="trap-num mono">08</span>
+          <span class="trap-title">LLM Entity &amp; Price Memorization</span>
+          <span class="trap-Impact mono">Lookahead via pre-training</span>
+        </summary>
+        <div class="trap-body">
+          <p>Feeding raw historical news or filings to a modern LLM allows it to recognize the company name, year, and stock price from its pre-training corpus—leaking future returns disguised as "sentiment analysis."</p>
+          <p class="now"><span class="now-l">Engine Rule</span>Automated entity, date, and price scrubber replaces all tickers/ISINs with <code>[FILER]</code>, dates with <code>[D-30]</code>, and strips market-quote clauses before inference.</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════ TECHNOLOGY ════════════════════ -->
-<section id="technology" data-dot="Tech">
+<!-- ═══════════════ RESEARCH & BENCHMARK DEEP-DIVE HUB ═══════════════ -->
+<section id="research" data-dot="Research Hub" style="background: var(--bg1);">
   <div class="container">
-    <div class="sec-label reveal">Technology</div>
-    <h2 class="sec-h2 reveal">Built on Production-Grade<br /><span class="grad">Open-Source Foundations</span></h2>
-    <div class="tech-row">
-      <div class="tech-card reveal"><div class="tech-badge py">Py</div><div><b>Python</b><span>Core language</span></div></div>
-      <div class="tech-card reveal"><div class="tech-badge jax">JAX</div><div><b>Google JAX</b><span>XLA compilation</span></div></div>
-      <div class="tech-card reveal"><div class="tech-badge pt">PT</div><div><b>PyTorch</b><span>GPU training</span></div></div>
-      <div class="tech-card reveal"><div class="tech-badge gym">Gym</div><div><b>Gymnasium</b><span>RL environment interface</span></div></div>
-      <div class="tech-card reveal"><div class="tech-badge kite">ZK</div><div><b>Broker API</b><span>Live market access</span></div></div>
-      <div class="tech-card reveal"><div class="tech-badge st">AN</div><div><b>Analytics</b><span>Data exploration</span></div></div>
-      <div class="tech-card reveal"><div class="tech-badge cu">CU</div><div><b>CUDA</b><span>GPU acceleration</span></div></div>
-      <div class="tech-card reveal"><div class="tech-badge pq">PQ</div><div><b>Parquet + SQLite</b><span>Hybrid storage</span></div></div>
+    <div class="sec-head reveal">
+      <div class="eyebrow">Technical Documentation · Zero Stubs</div>
+      <h2 class="sec-h2">Explore the Full Research &amp; Engineering Papers</h2>
+      <p class="sec-p">
+        Dive into our mathematical formulations, NSE market microstructure tables, pure-JAX training benchmarks, and curated literature review.
+      </p>
+    </div>
+
+    <div class="feat-grid">
+      <a href="research/problem-statement.html" class="fcard reveal" style="text-decoration:none;">
+        <div class="fcard-icon icon-cyan">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 5-6"/></svg>
+        </div>
+        <div class="fcard-title">01 · Problem Formulation &amp; NSE Microstructure</div>
+        <div class="fcard-desc">
+          Formal POMDP/MDP definition, 2015–2025 Indian market regime breakdown, NIFTY 50/100/500 liquidity &amp; spread tables, and statutory CNC vs. MIS transaction cost equations.
+        </div>
+        <div class="fcard-foot">READ TECHNICAL PAPER →</div>
+      </a>
+
+      <a href="research/methodology.html" class="fcard reveal" style="text-decoration:none;">
+        <div class="fcard-icon icon-blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <div class="fcard-title">02 · Three-Plane Architecture &amp; Methodology</div>
+        <div class="fcard-desc">
+          How our Data Plane, Pure-JAX Model Plane, and One-World Simulation Plane fit together—plus multi-component risk-aware reward shaping and stage-gated promotion rules.
+        </div>
+        <div class="fcard-foot">READ ARCHITECTURE SPEC →</div>
+      </a>
+
+      <a href="experiments/scaled-training.html" class="fcard reveal" style="text-decoration:none;">
+        <div class="fcard-icon icon-green">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="fcard-title">03 · JAX XLA Scaled Training &amp; Throughput Benchmarks</div>
+        <div class="fcard-desc">
+          Hardware benchmarks across vectorized environments, fused <code>jax.lax.scan</code> loops, Patch-GTrXL sector-graph transformers, and 51× replay buffer compression.
+        </div>
+        <div class="fcard-foot">VIEW BENCHMARK RESULTS →</div>
+      </a>
+
+      <a href="research/open-problems.html" class="fcard reveal" style="text-decoration:none;">
+        <div class="fcard-icon icon-amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+        <div class="fcard-title">04 · 20 Open Research Questions</div>
+        <div class="fcard-desc">
+          Our structured catalog of 20 open problems across Fundamental Signal Limits, Low-Turnover Policy Design, Bitemporal Feature Engineering, and Tax-Aware Portfolio Control.
+        </div>
+        <div class="fcard-foot">EXPLORE 20 OPEN PROBLEMS →</div>
+      </a>
+
+      <a href="research/literature.html" class="fcard reveal" style="text-decoration:none;">
+        <div class="fcard-icon icon-purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="fcard-title">05 · Annotated Literature &amp; NSE Commentary</div>
+        <div class="fcard-desc">
+          17 foundational papers in RL for portfolio management, meta-learning, market microstructure, and distributional risk—annotated with what holds and what breaks on Indian equities.
+        </div>
+        <div class="fcard-foot">READ ANNOTATED BIBLIOGRAPHY →</div>
+      </a>
+
+      <a href="notes/trading-costs/" class="fcard reveal" style="text-decoration:none;">
+        <div class="fcard-icon icon-teal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="fcard-title">06 · Field Notes: Indian Trading Costs &amp; Backtest Hygiene</div>
+        <div class="fcard-desc">
+          Plain-language deep dives into Indian statutory fee math, the 8 backtest traps, closed hypothesis post-mortems, and deterministic verification gates.
+        </div>
+        <div class="fcard-foot">READ FIELD NOTES →</div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════ ABOUT ════════════════════ -->
+<!-- ═══════════════ ABOUT ═══════════════ -->
 <section id="about" data-dot="About">
   <div class="container">
-    <div class="sec-label reveal">About</div>
-    <h2 class="sec-h2 reveal">The Company</h2>
-    <div class="about-wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The Lab</div>
+      <h2 class="sec-h2">Independent, Self-Funded &amp; Evidence-First</h2>
+    </div>
+
+    <div class="about-grid">
       <div class="about-card reveal">
-        <div class="about-avatar" id="aboutAvatar">
-          <div class="avatar-placeholder">◈</div>
-        </div>
-        <div class="about-bio">
-          <h3 class="about-name">RL Alpha Labs</h3>
-          <div class="about-role">Founder-led · Self-funded · Research stage · India</div>
-          <p class="about-desc">
-            RL Alpha Labs is a one-founder startup building AI trading systems for Indian equities from first principles.
-            Work began in May 2025. The founder's background spans machine learning research, systems engineering, and quantitative analysis.
-            The company exists because systematic AI trading for Indian markets is severely underexplored — and because
-            most "AI trading" products are backtested fiction. We believe rigorous validation, honest metrics,
-            and realistic cost models are prerequisites for any credible claim of alpha.
-          </p>
-          <div class="about-links">
-            <a href="https://github.com/pctablet505" class="about-link" target="_blank" rel="noopener">GitHub</a>
-            <a href="mailto:connect@rlalphalabs.com" class="about-link">Email</a>
+        <div class="founder-row">
+          <div class="avatar-wrap">
+            <img src="https://github.com/pctablet505.png" alt="Rahul" />
+            <div class="avatar-placeholder" style="display:none;">R</div>
+          </div>
+          <div>
+            <div class="founder-name">Rahul</div>
+            <div class="founder-role mono">Founder · Systems &amp; Quantitative Research</div>
+            <span class="founder-loc">India · NSE / BSE Equities</span>
           </div>
         </div>
+        <p class="about-bio">
+          RL Alpha Labs is an independent quantitative research and systems engineering lab focused on Indian equities.
+          We do not sell courses, trading tips, or black-box retail subscriptions. Every claim on this site is backed by
+          reproducible code, point-in-time exchange archives, and SHA-256-pinned evaluation ledgers.
+        </p>
+        <div class="about-links">
+          <a href="https://www.linkedin.com/in/hellorahul/" target="_blank" rel="noopener noreferrer" class="about-link">LinkedIn ↗</a>
+          <a href="https://github.com/pctablet505" target="_blank" rel="noopener noreferrer" class="about-link">GitHub ↗</a>
+          <a href="research/" class="about-link">Research Papers →</a>
+          <a href="join/" class="about-link">Join the lab →</a>
+        </div>
       </div>
+
       <div class="about-facts reveal">
         <div class="fact-card">
-          <div class="fact-num mono">3,400+</div>
-          <div class="fact-lbl">Commits to the research codebase since May 2025</div>
+          <div class="fact-num mono">8.77M Rows</div>
+          <div class="fact-lbl">Point-in-time NSE daily security-session observations (2000–2026) with ~30% delisted symbol coverage.</div>
         </div>
         <div class="fact-card">
-          <div class="fact-num mono">1</div>
-          <div class="fact-lbl">Published experiment result (more in pipeline)</div>
+          <div class="fact-num mono">100% Pure JAX</div>
+          <div class="fact-lbl">XLA-compiled vectorized environments, Patch-GTrXL sector-graph transformers, and 51× compressed device ring buffers.</div>
         </div>
         <div class="fact-card">
-          <div class="fact-num mono">6</div>
-          <div class="fact-lbl">Phase development roadmap</div>
+          <div class="fact-num mono">37,000+ Tests</div>
+          <div class="fact-lbl">Automated unit, contract, property, golden-pin, and AST architecture gates enforcing zero lookahead leakage.</div>
         </div>
         <div class="fact-card">
-          <div class="fact-num mono">5000+</div>
-          <div class="fact-lbl">Real market data files on disk</div>
+          <div class="fact-num mono">3,865 Trials</div>
+          <div class="fact-lbl">Every scored configuration logged in an append-only ledger under Holm-Bonferroni familywise error rate control.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════ USE CASES ════════════════════ -->
-<section id="usecases" data-dot="For You">
-  <div class="container">
-    <div class="sec-label reveal">Who This Is For</div>
-    <h2 class="sec-h2 reveal">Four Paths to Engagement</h2>
-    <div class="uc-grid">
-      <div class="uc-card reveal">
-        <div class="uc-n">01</div>
-        <h3>Investors</h3>
-        <p>Early-stage opportunity in a validated AI trading research platform built for Indian equities. Pipeline is clear. Risk gates are real. Results published, more in pipeline.</p>
-        <div class="uc-ask">→ Request research materials and methodology</div>
-      </div>
-      <div class="uc-card reveal">
-        <div class="uc-n">02</div>
-        <h3>Quant Researchers</h3>
-        <p>Looking for a serious collaborator on RL for Indian markets? The infrastructure is built. The hard problems remaining are algorithmic: walk-forward consistency, multi-agent coordination, curriculum learning.</p>
-        <div class="uc-ask">→ Discuss research collaboration on specific open problems</div>
-      </div>
-      <div class="uc-card reveal">
-        <div class="uc-n">03</div>
-        <h3>ML / RL Engineers</h3>
-        <p>Interested in contributing to a production-bound RL system? Phases 3–6 of the roadmap involve architecture consolidation, AutoRL, and NIFTY 100+ universe expansion.</p>
-        <div class="uc-ask">→ Review the open roadmap and reach out with your background</div>
-      </div>
-      <div class="uc-card reveal">
-        <div class="uc-n">04</div>
-        <h3>FinTech / Institutions</h3>
-        <p>Need an AI trading engine for Indian equities that you can run in-house? This is modular: swap broker backends, risk profiles, and asset universes. Licensing and white-label options available post-Stage 5.</p>
-        <div class="uc-ask">→ Discuss licensing and integration after paper trading gate</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════ CONTACT ════════════════════ -->
-<section id="contact" data-dot="Contact">
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact" data-dot="Contact" style="background: var(--bg1);">
   <div class="container">
     <div class="contact-wrap">
       <div class="contact-left reveal">
-        <div class="sec-label">Contact</div>
-        <h2 class="sec-h2">Let's Talk.<br /><span class="grad">Seriously.</span></h2>
-        <p>If you've read this far, you understand what's been built and what stage it's at. That's the kind of conversation worth having.</p>
-        <div class="contact-items">
-          <div class="citem">
-            <span class="citem-icon cyan">◈</span>
+        <div class="eyebrow">Get In Touch</div>
+        <h2>Collaborate on Research, Data, or Systems</h2>
+        <p>
+          Whether you are a quantitative researcher working on Indian market microstructure, a systems engineer interested in
+          high-throughput JAX/XLA simulation, or an institutional partner exploring licensing our certified PIT data and
+          verification stack, we would love to hear from you.
+        </p>
+        <div class="contact-channels">
+          <div class="cchan">
+            <div class="cchan-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v5.2a2 2 0 0 1-.5 1.3L4.7 15.6A2.5 2.5 0 0 0 6.6 20h10.8a2.5 2.5 0 0 0 1.9-4.4l-4.8-6.1a2 2 0 0 1-.5-1.3V3"/><path d="M7.5 14h9"/></svg>
+            </div>
             <div>
-              <b>Investors</b>
-              <span>Research materials and detailed methodology available under NDA.</span>
+              <div class="cchan-label">Research Collaboration</div>
+              <div class="cchan-val">Joint empirical studies on our 26-year survivorship-free NSE harness</div>
             </div>
           </div>
-          <div class="citem">
-            <span class="citem-icon blue">◉</span>
+          <div class="cchan">
+            <div class="cchan-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg>
+            </div>
             <div>
-              <b>Collaborators</b>
-              <span>Tell us what problem you want to work on. Open problems listed in the research section.</span>
+              <div class="cchan-label">Institutional &amp; B2B Licensing</div>
+              <div class="cchan-val">Certified PIT datasets, statutory cost/tax engines &amp; verification tooling</div>
             </div>
           </div>
-          <div class="citem">
-            <span class="citem-icon green">▲</span>
+          <div class="cchan">
+            <div class="cchan-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
             <div>
-              <b>FinTech / Institutional</b>
-              <span>Licensing discussions welcome post-Stage 5. Let's establish a relationship now.</span>
+              <div class="cchan-label">Systems &amp; ML Engineering</div>
+              <div class="cchan-val">JAX/XLA acceleration, custom transformers &amp; pre-trade risk architecture</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="contact-right reveal">
-        <form class="cform" id="contactForm" onsubmit="handleSubmit(event)">
-          <div class="cform-group">
-            <label>Name</label>
-            <input type="text" name="name" placeholder="Your name" required />
+
+      <div class="reveal">
+        <form class="cform" id="contactForm" action="mailto:connect@rlalphalabs.com" method="post" enctype="text/plain">
+          <div class="cform-row">
+            <div class="cform-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Aarav Mehta" required />
+            </div>
+            <div class="cform-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="aarav@domain.com" required />
+            </div>
           </div>
           <div class="cform-group">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="you@organisation.com" required />
-          </div>
-          <div class="cform-group">
-            <label>I am a…</label>
-            <select name="type">
-              <option value="">Select one</option>
-              <option>Investor / Fund Manager</option>
-              <option>Quant Researcher</option>
-              <option>ML / RL Engineer</option>
-              <option>FinTech Company</option>
-              <option>Other</option>
+            <label for="type">Inquiry Type</label>
+            <select id="type" name="type">
+              <option value="Research Collaboration">Research Collaboration</option>
+              <option value="Institutional / B2B Licensing">Institutional / B2B Licensing</option>
+              <option value="Engineering / Roles">Systems &amp; ML Engineering</option>
+              <option value="General Inquiry">General Inquiry</option>
             </select>
           </div>
           <div class="cform-group">
-            <label>Message</label>
-            <textarea name="message" rows="4" placeholder="What are you looking for? What's your background?"></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your background, research question, or how you'd like to collaborate..." required></textarea>
           </div>
-          <button type="submit" class="btn-primary full">Send Message</button>
-          <p class="cform-note">Strictly confidential. No spam, ever.</p>
+          <button type="submit" class="cform-submit">Send via Email →</button>
+          <p class="cform-note">Opens your email app with this message pre-filled — nothing is sent until you press send there. Prefer webmail? Write to <a href="mailto:connect@rlalphalabs.com">connect@rlalphalabs.com</a> or reach out on <a href="https://www.linkedin.com/in/hellorahul/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>.</p>
         </form>
-        <div class="cform-success" id="formSuccess" style="display:none">
-          <div class="success-check">✓</div>
-          <h3>Your email client should now be open</h3>
-          <p>We've pre-filled a message to connect@rlalphalabs.com — just review and hit send. If nothing opened, email us directly at connect@rlalphalabs.com.</p>
+
+        <div class="cform-success" id="formSuccess">
+          <div class="check">✓</div>
+          <h3>Message Prepared</h3>
+          <p>Your email app should have opened with your message — press send there to deliver it. Nothing opened? Write to <a href="mailto:connect@rlalphalabs.com">connect@rlalphalabs.com</a> directly, or connect on <a href="https://www.linkedin.com/in/hellorahul/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════ FOOTER ════════════════════ -->
+<!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
   <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#hero" class="nav-logo">
-          <span class="logo-mark">◈</span>RLAlphaLabs
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="./" class="logo">
+          <div class="logo-mark">αL</div>
+          <div class="logo-name">RL <span>Alpha</span> Labs</div>
         </a>
-        <p>Reinforcement learning for Indian equity markets.<br />Research stage. Not yet live.</p>
+        <p>
+          Quantitative research, survivorship-free NSE simulation, and pure-JAX XLA systems engineering for Indian equity markets.
+        </p>
       </div>
-      <div class="footer-nav">
-        <div class="fnav-col">
-          <b>Platform</b>
-          <a href="#features">Features</a>
-          <a href="#pipeline">Pipeline</a>
-          <a href="#performance">Results</a>
-          <a href="#engineering">Engineering</a>
-          <a href="#technology">Technology</a>
-        </div>
-        <div class="fnav-col">
-          <b>Project</b>
-          <a href="research/">Research</a>
-          <a href="experiments/">Experiments</a>
-          <a href="blog/">Blog</a>
-          <a href="about/">About</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="fnav-col">
-          <b>For You</b>
-          <a href="traction/">Investors</a>
-          <a href="join/">Collaborators / Join</a>
-          <a href="privacy/">Privacy Notice</a>
-        </div>
+      <div class="foot-col">
+        <h2>Interactive</h2>
+        <ul>
+          <li><a href="#heroConsole">Benchmark Console</a></li>
+          <li><a href="#simulator">Simulator</a></li>
+          <li><a href="#intuition">Quant Quiz</a></li>
+          <li><a href="#ledger">Verdicts</a></li>
+          <li><a href="#engineering">Engineering</a></li>
+          <li><a href="#traps">8 Traps</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Research &amp; Notes</h2>
+        <ul>
+          <li><a href="research/">Research Hub</a></li>
+          <li><a href="research/problem-statement.html">Problem Statement</a></li>
+          <li><a href="research/methodology.html">System Methodology</a></li>
+          <li><a href="research/open-problems.html">20 Open Problems</a></li>
+          <li><a href="notes/trading-costs/">NSE Trading Costs</a></li>
+          <li><a href="notes/backtest-traps/">8 Backtest Traps</a></li>
+          <li><a href="notes/ideas-we-closed/">12 Closed Ideas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Lab</h2>
+        <ul>
+          <li><a href="experiments/">Benchmarks</a></li>
+          <li><a href="experiments/scaled-training.html">JAX Scaled Training</a></li>
+          <li><a href="notes/how-we-run-ai-agents/">AI Agent Lab Rules</a></li>
+          <li><a href="traction/">Roadmap</a></li>
+          <li><a href="join/">Join the lab</a></li>
+          <li><a href="about/">About</a></li>
+          <li><a href="privacy/">Privacy</a></li>
+        </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 RLAlphaLabs. Research Stage. Not Financial Advice.</p>
-      <p class="footer-disc">Past simulation results do not guarantee future live performance. No real capital is currently deployed. Trading involves significant risk of loss. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice or a solicitation to trade.</p>
+
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · Research-Stage Startup · India</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Past simulation results do not guarantee future live performance. No real capital is currently deployed. RL Alpha Labs is a research-stage startup and is not registered with SEBI as an investment adviser or research analyst; nothing here is investment advice, portfolio management, or a solicitation to buy or sell securities.
+      </div>
     </div>
   </div>
 </footer>
 
 <button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
 
-<script src="js/main.js"></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>
