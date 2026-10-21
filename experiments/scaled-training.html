@@ -107,18 +107,15 @@
       <h2>Experiment Objective</h2>
       <p>Test whether scaled training length and tuned hyperparameters for low-SNR financial data produce generalizable policies on NSE daily data that clear our promotion gates.</p>
 
+      <p><strong>Status, 22 October 2026:</strong> the simulated test metrics once shown on this page have been removed. They are not evidence of an edge: in later tests, reinforcement-learning agents trading on daily prices did not beat a placebo agent within our compute budget (<a href="../notes/ideas-we-closed/">Twelve ideas we closed</a>). What remains here is the setup and the training throughput.</p>
+
       <h2>Key Results</h2>
       <div class="exp-metrics">
-        <div class="exp-metric"><div class="val">0.49</div><div class="lbl">Test Sharpe</div></div>
-        <div class="exp-metric"><div class="val">65%</div><div class="lbl">Test Win Rate</div></div>
-        <div class="exp-metric"><div class="val">1.30</div><div class="lbl">Val Sharpe</div></div>
         <div class="exp-metric"><div class="val">9700+</div><div class="lbl">Steps/sec</div></div>
       </div>
 
       <h2>Summary</h2>
       <ul>
-        <li><strong>Win rate 65%:</strong> Above threshold. The agent is reliably profitable across test episodes.</li>
-        <li><strong>Test Sharpe ~0.5:</strong> Positive risk-adjusted return on held-out data.</li>
         <li><strong>Training speed 9700+ steps/sec:</strong> JAX XLA optimization delivered efficient throughput.</li>
       </ul>
 
@@ -137,7 +134,7 @@
       <h2>Known Limitations</h2>
       <ul>
         <li><strong>Val/test gap persists:</strong> Significant gap between validation and test performance.</li>
-        <li><strong>Test Sharpe below target:</strong> While positive, this is not yet competitive with sophisticated benchmarks on risk-adjusted terms.</li>
+        <li><strong>Not evidence of an edge:</strong> this run did not show a result we would stand behind, and the figures once shown here have been removed.</li>
         <li><strong>Single seed:</strong> This run used one random seed. Multiple seeds required for statistical confidence.</li>
         <li><strong>No walk-forward yet:</strong> These results are from a single train/val/test split. Walk-forward validation may reveal additional gaps.</li>
       </ul>

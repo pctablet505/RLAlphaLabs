@@ -652,9 +652,9 @@ function initFrictionSimulator() {
 
     // 1. Ticket size per stock position
     const ticketInr = capObj.val / kVal;
-    // Public statutory CNC floor: 20 bps STT + 1.5 bps Stamp + ~1.05 bps Exch/SEBI/GST = 22.55 bps
-    const statutoryProportionalBps = 22.55;
-    // Flat ₹15.34 CDSL DP charge per sell scrip (Rs 13 + 18% GST)
+    // Public statutory CNC floor: 20 bps STT + 1.5 bps Stamp + ~0.75 bps Exch/SEBI/GST = 22.25 bps
+    const statutoryProportionalBps = 22.25;
+    // Flat ₹15.34 DP charge per sell scrip at Zerodha (₹3.50 CDSL + ₹9.50 broker, + 18% GST); other brokers differ
     const dpBps = (15.34 / ticketInr) * 10000;
     const statutoryTotalBps = statutoryProportionalBps + dpBps;
 
