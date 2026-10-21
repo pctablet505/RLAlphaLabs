@@ -67,6 +67,7 @@ The stages are in [Methodology](https://rlalphalabs.com/research/methodology.htm
 - [Open problems](https://rlalphalabs.com/research/open-problems.html): twenty research problems the lab has not
   solved, open to collaborators.
 - [Join the lab](https://rlalphalabs.com/join/): what working with it looks like, and the open projects.
+- [What is in this repository](docs/repository.md): the site's files, and how to preview a change on your own machine.
 - Other tools from the same lab: [Servedeck](https://github.com/pctablet505/servedeck),
   [GLM-5.3 on one GPU](https://github.com/pctablet505/glm53-flash-single-gpu) and
   [hostops](https://github.com/pctablet505/hostops).
