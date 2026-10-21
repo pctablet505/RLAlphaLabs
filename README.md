@@ -1,7 +1,11 @@
-<a href="https://rlalphalabs.com/"><picture>
+<p>
+<a href="https://rlalphalabs.com/">
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
   <img src="assets/hero-light.svg" width="100%" alt="RL Alpha Labs. Judged after real costs and tax, not by the best backtest. A one-person research lab for Indian stock markets. No live capital is deployed.">
-</picture></a>
+</picture>
+</a>
+</p>
 
 **Judged after real costs and tax, not by the best backtest.** RL Alpha Labs is a one-person research lab for
 Indian stock markets. It tests each trading idea against a bar, usually an index fund, on NSE data as it stood on
