@@ -29,6 +29,7 @@
 ## Organization & Contact
 - [About RL Alpha Labs](https://rlalphalabs.com/about/)
 - [Engineering Roadmap & Traction](https://rlalphalabs.com/traction/)
+- [Open-Source Tools](https://rlalphalabs.com/tools/): Servedeck, GLM-5.3 on a single GPU, and hostops
 - [Collaborate / Join the Lab](https://rlalphalabs.com/join/)
 - [Research Log & Blog](https://rlalphalabs.com/blog/)
 - Contact: `connect@rlalphalabs.com`
