@@ -22,7 +22,7 @@
   <path class="n" d="M212 116H238"/><path class="nh" d="M238 109L248 116L238 123Z"/>
 
   <rect class="box" x="248" y="56" width="200" height="120" rx="10"/>
-  <text class="s h" x="268" y="96">Design frozen</text>
+  <text class="s h" x="268" y="96">Plan fixed</text>
   <text class="s t" x="268" y="126">before any result</text>
   <text class="s t" x="268" y="150">is read</text>
 
@@ -30,7 +30,7 @@
 
   <rect class="box" x="484" y="56" width="244" height="120" rx="10"/>
   <text class="s h" x="504" y="96">Tested on NSE data</text>
-  <text class="s t" x="504" y="126">as it stood on each date,</text>
+  <text class="s t" x="504" y="126">failed firms kept in,</text>
   <text class="s t" x="504" y="150">after costs and tax</text>
 
   <path class="n" d="M728 116H754"/><path class="nh" d="M754 109L764 116L754 123Z"/>
