@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="356" viewBox="0 0 1000 356" role="img" aria-labelledby="t d">
+  <title id="t">The research loop of RL Alpha Labs</title>
+  <desc id="d">An idea gets a design frozen before any result is read, is tested on NSE data as it stood on each date after costs and tax, and is judged against a bar, usually an index fund. If it clears the bar it goes to paper trading only. If it falls short it is closed and published with the reason.</desc>
+  <style>
+    .s{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Helvetica,Arial,sans-serif}
+    .box{fill:#f8fafc;stroke:#64748b;stroke-width:2}
+    .boxa{fill:#f8fafc;stroke:#b45309;stroke-width:2.5}
+    .h{fill:#0f172a;font-size:18px;font-weight:600}
+    .t{fill:#334155;font-size:15px}
+    .a{stroke:#b45309;stroke-width:2.5;fill:none}
+    .ah{fill:#b45309}
+    .n{stroke:#64748b;stroke-width:2;fill:none}
+    .nh{fill:#64748b}
+  </style>
+  <rect width="1000" height="356" rx="16" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="999" height="355" rx="15.5" fill="none" stroke="#e2e8f0"/>
+
+  <rect class="box" x="32" y="56" width="180" height="120" rx="10"/>
+  <text class="s h" x="52" y="96">An idea</text>
+  <text class="s t" x="52" y="126">one kind of trade</text>
+
+  <path class="n" d="M212 116H238"/><path class="nh" d="M238 109L248 116L238 123Z"/>
+
+  <rect class="box" x="248" y="56" width="200" height="120" rx="10"/>
+  <text class="s h" x="268" y="96">Design frozen</text>
+  <text class="s t" x="268" y="126">before any result</text>
+  <text class="s t" x="268" y="150">is read</text>
+
+  <path class="n" d="M448 116H474"/><path class="nh" d="M474 109L484 116L474 123Z"/>
+
+  <rect class="box" x="484" y="56" width="244" height="120" rx="10"/>
+  <text class="s h" x="504" y="96">Tested on NSE data</text>
+  <text class="s t" x="504" y="126">as it stood on each date,</text>
+  <text class="s t" x="504" y="150">after costs and tax</text>
+
+  <path class="n" d="M728 116H754"/><path class="nh" d="M754 109L764 116L754 123Z"/>
+
+  <rect class="box" x="764" y="56" width="204" height="120" rx="10"/>
+  <text class="s h" x="784" y="96">Judged</text>
+  <text class="s t" x="784" y="126">against a bar, usually</text>
+  <text class="s t" x="784" y="150">an index fund</text>
+
+  <path class="n" d="M810 176V201H634V216"/><path class="nh" d="M627 216L634 226L641 216Z"/>
+  <rect class="box" x="532" y="226" width="204" height="104" rx="10"/>
+  <text class="s h" x="552" y="262">Clears it</text>
+  <text class="s t" x="552" y="290">paper trading only,</text>
+  <text class="s t" x="552" y="314">no live capital</text>
+
+  <path class="a" d="M900 176V214"/><path class="ah" d="M893 214L900 226L907 214Z"/>
+  <rect class="boxa" x="764" y="226" width="204" height="104" rx="10"/>
+  <text class="s h" x="784" y="262">Falls short</text>
+  <text class="s t" x="784" y="290">closed and published,</text>
+  <text class="s t" x="784" y="314">with the reason</text>
+</svg>
