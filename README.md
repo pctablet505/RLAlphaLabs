@@ -1,6 +1,6 @@
 # RL Alpha Labs
 
-**Judged after real costs and tax, not by the best backtest.** RL Alpha Labs does automated trading research on
+**Judged after real costs and tax, not by the best backtest.** RL Alpha Labs builds and tests automated trading on
 Indian stocks. This repository is its website, not code: the trading code is private. Each idea is tested on
 data from NSE, India's National Stock Exchange, with the companies that later failed kept in, and must beat an index
 fund or a simpler method after real costs and tax. No live capital is deployed.
