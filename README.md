@@ -1,7 +1,7 @@
 # RL Alpha Labs
 
-**Judged after real costs and tax, not by the best backtest.** RL Alpha Labs is a one-person research lab for
-Indian stock markets. This repository is its website, not code: the trading code is private. Each idea is tested on
+**Judged after real costs and tax, not by the best backtest.** RL Alpha Labs does automated trading research on
+Indian stocks. This repository is its website, not code: the trading code is private. Each idea is tested on
 data from NSE, India's National Stock Exchange, with the companies that later failed kept in, and must beat an index
 fund or a simpler method after real costs and tax. No live capital is deployed.
 
@@ -75,4 +75,4 @@ The stages are in [Methodology](https://rlalphalabs.com/research/methodology.htm
 ---
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/mark-dark.svg"><img src="assets/mark-light.svg" width="16" height="16" alt=""></picture>
-<sub>**Real numbers, failures left in.** RL Alpha Labs is built by [pctablet505](https://github.com/pctablet505). Past simulation results do not guarantee future live performance.</sub>
+<sub>**Big models, small places, real numbers** · RL Alpha Labs is built by [pctablet505](https://github.com/pctablet505). Past simulation results do not guarantee future live performance.</sub>
