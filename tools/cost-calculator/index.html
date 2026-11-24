@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>NSE Equity Trading Cost &amp; Tax-Drag Calculator — RL Alpha Labs</title>
+  <meta name="description" content="Indian NSE equity delivery (CNC) and intraday (MIS) transaction cost calculator: STT, stamp duty, NSE + IPFT + SEBI fees, 18% GST, Zerodha's ₹15.34 CDSL/broker DP fee, spread, and yearly tax-drag hurdle." />
+  <link rel="canonical" href="https://rlalphalabs.com/tools/cost-calculator/" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="alternate" hreflang="en-IN" href="https://rlalphalabs.com/tools/cost-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://rlalphalabs.com/tools/cost-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://rlalphalabs.com/tools/cost-calculator/" />
+  <link rel="alternate" type="application/atom+xml" title="RL Alpha Labs — Research &amp; Field Notes" href="https://rlalphalabs.com/feed.xml" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:url" content="https://rlalphalabs.com/tools/cost-calculator/" />
+  <meta property="og:site_name" content="RL Alpha Labs" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NSE Equity Trading Cost &amp; Tax-Drag Calculator — RL Alpha Labs" />
+  <meta property="og:description" content="Statutory fee calculator for NSE equity delivery (CNC) and intraday (MIS) trades: STT, stamp duty, NSE/IPFT, SEBI, 18% GST, ₹15.34 DP fee, spreads, and yearly tax compounding." />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="RL Alpha Labs — NSE Equity Trading Cost &amp; Tax-Drag Calculator" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NSE Equity Trading Cost &amp; Tax-Drag Calculator — RL Alpha Labs" />
+  <meta name="twitter:description" content="Statutory fee calculator for NSE equity delivery (CNC) and intraday (MIS) trades plus yearly tax-drag hurdle." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <meta name="twitter:image:alt" content="RL Alpha Labs — NSE Equity Trading Cost &amp; Tax-Drag Calculator" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/revenue-tools.css" />
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ResearchOrganization","@id":"https://rlalphalabs.com/#organization","name":"RL Alpha Labs","url":"https://rlalphalabs.com/"},{"@type":"WebSite","@id":"https://rlalphalabs.com/#website","url":"https://rlalphalabs.com/","name":"RL Alpha Labs","inLanguage":"en-IN","publisher":{"@id":"https://rlalphalabs.com/#organization"}},{"@type":"BreadcrumbList","@id":"https://rlalphalabs.com/tools/cost-calculator/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://rlalphalabs.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://rlalphalabs.com/tools/"},{"@type":"ListItem","position":3,"name":"Cost & Tax-Drag Calculator","item":"https://rlalphalabs.com/tools/cost-calculator/"}]},{"@type":"WebApplication","@id":"https://rlalphalabs.com/tools/cost-calculator/#webapp","url":"https://rlalphalabs.com/tools/cost-calculator/","name":"NSE Equity Trading Cost & Tax-Drag Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any (browser)","isAccessibleForFree":true,"inLanguage":"en-IN","datePublished":"2026-11-24","dateModified":"2026-11-24","publisher":{"@id":"https://rlalphalabs.com/#organization"}}]}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress" aria-hidden="true"></div>
+
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../">Tools</a></li>
+      <li><a href="./" class="nav-on" aria-current="page">Cost Calculator</a></li>
+      <li><a href="../tax-planner/">Tax Planner</a></li>
+      <li><a href="../../audits/">Audits</a></li>
+      <li><a href="../../research/">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../../audits/" class="btn-primary">Cost &amp; Tax Check →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../">Tools</a>
+    <a href="./" aria-current="page">Cost Calculator</a>
+    <a href="../tax-planner/">Tax Planner</a>
+    <a href="../../audits/">Audits</a>
+    <a href="../../research/">Research</a>
+    <a href="../../experiments/">Benchmarks</a>
+    <a href="../../traction/">Roadmap</a>
+    <a href="../../about/">About</a>
+    <a href="../../join/">Join the lab</a>
+    <a href="../../?topic=cost-check#contact">Contact</a>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumbs"><a href="../../">Home</a> <span>/</span> <a href="../">Tools</a> <span>/</span> Cost &amp; Tax-Drag Calculator</div>
+      <div class="sec-label">Interactive Tool · NSE Equity Cash (CNC &amp; MIS) · Runs 100% in Browser</div>
+      <h1 class="sec-h2">NSE Equity Trading Cost &amp;<br /><span class="grad">Break-Even Hurdle Calculator</span></h1>
+      <p>Statutory fee schedule for Indian equity delivery (CNC, zero delivery brokerage assumed) and intraday (MIS) trades — STT, stamp duty, NSE/IPFT, SEBI fee, 18% GST, and Zerodha's ₹15.34 CDSL/broker sell DP fee (₹3.50 CDSL + ₹9.50 broker + 18% GST) — plus order-book spreads and yearly tax compounding versus a deferred NIFTY 500 index fund.</p>
+    </div>
+  </section>
+
+  <section class="page-content">
+    <div class="container">
+      <div class="notice-bar">
+        <strong>Migrating a systematic equity strategy off Zerodha Streak?</strong> Before rewriting rules into Python ahead of Streak's published December 10, 2026 shutdown, measure the real per-leg friction here — a flat 10 bps backtest assumption understates small-leg delivery costs by <strong>3× to 8×</strong>.
+      </div>
+
+      <p id="calcLiveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+
+      <div class="tool-grid">
+        <div class="tool-panel">
+          <h2>Portfolio &amp; Order Inputs</h2>
+          <div class="calc-field">
+            <label for="calcProduct">NSE Equity Segment</label>
+            <select id="calcProduct">
+              <option value="CNC" selected>Equity Delivery (CNC)</option>
+              <option value="MIS">Equity Intraday (MIS)</option>
+            </select>
+          </div>
+          <div class="calc-row-2">
+            <div class="calc-field">
+              <label for="calcCapital">Total Capital (₹)</label>
+              <input id="calcCapital" type="number" min="1000" step="10000" value="100000" />
+            </div>
+            <div class="calc-field">
+              <label for="calcStocks">Holdings (K stocks)</label>
+              <input id="calcStocks" type="number" min="1" max="1000" value="20" />
+            </div>
+          </div>
+          <div class="chip-row" aria-label="Quick presets">
+            <button type="button" class="preset-chip" data-cap="100000" data-k="20" data-rt="1" data-spread="33.7">₹1L · K=20</button>
+            <button type="button" class="preset-chip" data-cap="1000000" data-k="200" data-rt="1" data-spread="33.7">₹10L · K=200</button>
+            <button type="button" class="preset-chip" data-cap="1000000" data-k="30" data-rt="1" data-spread="24">₹10L · K=30</button>
+            <button type="button" class="preset-chip" data-cap="5000000" data-k="50" data-rt="2" data-spread="33.7">₹50L · K=50</button>
+          </div>
+          <div class="calc-row-2 calc-row-2-mt">
+            <div class="calc-field">
+              <label for="calcTurnover">Annual Turnover (RT/yr)</label>
+              <input id="calcTurnover" type="number" min="0" step="0.25" value="1.0" />
+            </div>
+            <div class="calc-field">
+              <label for="calcSpread">Round-Trip Spread (bps)</label>
+              <input id="calcSpread" type="number" min="0" step="1" value="33.7" />
+            </div>
+          </div>
+          <div class="calc-row-2">
+            <div class="calc-field">
+              <label for="calcGrossCagr">Baseline Gross Return (%/yr)</label>
+              <input id="calcGrossCagr" type="number" min="0" max="50" step="0.5" value="13.0" />
+            </div>
+            <div class="calc-field">
+              <label for="calcYears">Horizon (years)</label>
+              <input id="calcYears" type="number" min="1" max="30" value="20" />
+            </div>
+          </div>
+          <div class="calc-row-2">
+            <div class="calc-field">
+              <label for="calcTaxMode">Realized Tax Rate</label>
+              <select id="calcTaxMode">
+                <option value="STCG" selected>STCG (20.8% incl. 4% cess)</option>
+                <option value="LTCG">LTCG (13.0% incl. 4% cess)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label id="calcDpFeeLabel" for="calcDpFee">DP Sell Fee / Scrip (₹)</label>
+              <input id="calcDpFee" type="number" min="0" step="0.01" value="15.34" />
+            </div>
+          </div>
+          <p class="small-note">Leg size computed automatically as <code>Capital / K = </code><strong id="outLegSize">₹5,000</strong>. Zero data leaves your browser. Intraday (MIS) switches the tax selector to speculative slab rates (s.43(5)) and disables the delivery DP charge.</p>
+        </div>
+
+        <div>
+          <div class="calc-kpis">
+            <div class="calc-kpi accent-cyan">
+              <div class="calc-kpi-label">Statutory RT Floor</div>
+              <div id="outStatBps" class="calc-kpi-val">52.93 bps</div>
+              <div id="outStatSub" class="calc-kpi-sub">At ₹5,000 CNC leg</div>
+            </div>
+            <div class="calc-kpi accent-amber">
+              <div class="calc-kpi-label">All-In RT (incl. Spread)</div>
+              <div id="outAllInBps" class="calc-kpi-val">86.63 bps</div>
+              <div id="outAnnualDrag" class="calc-kpi-sub">0.87 pp/yr pre-tax drag @ 1.00 RT/yr</div>
+            </div>
+            <div class="calc-kpi accent-green">
+              <div class="calc-kpi-label">Extra Alpha Needed to Tie Index</div>
+              <div id="outAlphaNeeded" class="calc-kpi-val">+3.13 pp/yr</div>
+              <div id="outAlphaSub" class="calc-kpi-sub">After cost &amp; yearly tax</div>
+            </div>
+          </div>
+
+          <noscript><div class="notice-bar">Enable JavaScript to recalculate live fee tables for custom inputs. Static figures above reflect the default ₹1L / K=20 CNC basket.</div></noscript>
+
+          <div class="tool-panel tool-panel-mb">
+            <h2>Per-Round-Trip Fee Breakdown</h2>
+            <p id="outGapLine" class="small-note copy-note-lead"></p>
+            <div class="overflow-x" tabindex="0" role="region" aria-label="Per-round-trip fee breakdown table">
+              <table class="rt-table">
+                <caption>Component costs per buy-and-sell round trip on one leg of size Capital / K.</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Fee Component</th>
+                    <th scope="col" class="num">Rupees / Leg Pair</th>
+                    <th scope="col" class="num">Basis Points (RT)</th>
+                  </tr>
+                </thead>
+                <tbody id="breakdownBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tool-panel">
+            <h2>Leg-Size Scaling Ladder (Why Small Legs Hurt)</h2>
+            <div class="overflow-x" tabindex="0" role="region" aria-label="Leg-size scaling ladder table">
+              <table class="rt-table">
+                <caption>How fixed per-sell DP fees (CNC) or brokerage caps (MIS) compress round-trip friction as order size grows.</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" class="num">Leg Size (₹)</th>
+                    <th scope="col" id="ladderSecondCol" class="num">DP Fee Drag</th>
+                    <th scope="col" class="num">Statutory Floor</th>
+                    <th scope="col" class="num">All-in (+Spread)</th>
+                    <th scope="col" class="num">₹ Statutory / RT</th>
+                  </tr>
+                </thead>
+                <tbody id="ladderBody"></tbody>
+              </table>
+            </div>
+            <p class="small-note">Equity cash rates match Zerodha's published NSE schedule (₹0 discount CNC delivery brokerage) and NSE circulars (NSE/FA/64232, 56129, 73061: ₹307/crore exchange + IPFT per side; ₹10/crore SEBI; 0.1% CNC / 0.025% MIS sell STT; 0.015% CNC / 0.003% MIS buy stamp duty; 18% GST; ₹15.34 sell DP = ₹3.50 CDSL + ₹9.50 broker fee + 18% GST — other brokers vary). Annual tax comparison assumes a 0.20%/yr benchmark index-fund TER, 100% annual gain realization, no ₹1.25 lakh LTCG exemption, and excludes surcharge above ₹50 lakh total income. F&amp;O segments are intentionally excluded until audited against live contract notes. Read the full note in <a href="../../notes/trading-costs/">What Trading Really Costs on NSE</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel tool-panel-cta">
+        <div>
+          <h2 class="h-tight-top">Want your own backtest or trade log checked against real Indian costs and FIFO tax?</h2>
+          <p class="copy-muted-flush">Start with our <strong>₹25,000 3-day Cost &amp; Tax Realism Check</strong>, or see our <strong>Mutual Fund Redemption Memo</strong> for CAs and advisors.</p>
+        </div>
+        <div class="cta-row-sm">
+          <a href="../../audits/" class="btn-primary">Cost &amp; Tax Check →</a>
+          <a href="../tax-planner/" class="btn-ghost">Redemption Planner →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="../../" class="logo">
+          <div class="logo-mark">αL</div>
+          <div class="logo-name">RL <span>Alpha</span> Labs</div>
+        </a>
+        <p>Quantitative research, survivorship-free NSE simulation, and pure-JAX XLA systems engineering for Indian equity markets.</p>
+      </div>
+      <div class="foot-col">
+        <h2>Interactive</h2>
+        <ul>
+          <li><a href="../../#heroConsole">Benchmark Console</a></li>
+          <li><a href="../../#simulator">Simulator</a></li>
+          <li><a href="../../#intuition">Quant Quiz</a></li>
+          <li><a href="../../#ledger">Verdicts</a></li>
+          <li><a href="../../#engineering">Engineering</a></li>
+          <li><a href="../../#traps">8 Traps</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Research &amp; Notes</h2>
+        <ul>
+          <li><a href="../../research/">Research Hub</a></li>
+          <li><a href="../../research/problem-statement.html">Problem Statement</a></li>
+          <li><a href="../../research/methodology.html">System Methodology</a></li>
+          <li><a href="../../research/open-problems.html">20 Open Problems</a></li>
+          <li><a href="../../notes/trading-costs/">NSE Trading Costs</a></li>
+          <li><a href="../../notes/backtest-traps/">8 Backtest Traps</a></li>
+          <li><a href="../../notes/ideas-we-closed/">12 Closed Ideas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Lab</h2>
+        <ul>
+          <li><a href="../../experiments/">Benchmarks</a></li>
+          <li><a href="../../experiments/scaled-training.html">JAX Scaled Training</a></li>
+          <li><a href="../../notes/how-we-run-ai-agents/">AI Agent Lab Rules</a></li>
+          <li><a href="../../traction/">Roadmap</a></li>
+          <li><a href="../">Tools</a></li>
+          <li><a href="../../audits/">Audits</a></li>
+          <li><a href="../../join/">Join the lab</a></li>
+          <li><a href="../../about/">About</a></li>
+          <li><a href="../../privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · India · Equity cash schedule checked for educational math only.</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Not SEBI-registered as an investment adviser or research analyst. This calculator uses deterministic Indian statutory rates and does not constitute investment or tax advice.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../../js/main.js"></script>
+<script src="../../js/cost-calculator.js"></script>
+</body>
+</html>

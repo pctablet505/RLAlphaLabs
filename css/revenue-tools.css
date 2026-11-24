@@ -1,0 +1,234 @@
+/* Scoped styles for RL Alpha Labs tools/cost-calculator, tools/tax-planner, and audits pages. */
+.tool-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-top: 24px;
+}
+.tool-grid > * { min-width: 0; }
+@media (max-width: 960px) { .tool-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.tool-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  min-width: 0;
+}
+.tool-panel h2, .tool-panel h3 {
+  margin-top: 0;
+  color: var(--t0);
+}
+.tool-panel code {
+  font-family: var(--mono, monospace);
+  font-size: 0.86em;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--t0);
+}
+.tool-panel-mb { margin-bottom: 18px; }
+.tool-panel-mt { margin-top: 24px; }
+.tool-panel-cta {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.section-h2-mt { margin-top: 36px; }
+.h-tight-top { margin-top: 10px; margin-bottom: 0; }
+.h-card-top { margin-top: 10px; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+.cta-row-sm { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.copy-muted { color: var(--t2); }
+.copy-muted-flush { color: var(--t2); margin: 0; }
+.copy-note-lead { margin-top: 0; margin-bottom: 12px; color: var(--t1); }
+.btn-block { text-align: center; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.calc-field { margin-bottom: 14px; min-width: 0; }
+.calc-field label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--t2);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.calc-field input, .calc-field select {
+  width: 100%;
+  background: var(--bg1);
+  color: var(--t0);
+  border: 1px solid var(--border-md);
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 0.92rem;
+  font-family: var(--mono, monospace);
+}
+.calc-field input:disabled { opacity: 0.55; cursor: not-allowed; }
+.calc-row-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.calc-row-2-mt { margin-top: 14px; }
+@media (max-width: 520px) { .calc-row-2 { grid-template-columns: minmax(0, 1fr); } }
+
+.calc-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+@media (max-width: 720px) { .calc-kpis { grid-template-columns: minmax(0, 1fr); } }
+.calc-kpi {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  min-width: 0;
+}
+.calc-kpi.accent-cyan { border-top: 3px solid var(--cyan); }
+.calc-kpi.accent-amber { border-top: 3px solid var(--amber); }
+.calc-kpi.accent-green { border-top: 3px solid var(--green); }
+.calc-kpi-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--t3);
+  font-weight: 600;
+}
+.calc-kpi-val {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--t0);
+  font-family: var(--mono, monospace);
+  margin: 4px 0 2px;
+}
+.calc-kpi-sub { font-size: 0.78rem; color: var(--t2); }
+
+.rt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 12px 0;
+}
+.rt-table caption {
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--t3);
+  padding-bottom: 6px;
+}
+.rt-table th {
+  text-align: left;
+  color: var(--t3);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border-md);
+}
+.rt-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--t1);
+}
+.rt-table .num { text-align: right; font-family: var(--mono, monospace); white-space: nowrap; }
+.rt-table tr.is-win { background: var(--green-d); }
+.rt-table tr.is-total td {
+  font-weight: 700;
+  color: var(--t0);
+  background: var(--bg2);
+  border-top: 1px solid var(--border-md);
+  border-bottom: 1px solid var(--border-md);
+}
+.rt-table tr.is-warn { background: var(--red-d); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+.pricing-grid.cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 900px) {
+  .pricing-grid, .pricing-grid.cols-2 { grid-template-columns: minmax(0, 1fr); }
+}
+.price-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+.price-card.featured {
+  border-color: var(--cyan);
+  background: var(--surface-hi);
+}
+.price-tag {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--t0);
+  font-family: var(--mono, monospace);
+  margin: 10px 0 6px;
+}
+.price-period { font-size: 0.85rem; font-weight: 400; color: var(--t3); }
+.price-list { padding-left: 18px; margin: 12px 0 18px; color: var(--t2); font-size: 0.9rem; line-height: 1.65; }
+.notice-bar {
+  background: var(--amber-d);
+  border: 1px solid var(--amber);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: var(--t0);
+  margin: 18px 0;
+}
+.badge-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-family: var(--mono, monospace);
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-weight: 600;
+}
+.badge-ok { background: var(--green-d); color: var(--green); }
+.badge-bad { background: var(--red-d); color: var(--red); }
+.badge-cyan { background: var(--cyan-d); color: var(--cyan); }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.preset-chip {
+  background: var(--bg2);
+  color: var(--t1);
+  border: 1px solid var(--border-md);
+  border-radius: 6px;
+  padding: 7px 11px;
+  min-height: 32px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: var(--mono, monospace);
+}
+.preset-chip:hover { border-color: var(--cyan); color: var(--cyan); }
+.preset-chip:focus-visible, .overflow-x:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+.small-note { font-size: 0.82rem; color: var(--t3); margin-top: 10px; }
+.small-note-flush { margin-top: 0; }
+.overflow-x { overflow-x: auto; max-width: 100%; }
