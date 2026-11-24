@@ -6,8 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#02060f" />
   <title>Cost, Tax &amp; Backtest Realism Checks — RL Alpha Labs</title>
-  <meta name="description" content="Fixed-price engineering and statistical checks for trading engines, research backtests, and wealth-tech calculators: NSE statutory fee curves, FIFO tax drag, look-ahead leakage, survivorship bias, and execution-safety invariants." />
+  <meta name="description" content="Fixed-scope engineering and statistical checks for trading engines, research backtests, and wealth-tech calculators: NSE statutory fee curves, FIFO tax drag, look-ahead leakage, survivorship bias, and execution-safety invariants." />
   <link rel="canonical" href="https://rlalphalabs.com/audits/" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="alternate" hreflang="en-IN" href="https://rlalphalabs.com/audits/" />
+  <link rel="alternate" hreflang="en" href="https://rlalphalabs.com/audits/" />
+  <link rel="alternate" hreflang="x-default" href="https://rlalphalabs.com/audits/" />
+  <link rel="alternate" type="application/atom+xml" title="RL Alpha Labs — Research &amp; Field Notes" href="https://rlalphalabs.com/feed.xml" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:url" content="https://rlalphalabs.com/audits/" />
+  <meta property="og:site_name" content="RL Alpha Labs" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cost, Tax &amp; Backtest Realism Checks — RL Alpha Labs" />
+  <meta property="og:description" content="Private internal engineering and statistical reviews for Indian trading systems, portfolio backtests, and wealth-tech calculators." />
+  <meta property="og:image" content="https://rlalphalabs.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="RL Alpha Labs — Cost, Tax &amp; Backtest Realism Checks" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cost, Tax &amp; Backtest Realism Checks — RL Alpha Labs" />
+  <meta name="twitter:description" content="Private engineering and statistical reviews for Indian trading systems, backtests, and wealth-tech calculators." />
+  <meta name="twitter:image" content="https://rlalphalabs.com/og.png" />
+  <meta name="twitter:image:alt" content="RL Alpha Labs — Cost, Tax &amp; Backtest Realism Checks" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -15,10 +37,12 @@
   <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/revenue-tools.css" />
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ResearchOrganization","@id":"https://rlalphalabs.com/#organization","name":"RL Alpha Labs","url":"https://rlalphalabs.com/"},{"@type":"WebSite","@id":"https://rlalphalabs.com/#website","url":"https://rlalphalabs.com/","name":"RL Alpha Labs","inLanguage":"en-IN","publisher":{"@id":"https://rlalphalabs.com/#organization"}},{"@type":"BreadcrumbList","@id":"https://rlalphalabs.com/audits/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://rlalphalabs.com/"},{"@type":"ListItem","position":2,"name":"Technical Checks & Audits","item":"https://rlalphalabs.com/audits/"}]},{"@type":"WebPage","@id":"https://rlalphalabs.com/audits/#webpage","url":"https://rlalphalabs.com/audits/","name":"Cost, Tax & Backtest Realism Checks — RL Alpha Labs","description":"Fixed-scope internal engineering and statistical reviews for Indian trading engines and backtests.","inLanguage":"en-IN","datePublished":"2026-11-24","dateModified":"2026-11-24","isPartOf":{"@id":"https://rlalphalabs.com/#website"},"publisher":{"@id":"https://rlalphalabs.com/#organization"}}]}</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<div id="scrollProgress"></div>
+<div id="scrollProgress" aria-hidden="true"></div>
 
 <nav id="navbar">
   <div class="container nav-inner">
@@ -38,7 +62,7 @@
         <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
         <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
-      <a href="../#contact" class="btn-primary">Scope a 3-Day Check →</a>
+      <a href="../?topic=audit-check#contact" class="btn-primary">Scope a 3-Day Check →</a>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -48,6 +72,11 @@
     <a href="../tools/tax-planner/">Tax Planner</a>
     <a href="./" aria-current="page">Audits</a>
     <a href="../research/">Research</a>
+    <a href="../experiments/">Benchmarks</a>
+    <a href="../traction/">Roadmap</a>
+    <a href="../about/">About</a>
+    <a href="../join/">Join the lab</a>
+    <a href="../?topic=audit-check#contact">Contact</a>
   </div>
 </nav>
 
@@ -57,7 +86,7 @@
       <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Technical Checks &amp; Audits</div>
       <div class="sec-label">Independent Engineering &amp; Statistical Reviews</div>
       <h1 class="sec-h2">Know What Your Backtest Costs<br /><span class="grad">Before Risking Live Capital</span></h1>
-      <p>Fixed-price code, cost, and statistical reviews for software teams building Indian trading systems, portfolio backtests, and wealth-tech calculators. Strictly internal technical verification — we never supply stock picks, trade signals, or marketing performance badges.</p>
+      <p>Fixed-scope code, cost, and statistical reviews for software teams building Indian trading systems, portfolio backtests, and wealth-tech calculators. Strictly internal technical verification — we never supply stock picks, trade signals, or marketing performance badges.</p>
     </div>
   </section>
 
@@ -67,25 +96,25 @@
         <div class="price-card featured">
           <div>
             <span class="badge-pill badge-ok">ENTRY CHECK · 3 WORKING DAYS</span>
-            <h2 style="margin:10px 0 0;">Cost &amp; Tax Realism Check</h2>
+            <h2 class="h-tight-top">Cost &amp; Tax Realism Check</h2>
             <div class="price-tag">₹25,000 <span class="price-period">/ fixed fee</span></div>
-            <p style="color:var(--t2);">Fast sanity check on a trade log or cost/tax module you supply — see whether a paper edge survives real NSE fees and Indian FIFO capital-gains taxes.</p>
+            <p class="copy-muted">Fast sanity check on a trade log or cost/tax module you supply — see whether a paper edge survives real NSE fees and Indian FIFO capital-gains taxes.</p>
             <ul class="price-list">
-              <li>Re-costing of your supplied trade list against exact NSE CNC/MIS statutory fees (incl. flat ₹15.34 CDSL DP drag)</li>
-              <li>FIFO lot-level STCG (20.8%) / LTCG (13.0%) tax-drag re-computation vs. deferred benchmark</li>
+              <li>Re-costing of your supplied trade list against exact NSE CNC/MIS statutory fees (incl. Zerodha's ₹15.34 CDSL/broker sell DP fee, or your broker's DP rate)</li>
+              <li>FIFO lot-level STCG (20.8%) / LTCG (13.0%) tax-drag re-computation (excl. surcharge) vs. deferred benchmark</li>
               <li>Audit of your existing cost &amp; tax module for unit-scaling, side-asymmetry, or compounding errors</li>
               <li>Concise 3–5 page written report with reproducible Python diff checks (under NDA)</li>
             </ul>
           </div>
-          <a href="../#contact" class="btn-primary" style="text-align:center;">Request 3-Day Check →</a>
+          <a href="../?topic=cost-check#contact" class="btn-primary btn-block">Request 3-Day Check →</a>
         </div>
 
         <div class="price-card">
           <div>
             <span class="badge-pill badge-cyan">FULL AUDIT · 1 WEEK</span>
-            <h2 style="margin:10px 0 0;">Backtest Realism Audit</h2>
-            <div class="price-tag">₹75,000+ <span class="price-period">/ fixed fee</span></div>
-            <p style="color:var(--t2);">For proprietary trading teams, fintech builders, and quantitative engineers validating a research pipeline before putting capital at risk.</p>
+            <h2 class="h-tight-top">Backtest Realism Audit</h2>
+            <div class="price-tag">₹75,000+ <span class="price-period">/ starting fee (fixed per brief)</span></div>
+            <p class="copy-muted">For proprietary trading teams, fintech builders, and quantitative engineers validating a research pipeline before putting capital at risk.</p>
             <ul class="price-list">
               <li>Everything in the 3-day Cost &amp; Tax Realism Check</li>
               <li>Look-ahead, close-to-close execution, and point-in-time leakage canary checks</li>
@@ -94,15 +123,15 @@
               <li>Written dossier with reproducible fail-before tests (under NDA)</li>
             </ul>
           </div>
-          <a href="../#contact" class="btn-ghost" style="text-align:center;">Request Scoping Note →</a>
+          <a href="../?topic=backtest-audit#contact" class="btn-ghost btn-block">Request Scoping Note →</a>
         </div>
 
         <div class="price-card">
           <div>
             <span class="badge-pill badge-cyan">SYSTEMS · 1–2 WEEKS</span>
-            <h2 style="margin:10px 0 0;">Execution Safety &amp; Invariant Audit</h2>
-            <div class="price-tag">₹75,000 – ₹2,50,000 <span class="price-period">/ fixed fee</span></div>
-            <p style="color:var(--t2);">For engineering teams hardening Python broker connectors, order ledgers, and AI-assisted codebases before production deployment.</p>
+            <h2 class="h-tight-top">Execution Safety &amp; Invariant Audit</h2>
+            <div class="price-tag">₹75,000 – ₹2,50,000 <span class="price-period">/ starting range (fixed per brief)</span></div>
+            <p class="copy-muted">For engineering teams hardening Python broker connectors, order ledgers, and AI-assisted codebases before live deployment.</p>
             <ul class="price-list">
               <li>Pre-trade risk gate review (fat-finger collars, quantity caps, rate guards, kill switches)</li>
               <li>Order-ledger idempotency &amp; broker-reconciliation drift checks (duplicate/partial/late fills)</li>
@@ -111,14 +140,14 @@
               <li>Prioritized remediation patches with regression proofs</li>
             </ul>
           </div>
-          <a href="../#contact" class="btn-ghost" style="text-align:center;">Request Scoping Note →</a>
+          <a href="../?topic=execution-audit#contact" class="btn-ghost btn-block">Request Scoping Note →</a>
         </div>
       </div>
 
-      <div class="tool-panel" style="margin-top:24px;">
+      <div class="tool-panel tool-panel-mt">
         <h2>Public Methodology &amp; Failure Notes</h2>
-        <p style="color:var(--t2);">Every check in these packages comes directly from bugs and false edges we caught inside our own research codebase and documented openly:</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
+        <p class="copy-muted">Every check in these packages comes directly from bugs and false edges we caught inside our own research codebase and documented openly:</p>
+        <div class="cta-row-sm">
           <a class="btn-ghost" href="../notes/backtest-traps/">Read: 8 Backtest Traps →</a>
           <a class="btn-ghost" href="../notes/trading-costs/">Read: Real NSE Trading Costs →</a>
           <a class="btn-ghost" href="../notes/ideas-we-closed/">Read: 12 Closed Ideas →</a>
@@ -126,13 +155,59 @@
         </div>
       </div>
 
-      <p class="small-note"><strong>Scope &amp; SEBI PaRRVA Boundary:</strong> All engagements operate under mutual NDA using the client's own legally licensed code and data. Under SEBI's Past Risk and Return Verification Agency (PaRRVA) framework, regulated intermediaries may only advertise performance verified by an accredited PaRRVA agency — our reviews are strictly private internal software and statistical checks to help teams find bugs before risking capital, never marketing sign-offs or SEBI RA/IA advice.</p>
+      <p class="small-note"><strong>Scope, Entity &amp; SEBI PaRRVA Boundary:</strong> All engagements operate under mutual NDA using the client's own legally licensed code and data; RL Alpha Labs currently operates as an unregistered individual research lab (invoicing and GST terms are confirmed per scoped brief). Under SEBI's Past Risk and Return Verification Agency (PaRRVA) framework, regulated intermediaries may only advertise performance verified by an accredited PaRRVA agency — our reviews are strictly private internal software and statistical checks to help teams find bugs before risking capital, never marketing sign-offs or SEBI RA/IA advice. See our <a href="../privacy/">privacy notice</a>.</p>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="../" class="logo">
+          <div class="logo-mark">αL</div>
+          <div class="logo-name">RL <span>Alpha</span> Labs</div>
+        </a>
+        <p>Quantitative research, survivorship-free NSE simulation, and pure-JAX XLA systems engineering for Indian equity markets.</p>
+      </div>
+      <div class="foot-col">
+        <h2>Interactive</h2>
+        <ul>
+          <li><a href="../#heroConsole">Benchmark Console</a></li>
+          <li><a href="../#simulator">Simulator</a></li>
+          <li><a href="../#intuition">Quant Quiz</a></li>
+          <li><a href="../#ledger">Verdicts</a></li>
+          <li><a href="../#engineering">Engineering</a></li>
+          <li><a href="../#traps">8 Traps</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Research &amp; Notes</h2>
+        <ul>
+          <li><a href="../research/">Research Hub</a></li>
+          <li><a href="../research/problem-statement.html">Problem Statement</a></li>
+          <li><a href="../research/methodology.html">System Methodology</a></li>
+          <li><a href="../research/open-problems.html">20 Open Problems</a></li>
+          <li><a href="../notes/trading-costs/">NSE Trading Costs</a></li>
+          <li><a href="../notes/backtest-traps/">8 Backtest Traps</a></li>
+          <li><a href="../notes/ideas-we-closed/">12 Closed Ideas</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h2>Lab</h2>
+        <ul>
+          <li><a href="../experiments/">Benchmarks</a></li>
+          <li><a href="../experiments/scaled-training.html">JAX Scaled Training</a></li>
+          <li><a href="../notes/how-we-run-ai-agents/">AI Agent Lab Rules</a></li>
+          <li><a href="../traction/">Roadmap</a></li>
+          <li><a href="../tools/">Tools</a></li>
+          <li><a href="./">Audits</a></li>
+          <li><a href="../join/">Join the lab</a></li>
+          <li><a href="../about/">About</a></li>
+          <li><a href="../privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="foot-bottom">
       <p>© 2026 RL Alpha Labs · India</p>
       <div class="foot-legal">
