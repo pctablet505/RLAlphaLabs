@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>Tax-Optimal MF Redemption Planner — RL Alpha Labs</title>
+  <meta name="description" content="Exact HiGHS MILP mutual fund and equity redemption optimizer for India (FY2026-27 / Income-tax Act 2025). Saves tax, exit load, and guards against SEBI SIF ₹10L active breaches — local-first or stateless offline." />
+  <link rel="canonical" href="https://rlalphalabs.com/tools/tax-planner/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/revenue-tools.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress"></div>
+
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../">Tools</a></li>
+      <li><a href="../cost-calculator/">Cost Calculator</a></li>
+      <li><a href="./" class="nav-on" aria-current="page">Tax Planner</a></li>
+      <li><a href="../../audits/">Audits</a></li>
+      <li><a href="../../research/">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../../#contact" class="btn-primary">Request Early Access →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../">Tools</a>
+    <a href="../cost-calculator/">Cost Calculator</a>
+    <a href="./" aria-current="page">Tax Planner</a>
+    <a href="../../audits/">Audits</a>
+    <a href="../../research/">Research</a>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumbs"><a href="../../">Home</a> <span>/</span> <a href="../">Tools</a> <span>/</span> Tax-Optimal Redemption Planner</div>
+      <div class="sec-label">FY2026-27 · Income-tax Act, 2025 · Exact HiGHS MILP Engine</div>
+      <h1 class="sec-h2">Raise Cash From Mutual Funds<br /><span class="grad">Without Overpaying Tax or Exit Load</span></h1>
+      <p>Given a target cash amount in rupees (e.g., <strong>₹10,00,000</strong>), our exact mixed-integer optimizer solves across every open FIFO lot simultaneously — capturing the ₹1.25 lakh LTCG exemption, PPFAS-style 10% exit-load free quotas, loss carry-forwards, and <strong>SEBI's new ₹10 lakh SIF minimum floor</strong>. Runs locally in milliseconds; no PAN or password upload required.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
+        <a href="../../#contact" class="btn-primary">Request Beta / Advisor Demo →</a>
+        <a href="#benchmark" class="btn-ghost">See Verified Sample Math</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-content">
+    <div class="container">
+      <div class="tool-panel" id="benchmark">
+        <span class="badge-pill badge-cyan">VERIFIED ENGINE OUTPUT · 2026-11-24 · SYNTHETIC PORTFOLIO</span>
+        <h2 style="margin-top:10px;">Raising ₹10,00,000 from a ₹41.84 Lakh Multi-Asset Portfolio</h2>
+        <p style="color:var(--t2);">Computed live via <code>rlal-tax-planner</code> (30% slab, 4% cess, 1% NAV safety haircut, 8 synthetic folios incl. PPFAS Flexi Cap 10% quota, Motilal Midcap, Nippon Small Cap underwater lot, Axis Gold/Silver FoF, HDFC Short-Term Debt s.50AA, SBI ELSS with locked tranche, and a ₹11.5L SEBI SIF). Same statutory oracle evaluates all three strategies:</p>
+        <div class="overflow-x">
+          <table class="rt-table">
+            <thead>
+              <tr>
+                <th>Withdrawal Strategy</th>
+                <th class="num">Net Cash Raised</th>
+                <th class="num">Incremental FY Tax</th>
+                <th class="num">Exit Load</th>
+                <th class="num">STT</th>
+                <th class="num">Total Friction</th>
+                <th>SEBI SIF ₹10L Guard</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="is-win">
+                <td><strong>RL Alpha Labs HiGHS MILP (14.1 ms)</strong></td>
+                <td class="num">₹10,10,101</td>
+                <td class="num">₹0</td>
+                <td class="num">₹1,773</td>
+                <td class="num">₹10</td>
+                <td class="num"><strong>₹1,782</strong></td>
+                <td><span class="badge-pill badge-ok">PRESERVED</span></td>
+              </tr>
+              <tr class="is-warn">
+                <td>Naive: Proportional (equal % of all unlocked folios)</td>
+                <td class="num">₹10,02,597</td>
+                <td class="num">₹18,056</td>
+                <td class="num">₹2,395</td>
+                <td class="num">₹9</td>
+                <td class="num">₹20,459</td>
+                <td><span class="badge-pill badge-bad">BREACH RISK</span></td>
+              </tr>
+              <tr>
+                <td>Naive: Drain highest-gain-% winner first</td>
+                <td class="num">₹10,02,552</td>
+                <td class="num">₹66,468</td>
+                <td class="num">₹7,440</td>
+                <td class="num">₹8</td>
+                <td class="num">₹73,916</td>
+                <td><span class="badge-pill badge-ok">PRESERVED</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small-note"><strong>Savings on this exact synthetic ₹10L withdrawal:</strong> <strong>₹18,677</strong> vs. naive proportional withdrawal (and avoids an active SEBI SIF ₹10L breach that freezes partial debits for 30 days) · <strong>₹72,134</strong> vs. selling highest-gain winners first. On top, the prefix-safe loss harvester identified an extra <strong>₹4,375 net tax benefit</strong> on the underwater small-cap lot (₹6,656 tax saved minus ₹2,281 friction).</p>
+      </div>
+
+      <h2 style="margin-top:36px;">What Makes It Different From Filing Apps &amp; Trackers</h2>
+      <div class="pricing-grid" style="margin-top:16px;">
+        <div class="tool-panel">
+          <h3>Exact Multi-Bucket Solver</h3>
+          <p style="color:var(--t2);">Models all 4 Indian capital-gains buckets together (<code>ST_SLAB</code>, <code>ST_EQUITY</code>, <code>LT_NON_EQUITY</code>, <code>LT_EQUITY</code>), strict FIFO queues, s.55(2)(ac) grandfathering, s.50AA specified debt, s.94(8) bonus stripping, s.70/s.74 loss offset priority, and 8-year carry-forward expiry.</p>
+        </div>
+        <div class="tool-panel">
+          <h3>Wait-Cliff &amp; Advance Tax Radar</h3>
+          <p style="color:var(--t2);">Spots upcoming LTCG anniversary flips, exit-load drops, April 1 FY exemption resets, and s.234C advance-tax dates (Jun/Sep/Dec/Mar 15). Automatically proposes optimal <strong>two-tranche split dates</strong>.</p>
+        </div>
+        <div class="tool-panel">
+          <h3>Local-First Privacy</h3>
+          <p style="color:var(--t2);">No Gmail OAuth tokens. No storing client PANs or password-protected CAS PDFs in a third-party cloud. Masked folio IDs, hardened OpenXML reader blocking zip-slips/XXE/DTD bombs, formula-safe CSV exports, and print-ready PDF client memos.</p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:36px;">Founding Plans (FY2026-27 Early Access)</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div>
+            <span class="badge-pill badge-cyan">INDIVIDUAL</span>
+            <h3 style="margin:10px 0 0;">Personal Pro Pass</h3>
+            <div class="price-tag">₹1,499 <span class="price-period">/ FY</span></div>
+            <p class="small-note" style="margin-top:0;">Founding launch: ₹999 for FY2026-27</p>
+            <ul class="price-list">
+              <li>1 PAN · unlimited mutual fund folios</li>
+              <li>Runs offline on your own laptop (Windows/macOS/Linux browser UI)</li>
+              <li>Exact redemption planner, wait-cliff radar &amp; loss harvester</li>
+              <li>Groww, Zerodha Equity P&amp;L, and CAS file import</li>
+              <li>Formula-safe CSV &amp; printable PDF memo export</li>
+            </ul>
+          </div>
+          <a href="../../#contact" class="btn-ghost" style="text-align:center;">Join Founding List</a>
+        </div>
+
+        <div class="price-card featured">
+          <div>
+            <span class="badge-pill badge-ok">RECOMMENDED · B2B</span>
+            <h3 style="margin:10px 0 0;">Advisor / MFD / CA Practice</h3>
+            <div class="price-tag">₹5,999 <span class="price-period">/ year</span></div>
+            <p class="small-note" style="margin-top:0;">Up to 50 client PANs · ₹12,999/yr for 250 PANs</p>
+            <ul class="price-list">
+              <li>Multi-client vault processed strictly offline on firm workstation</li>
+              <li>Client-ready white-label PDF Redemption Memo (Naive vs MILP)</li>
+              <li>SEBI SIF ₹10L aggregate AMC floor &amp; ELSS lock-in guards</li>
+              <li>Batch March ₹1.25L LTCG exemption harvest scans</li>
+              <li>Priority parser support for real-world broker formats</li>
+            </ul>
+          </div>
+          <a href="../../#contact" class="btn-primary" style="text-align:center;">Book 15-Min Walkthrough →</a>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <span class="badge-pill badge-cyan">OEM / ENTERPRISE</span>
+            <h3 style="margin:10px 0 0;">Engine SDK License</h3>
+            <div class="price-tag">Custom <span class="price-period">/ year</span></div>
+            <p class="small-note" style="margin-top:0;">WealthTech apps, PMS desks &amp; CA platforms</p>
+            <ul class="price-list">
+              <li>Self-hosted pure-Python + HiGHS MILP engine (`0` stdlib core deps)</li>
+              <li>Embed inside your own infra — zero investor PII leaves your VPC</li>
+              <li>Exhaustive statutory differential test suite included</li>
+              <li>Dedicated scheme-catalog schema &amp; annual Budget updates</li>
+            </ul>
+          </div>
+          <a href="../../#contact" class="btn-ghost" style="text-align:center;">Request Spec Sheet</a>
+        </div>
+      </div>
+
+      <p class="small-note"><strong>Important Disclosure:</strong> This tool computes deterministic statutory capital-gains, exit-load, and STT arithmetic strictly from holdings you supply. It never recommends securities or schemes to buy, sell, or hold, and is not SEBI-registered investment advice or tax filing counsel. Engage a practicing Chartered Accountant to confirm calculations before submitting mutual fund redemptions or ITR schedules.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · India</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Sample numbers shown above are computed on a synthetic demonstration portfolio and do not represent a client account or guarantee tax outcomes.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../../js/main.js"></script>
+</body>
+</html>

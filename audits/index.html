@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>Backtest Realism &amp; Pre-Live Safety Audits — RL Alpha Labs</title>
+  <meta name="description" content="Fixed-scope technical audits for trading engines, research backtests, and Python execution stacks: leakage checks, survivorship bias, NSE statutory fee curves, FIFO tax realism, and Z3 invariant proofs." />
+  <link rel="canonical" href="https://rlalphalabs.com/audits/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/revenue-tools.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress"></div>
+
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../tools/">Tools</a></li>
+      <li><a href="../tools/cost-calculator/">Cost Calculator</a></li>
+      <li><a href="../tools/tax-planner/">Tax Planner</a></li>
+      <li><a href="./" class="nav-on" aria-current="page">Audits</a></li>
+      <li><a href="../research/">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../#contact" class="btn-primary">Scope an Audit →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../tools/">Tools</a>
+    <a href="../tools/cost-calculator/">Cost Calculator</a>
+    <a href="../tools/tax-planner/">Tax Planner</a>
+    <a href="./" aria-current="page">Audits</a>
+    <a href="../research/">Research</a>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumbs"><a href="../">Home</a> <span>/</span> Technical Audits</div>
+      <div class="sec-label">Independent Engineering &amp; Statistical Audits</div>
+      <h1 class="sec-h2">Find the Bug Before<br /><span class="grad">Live Capital Does</span></h1>
+      <p>Fixed-scope code and statistical reviews for trading engines, research backtests, broker execution wrappers, and AI-assisted Python repos. Strictly technical verification — we never supply stock picks, trade signals, or managed strategies.</p>
+    </div>
+  </section>
+
+  <section class="page-content">
+    <div class="container">
+      <div class="pricing-grid" style="grid-template-columns:repeat(2,1fr);">
+        <div class="price-card featured">
+          <div>
+            <span class="badge-pill badge-cyan">PACKAGE A · 1 WEEK</span>
+            <h2 style="margin:10px 0 0;">Backtest Realism Audit</h2>
+            <div class="price-tag">₹50,000 – ₹1,25,000 <span class="price-period">/ fixed fee</span></div>
+            <p style="color:var(--t2);">For boutique desks, fintech teams, PMS/AIF analysts, and SEBI-registered RAs validating a backtest before capital deployment.</p>
+            <ul class="price-list">
+              <li>Look-ahead, close-to-close execution, and data-leak canary checks</li>
+              <li>Survivorship bias, dead-stock exit haircuts &amp; split/bonus audit</li>
+              <li>Canonical NSE/BSE statutory cost schedule (incl. flat DP fee drag)</li>
+              <li>Mandatory FIFO tax-lot realism vs deferred passive benchmark</li>
+              <li>Multiple-testing, null-control shuffle &amp; minimum detectable effect (MDE80) calculation</li>
+              <li>Written dossier with reproducible fail-before tests (under NDA)</li>
+            </ul>
+          </div>
+          <a href="../#contact" class="btn-primary" style="text-align:center;">Request Scoping Note →</a>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <span class="badge-pill badge-ok">PACKAGE B · 1–2 WEEKS</span>
+            <h2 style="margin:10px 0 0;">Execution Safety &amp; Formal Proof Audit</h2>
+            <div class="price-tag">₹75,000 – ₹2,50,000 <span class="price-period">/ fixed fee</span></div>
+            <p style="color:var(--t2);">For engineering teams deploying Python broker connectors under SEBI's retail/API safety rules (static IP, rate caps, kill switches, reconciliation).</p>
+            <ul class="price-list">
+              <li>Pre-trade risk gate review (fat-finger collar, qty caps, TOPS 10/s rate guard)</li>
+              <li>Order-ledger idempotency &amp; broker-reconciliation drift checks (repeated/late fills)</li>
+              <li>Z3 differential &amp; Hypothesis property proofs over money-path invariants</li>
+              <li>Test-suite quality audit catching assertion-free, tautological &amp; mock-wiring tests</li>
+              <li>Prioritized remediation patches with regression proofs</li>
+            </ul>
+          </div>
+          <a href="../#contact" class="btn-ghost" style="text-align:center;">Request Scoping Note →</a>
+        </div>
+      </div>
+
+      <div class="tool-panel" style="margin-top:24px;">
+        <h2>Why Teams Use Our Methodology</h2>
+        <p style="color:var(--t2);">Every check comes straight from public errors we caught inside our own research codebase and published transparently:</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
+          <a class="btn-ghost" href="../notes/backtest-traps/">Read: 8 Backtest Traps →</a>
+          <a class="btn-ghost" href="../notes/trading-costs/">Read: Real NSE Trading Costs →</a>
+          <a class="btn-ghost" href="../notes/ideas-we-closed/">Read: 12 Closed Ideas →</a>
+          <a class="btn-ghost" href="../tools/cost-calculator/">Run: Cost Calculator →</a>
+        </div>
+      </div>
+
+      <p class="small-note"><strong>Scope boundary:</strong> All engagements operate under mutual NDA using the client's own legally licensed code and data feeds. RL Alpha Labs supplies engineering and statistical audit services only — not investment advice, portfolio management, strategy origination, or SEBI RA/IA sign-off.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · India</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> RL Alpha Labs is not registered with SEBI as an investment adviser or research analyst. Technical audits inspect software correctness and statistical power only.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

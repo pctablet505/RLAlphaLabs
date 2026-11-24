@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#02060f" />
+  <title>NSE Trading Cost &amp; Tax-Drag Calculator — RL Alpha Labs</title>
+  <meta name="description" content="Exact Indian equity &amp; F&amp;O transaction cost calculator (STT, stamp duty, NSE + SEBI fees, 18% GST, flat ₹15.34 CDSL DP charge, spread, and 20.8% STCG vs 13.0% LTCG break-even hurdle vs NIFTY 500 index fund)." />
+  <link rel="canonical" href="https://rlalphalabs.com/tools/cost-calculator/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060d1c'/%3E%3Crect x='.75' y='.75' width='30.5' height='30.5' rx='6.25' fill='none' stroke='%2300c8f0' stroke-opacity='.35' stroke-width='1.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='%2300c8f0'%3E%CE%B1L%3C/text%3E%3C/svg%3E" />
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('rlal-theme');}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('content',t==='light'?'#f7f8f6':'#02060f');}})();</script>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/revenue-tools.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="scrollProgress"></div>
+
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="../../" class="logo">
+      <div class="logo-mark">αL</div>
+      <div class="logo-name">RL <span>Alpha</span> Labs</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../../tools/" class="nav-on" aria-current="page">Tools</a></li>
+      <li><a href="../tax-planner/">Tax Planner</a></li>
+      <li><a href="../../audits/">Audits</a></li>
+      <li><a href="../../notes/trading-costs/">Cost Note</a></li>
+      <li><a href="../../research/">Research</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="../../audits/" class="btn-primary">Book an Audit →</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../tools/">Tools</a>
+    <a href="../tax-planner/">Tax Planner</a>
+    <a href="../../audits/">Audits</a>
+    <a href="../../notes/trading-costs/">Cost Note</a>
+    <a href="../../research/">Research</a>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumbs"><a href="../../">Home</a> <span>/</span> <a href="../">Tools</a> <span>/</span> Cost &amp; Tax-Drag Calculator</div>
+      <div class="sec-label">Interactive Tool · Runs 100% in Browser</div>
+      <h1 class="sec-h2">NSE Trading Cost &amp;<br /><span class="grad">Break-Even Hurdle Calculator</span></h1>
+      <p>Exact statutory fees (STT, stamp duty, NSE/IPFT, SEBI fee, 18% GST, and the flat ₹15.34 CDSL sell DP fee) plus order-book spreads and yearly FIFO capital-gains tax compounding versus a deferred index fund.</p>
+    </div>
+  </section>
+
+  <section class="page-content">
+    <div class="container">
+      <div class="notice-bar">
+        <strong>Migrating a systematic strategy off Zerodha Streak?</strong> Before rewriting strategies into Python ahead of Streak's December 10, 2026 discontinuation, measure the true per-leg friction here — a flat 10 bps backtest assumption understates small-leg delivery costs by <strong>3× to 8×</strong>.
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-panel">
+          <h3>Portfolio &amp; Order Inputs</h3>
+          <div class="calc-field">
+            <label for="calcProduct">Segment / Product</label>
+            <select id="calcProduct">
+              <option value="CNC" selected>Equity Delivery (CNC)</option>
+              <option value="MIS">Equity Intraday (MIS)</option>
+              <option value="FUT">NSE Futures (post Apr 2026 STT 0.05%)</option>
+              <option value="OPT">NSE Options (post Apr 2026 STT 0.15%)</option>
+            </select>
+          </div>
+          <div class="calc-row-2">
+            <div class="calc-field">
+              <label for="calcCapital">Total Capital (₹)</label>
+              <input id="calcCapital" type="number" min="1000" step="10000" value="100000" />
+            </div>
+            <div class="calc-field">
+              <label for="calcStocks">Holdings (K stocks)</label>
+              <input id="calcStocks" type="number" min="1" max="1000" value="20" />
+            </div>
+          </div>
+          <div class="chip-row" aria-label="Quick presets">
+            <button type="button" class="preset-chip" data-cap="100000" data-k="20" data-rt="1" data-spread="33.7">₹1L · K=20</button>
+            <button type="button" class="preset-chip" data-cap="1000000" data-k="200" data-rt="1" data-spread="33.7">₹10L · K=200</button>
+            <button type="button" class="preset-chip" data-cap="1000000" data-k="30" data-rt="1" data-spread="24">₹10L · K=30</button>
+            <button type="button" class="preset-chip" data-cap="5000000" data-k="50" data-rt="2" data-spread="33.7">₹50L · K=50</button>
+          </div>
+          <div class="calc-row-2" style="margin-top:14px;">
+            <div class="calc-field">
+              <label for="calcTurnover">Annual Turnover (RT/yr)</label>
+              <input id="calcTurnover" type="number" min="0" step="0.25" value="1.0" />
+            </div>
+            <div class="calc-field">
+              <label for="calcSpread">Round-Trip Spread (bps)</label>
+              <input id="calcSpread" type="number" min="0" step="1" value="33.7" />
+            </div>
+          </div>
+          <div class="calc-row-2">
+            <div class="calc-field">
+              <label for="calcGrossCagr">Baseline Gross Return (%/yr)</label>
+              <input id="calcGrossCagr" type="number" min="0" max="50" step="0.5" value="13.0" />
+            </div>
+            <div class="calc-field">
+              <label for="calcYears">Horizon (years)</label>
+              <input id="calcYears" type="number" min="1" max="30" value="20" />
+            </div>
+          </div>
+          <div class="calc-row-2">
+            <div class="calc-field">
+              <label for="calcTaxMode">Realized Tax Rate</label>
+              <select id="calcTaxMode">
+                <option value="STCG" selected>STCG (20.8% incl. cess)</option>
+                <option value="LTCG">LTCG (13.0% incl. cess)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label for="calcDpFee">DP Sell Fee / Scrip (₹)</label>
+              <input id="calcDpFee" type="number" min="0" step="0.01" value="15.34" />
+            </div>
+          </div>
+          <p class="small-note">Leg size computed automatically as <code>Capital / K = </code><strong id="outLegSize">₹5,000</strong>. Zero data leaves your browser.</p>
+        </div>
+
+        <div>
+          <div class="calc-kpis">
+            <div class="calc-kpi accent-cyan">
+              <div class="calc-kpi-label">Statutory RT Floor</div>
+              <div id="outStatBps" class="calc-kpi-val">52.93 bps</div>
+              <div id="outStatSub" class="calc-kpi-sub">At ₹5,000 CNC leg</div>
+            </div>
+            <div class="calc-kpi accent-amber">
+              <div class="calc-kpi-label">All-In RT (incl. Spread)</div>
+              <div id="outAllInBps" class="calc-kpi-val">86.63 bps</div>
+              <div id="outAnnualDrag" class="calc-kpi-sub">0.87 pp/yr @ 1 RT/yr</div>
+            </div>
+            <div class="calc-kpi accent-green">
+              <div class="calc-kpi-label">Extra Alpha Needed to Tie Index</div>
+              <div id="outAlphaNeeded" class="calc-kpi-val">—</div>
+              <div id="outAlphaSub" class="calc-kpi-sub">After cost &amp; yearly tax</div>
+            </div>
+          </div>
+
+          <div class="tool-panel" style="margin-bottom:18px;">
+            <h3>Per-Round-Trip Fee Breakdown</h3>
+            <p id="outGapLine" class="small-note" style="margin-top:0;margin-bottom:12px;color:var(--t1);"></p>
+            <div class="overflow-x">
+              <table class="rt-table">
+                <thead>
+                  <tr>
+                    <th>Fee Component</th>
+                    <th class="num">Rupees / Leg Pair</th>
+                    <th class="num">Basis Points (RT)</th>
+                  </tr>
+                </thead>
+                <tbody id="breakdownBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tool-panel">
+            <h3>Leg-Size Scaling Ladder (Why Small Legs Hurt)</h3>
+            <div class="overflow-x">
+              <table class="rt-table">
+                <thead>
+                  <tr>
+                    <th class="num">Leg Size (₹)</th>
+                    <th class="num">DP Fee Drag</th>
+                    <th class="num">Statutory Floor</th>
+                    <th class="num">All-in (+Spread)</th>
+                    <th class="num">₹ Statutory / RT</th>
+                  </tr>
+                </thead>
+                <tbody id="ladderBody"></tbody>
+              </table>
+            </div>
+            <p class="small-note">Reference rates verified against Zerodha published NSE schedule and Finance Act 2026 STT updates (0.05% futures, 0.15% options). Read the full methodology in <a href="../../notes/trading-costs/">What Trading Really Costs on NSE</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel" style="margin-top:24px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;">
+        <div>
+          <h3 style="margin-bottom:4px;">Need exact cash from mutual funds without hitting exit load or STCG traps?</h3>
+          <p style="margin:0;color:var(--t2);">Try our <strong>Tax-Optimal Redemption Planner</strong> (HiGHS MILP + SEBI SIF ₹10L floor + wait-cliff analyzer) or book a <strong>Backtest Realism Audit</strong>.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="../tax-planner/" class="btn-primary">Tax-Optimal Planner →</a>
+          <a href="../../audits/" class="btn-ghost">Backtest Audits →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-bottom">
+      <p>© 2026 RL Alpha Labs · India · Rates checked for educational math only.</p>
+      <div class="foot-legal">
+        <strong>Regulatory Disclaimer:</strong> Not SEBI-registered as an investment adviser or research analyst. This calculator uses deterministic Indian statutory rates and does not constitute investment or tax advice.
+      </div>
+    </div>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+<script src="../../js/main.js"></script>
+<script src="../../js/cost-calculator.js"></script>
+</body>
+</html>
