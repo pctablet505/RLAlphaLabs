@@ -1,10 +1,11 @@
-/* Pure-JS port of RL Alpha Labs canonical Indian equity / F&O cost calculator.
-   Matches algotrading/src/utils/transaction_costs.py & utils/constants.py exactly.
+/* Pure-JS port of RL Alpha Labs canonical NSE equity transaction cost calculator.
+   Matches AlgoTrading algotrading/src/utils/transaction_costs.py & constants.py exactly
+   (Zerodha NSE Equity Delivery CNC and Equity Intraday MIS schedules only).
    Strictly DOM-API rendering (safe text nodes only). */
 (function () {
   "use strict";
 
-  // Statutory rates (NSE / Zerodha discount schedule; F&O STT reflects post-2026-04-01 rates)
+  // Statutory & broker rates matching algotrading/src/utils/constants.py (NSE equity cash only)
   const RATES = {
     CNC: {
       label: "Equity Delivery (CNC)",
@@ -12,11 +13,11 @@
       brokerageCap: 0.0,
       sttBuyPct: 0.001,        // 0.10% buy
       sttSellPct: 0.001,       // 0.10% sell
-      exchangePct: 0.0000307,  // Rs 307/crore per side (NSE + IPFT)
+      exchangePct: 0.0000307,  // Rs 307/crore per side (NSE + IPFT; NSE/FA/64232, 56129, 73061)
       sebiPct: 0.000001,       // Rs 10/crore per side
       stampBuyPct: 0.00015,    // 0.015% buy only
-      gstRate: 0.18,
-      dpSellFlat: 15.34,       // CDSL + broker DP charge incl. 18% GST
+      gstRate: 0.18,           // 18% on (brokerage + exchange + SEBI)
+      dpSellFlat: 15.34,       // CDSL + Zerodha DP charge incl. 18% GST
     },
     MIS: {
       label: "Equity Intraday (MIS)",
@@ -30,38 +31,13 @@
       gstRate: 0.18,
       dpSellFlat: 0.0,
     },
-    FUT: {
-      label: "NSE Futures (post Apr 2026 STT)",
-      brokeragePct: 0.0003,
-      brokerageCap: 20.0,
-      sttBuyPct: 0.0,
-      sttSellPct: 0.0005,      // 0.05% sell (Finance Act 2026 effective 2026-04-01)
-      exchangePct: 0.0000183,
-      sebiPct: 0.000001,
-      stampBuyPct: 0.00002,
-      gstRate: 0.18,
-      dpSellFlat: 0.0,
-    },
-    OPT: {
-      label: "NSE Options (premium, post Apr 2026 STT)",
-      brokeragePct: 0.0,
-      brokerageFlat: 20.0,     // Rs 20 flat per order
-      brokerageCap: 20.0,
-      sttBuyPct: 0.0,
-      sttSellPct: 0.0015,      // 0.15% sell premium (Finance Act 2026 effective 2026-04-01)
-      exchangePct: 0.0003503,
-      sebiPct: 0.000001,
-      stampBuyPct: 0.00003,
-      gstRate: 0.18,
-      dpSellFlat: 0.0,
-    },
   };
 
   function calcRoundTrip(product, legValue, customDp) {
-    const r = RATES[product];
-    const brokSide = r.brokerageFlat
-      ? r.brokerageFlat
-      : (r.brokerageCap > 0 ? Math.min(legValue * r.brokeragePct, r.brokerageCap) : legValue * r.brokeragePct);
+    const r = RATES[product] || RATES.CNC;
+    const brokSide = r.brokerageCap > 0
+      ? Math.min(legValue * r.brokeragePct, r.brokerageCap)
+      : legValue * r.brokeragePct;
     const sttBuy = legValue * r.sttBuyPct;
     const sttSell = legValue * r.sttSellPct;
     const exchSide = legValue * r.exchangePct;
@@ -120,7 +96,7 @@
     const annualCostDragPct = (allInBps / 100.0) * turnover;
 
     // Compare deferred passive index fund (taxed once at exit at 12.5% * 1.04 = 13.0%)
-    // against an active portfolio paying taxes yearly on realized gains.
+    // against an active portfolio paying taxes yearly on realized gains (ignoring ₹1.25L annual LTCG exemption).
     const g = grossCagrPct / 100.0;
     const fundTer = 0.002; // 0.20% NIFTY 500 index fund TER
     const passiveTaxRate = 0.125 * 1.04;
@@ -198,8 +174,8 @@
       "), an active basket trails a deferred NIFTY 500 index fund by " +
       totalAnnualGap.toFixed(2) + " pp/yr (" +
       annualCostDragPct.toFixed(2) + " pp/yr trading costs + " +
-      Math.max(0, totalAnnualGap - annualCostDragPct).toFixed(2) + " pp/yr compounding tax deferral drag; fund tax " +
-      taxDragVsPassive.toFixed(2) + " pp/yr implicit).";
+      Math.max(0, totalAnnualGap - annualCostDragPct).toFixed(2) + " pp/yr compounding tax deferral drag; fund exit-tax drag " +
+      taxDragVsPassive.toFixed(2) + " pp/yr).";
   }
 
   document.addEventListener("DOMContentLoaded", () => {

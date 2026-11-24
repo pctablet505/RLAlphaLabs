@@ -5,8 +5,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YPHYHU7Cdrkfq8ehcfhIrC07XN1Y4wNc6JIyUM8Qq9g='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#02060f" />
-  <title>NSE Trading Cost &amp; Tax-Drag Calculator — RL Alpha Labs</title>
-  <meta name="description" content="Exact Indian equity &amp; F&amp;O transaction cost calculator (STT, stamp duty, NSE + SEBI fees, 18% GST, flat ₹15.34 CDSL DP charge, spread, and 20.8% STCG vs 13.0% LTCG break-even hurdle vs NIFTY 500 index fund)." />
+  <title>NSE Equity Trading Cost &amp; Tax-Drag Calculator — RL Alpha Labs</title>
+  <meta name="description" content="Exact Indian NSE equity delivery (CNC) and intraday (MIS) transaction cost calculator: STT, stamp duty, NSE + IPFT + SEBI fees, 18% GST, flat ₹15.34 CDSL DP charge, spread, and 20.8% STCG vs 13.0% LTCG break-even hurdle." />
   <link rel="canonical" href="https://rlalphalabs.com/tools/cost-calculator/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,7 +38,7 @@
         <svg class="icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
         <svg class="icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
-      <a href="../../audits/" class="btn-primary">Book an Audit →</a>
+      <a href="../../audits/" class="btn-primary">Cost &amp; Tax Check →</a>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -55,28 +55,26 @@
   <section class="page-header">
     <div class="container">
       <div class="breadcrumbs"><a href="../../">Home</a> <span>/</span> <a href="../">Tools</a> <span>/</span> Cost &amp; Tax-Drag Calculator</div>
-      <div class="sec-label">Interactive Tool · Runs 100% in Browser</div>
-      <h1 class="sec-h2">NSE Trading Cost &amp;<br /><span class="grad">Break-Even Hurdle Calculator</span></h1>
-      <p>Exact statutory fees (STT, stamp duty, NSE/IPFT, SEBI fee, 18% GST, and the flat ₹15.34 CDSL sell DP fee) plus order-book spreads and yearly FIFO capital-gains tax compounding versus a deferred index fund.</p>
+      <div class="sec-label">Interactive Tool · NSE Equity Cash (CNC &amp; MIS) · Runs 100% in Browser</div>
+      <h1 class="sec-h2">NSE Equity Trading Cost &amp;<br /><span class="grad">Break-Even Hurdle Calculator</span></h1>
+      <p>Exact statutory fees for Indian equity delivery (CNC) and intraday (MIS) trades — STT, stamp duty, NSE/IPFT, SEBI fee, 18% GST, and the flat ₹15.34 CDSL sell DP fee — plus order-book spreads and yearly capital-gains tax compounding versus a deferred index fund.</p>
     </div>
   </section>
 
   <section class="page-content">
     <div class="container">
       <div class="notice-bar">
-        <strong>Migrating a systematic strategy off Zerodha Streak?</strong> Before rewriting strategies into Python ahead of Streak's December 10, 2026 discontinuation, measure the true per-leg friction here — a flat 10 bps backtest assumption understates small-leg delivery costs by <strong>3× to 8×</strong>.
+        <strong>Migrating a systematic equity strategy off Zerodha Streak?</strong> Before rewriting rules into Python ahead of Streak's published December 10, 2026 shutdown, measure the real per-leg friction here — a flat 10 bps backtest assumption understates small-leg delivery costs by <strong>3× to 8×</strong>.
       </div>
 
       <div class="tool-grid">
         <div class="tool-panel">
           <h3>Portfolio &amp; Order Inputs</h3>
           <div class="calc-field">
-            <label for="calcProduct">Segment / Product</label>
+            <label for="calcProduct">NSE Equity Segment</label>
             <select id="calcProduct">
               <option value="CNC" selected>Equity Delivery (CNC)</option>
               <option value="MIS">Equity Intraday (MIS)</option>
-              <option value="FUT">NSE Futures (post Apr 2026 STT 0.05%)</option>
-              <option value="OPT">NSE Options (post Apr 2026 STT 0.15%)</option>
             </select>
           </div>
           <div class="calc-row-2">
@@ -119,8 +117,8 @@
             <div class="calc-field">
               <label for="calcTaxMode">Realized Tax Rate</label>
               <select id="calcTaxMode">
-                <option value="STCG" selected>STCG (20.8% incl. cess)</option>
-                <option value="LTCG">LTCG (13.0% incl. cess)</option>
+                <option value="STCG" selected>STCG (20.8% incl. 4% cess)</option>
+                <option value="LTCG">LTCG (13.0% incl. 4% cess)</option>
               </select>
             </div>
             <div class="calc-field">
@@ -183,19 +181,19 @@
                 <tbody id="ladderBody"></tbody>
               </table>
             </div>
-            <p class="small-note">Reference rates verified against Zerodha published NSE schedule and Finance Act 2026 STT updates (0.05% futures, 0.15% options). Read the full methodology in <a href="../../notes/trading-costs/">What Trading Really Costs on NSE</a>.</p>
+            <p class="small-note">Equity cash rates match Zerodha's published NSE fee schedule and NSE circulars (NSE/FA/64232, 56129, 73061: ₹307/crore exchange + IPFT per side; ₹10/crore SEBI; 0.1% CNC / 0.025% MIS sell STT; 0.015% CNC / 0.003% MIS buy stamp duty; 18% GST; ₹15.34 CDSL sell DP). F&amp;O segments are intentionally excluded until audited against live contract notes. Read the full note in <a href="../../notes/trading-costs/">What Trading Really Costs on NSE</a>.</p>
           </div>
         </div>
       </div>
 
       <div class="tool-panel" style="margin-top:24px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;">
         <div>
-          <h3 style="margin-bottom:4px;">Need exact cash from mutual funds without hitting exit load or STCG traps?</h3>
-          <p style="margin:0;color:var(--t2);">Try our <strong>Tax-Optimal Redemption Planner</strong> (HiGHS MILP + SEBI SIF ₹10L floor + wait-cliff analyzer) or book a <strong>Backtest Realism Audit</strong>.</p>
+          <h3 style="margin-bottom:4px;">Want your own backtest or trade log checked against real Indian costs and FIFO tax?</h3>
+          <p style="margin:0;color:var(--t2);">Start with our <strong>₹25,000 3-day Cost &amp; Tax Realism Check</strong>, or see our <strong>Mutual Fund Redemption Memo</strong> for CAs and advisors.</p>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <a href="../tax-planner/" class="btn-primary">Tax-Optimal Planner →</a>
-          <a href="../../audits/" class="btn-ghost">Backtest Audits →</a>
+          <a href="../../audits/" class="btn-primary">Cost &amp; Tax Check →</a>
+          <a href="../tax-planner/" class="btn-ghost">Redemption Planner →</a>
         </div>
       </div>
     </div>
@@ -205,7 +203,7 @@
 <footer>
   <div class="container">
     <div class="foot-bottom">
-      <p>© 2026 RL Alpha Labs · India · Rates checked for educational math only.</p>
+      <p>© 2026 RL Alpha Labs · India · Equity cash schedule checked for educational math only.</p>
       <div class="foot-legal">
         <strong>Regulatory Disclaimer:</strong> Not SEBI-registered as an investment adviser or research analyst. This calculator uses deterministic Indian statutory rates and does not constitute investment or tax advice.
       </div>
